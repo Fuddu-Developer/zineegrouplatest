@@ -1,0 +1,10 @@
+ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIAJeroEnnvW/imNVDbZA1ugi7PaIEuxF0l9Fdrgvr8EI ddhruvnirwan@gmail.com
+
+Email: ddhruvnirwan@gmail.com
+Repository: victorforbugs/zineegroups
+Remote URL: git@github.com:victorforbugs/zineegroups.git
+
+To add this key to GitHub:
+1. Go to https://github.com/settings/keys
+2. Click 'New SSH key'
+3. Paste the key above and save

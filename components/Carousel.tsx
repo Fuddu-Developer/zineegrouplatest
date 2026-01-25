@@ -1,0 +1,489 @@
+'use client'
+
+import { useRef, useEffect, useState } from 'react'
+import Image from 'next/image'
+import Link from 'next/link'
+import { useLanguage } from '@/contexts/LanguageContext'
+
+export default function Carousel() {
+  const { t } = useLanguage()
+  
+  const services = [
+    {
+      id: 1,
+      image: '/assets/images/instantloan.png',
+      name: t('carousel.instantLoan'),
+      slug: 'instant-loan',
+      description: t('carousel.instantLoanDesc'),
+    },
+    {
+      id: 2,
+      image: '/assets/images/personalloan.png',
+      name: t('carousel.personalLoans'),
+      slug: 'personal-loans',
+      description: t('carousel.personalLoansDesc'),
+    },
+    {
+      id: 3,
+      image: '/assets/images/businesslonas.png',
+      name: t('carousel.businessLoans'),
+      slug: 'business-loans',
+      description: t('carousel.businessLoansDesc'),
+    },
+    {
+      id: 4,
+      image: '/assets/images/professionalloans.png',
+      name: t('carousel.professionalLoans'),
+      slug: 'professional-loans',
+      description: t('carousel.professionalLoansDesc'),
+    },
+    {
+      id: 5,
+      image: '/assets/images/secureloan.png',
+      name: t('carousel.secureLoans'),
+      slug: 'secure-loans',
+      description: t('carousel.secureLoansDesc'),
+    },
+    {
+      id: 6,
+      image: '/assets/images/balancetransfer.png',
+      name: t('carousel.balanceTransfer'),
+      slug: 'balance-transfer',
+      description: t('carousel.balanceTransferDesc'),
+    },
+  ]
+  const slideRef = useRef<HTMLDivElement>(null)
+  const containerRef = useRef<HTMLDivElement>(null)
+  const autoAdvanceTimerRef = useRef<NodeJS.Timeout | null>(null)
+  const touchStartXRef = useRef<number>(0)
+  const touchEndXRef = useRef<number>(0)
+  const [isMobile, setIsMobile] = useState(false)
+  const [isPaused, setIsPaused] = useState(false)
+  const [currentIndex, setCurrentIndex] = useState(0)
+
+  // Detect mobile device
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768)
+    }
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
+
+  // Function to update content visibility and reset animations
+  const updateContentVisibility = () => {
+    if (!slideRef.current) return
+    
+    const items = slideRef.current.querySelectorAll('.item')
+    const contents = slideRef.current.querySelectorAll('.content')
+    
+    // Hide all content first to prevent overlap
+    contents.forEach((content) => {
+      const contentEl = content as HTMLElement
+      contentEl.style.display = 'none'
+      contentEl.style.opacity = '0'
+      contentEl.style.visibility = 'hidden'
+      
+      // Reset animation by removing and re-adding the animation class
+      const nameEl = contentEl.querySelector('.name') as HTMLElement
+      const desEl = contentEl.querySelector('.des') as HTMLElement
+      const buttonEl = contentEl.querySelector('button') as HTMLElement
+      
+      if (nameEl) {
+        nameEl.style.animation = 'none'
+        nameEl.style.opacity = '0'
+        void nameEl.offsetWidth // Trigger reflow
+      }
+      if (desEl) {
+        desEl.style.animation = 'none'
+        desEl.style.opacity = '0'
+        void desEl.offsetWidth
+      }
+      if (buttonEl) {
+        buttonEl.style.animation = 'none'
+        buttonEl.style.opacity = '0'
+        void buttonEl.offsetWidth
+      }
+    })
+    
+    // Show content only on the 2nd item (main visible card)
+    if (items.length > 1) {
+      const secondItem = items[1] as HTMLElement
+      const secondContent = secondItem.querySelector('.content') as HTMLElement
+      if (secondContent) {
+        secondContent.style.display = 'block'
+        secondContent.style.opacity = '1'
+        secondContent.style.visibility = 'visible'
+        
+        // Trigger animation reset
+        setTimeout(() => {
+          const nameEl = secondContent.querySelector('.name') as HTMLElement
+          const desEl = secondContent.querySelector('.des') as HTMLElement
+          const buttonEl = secondContent.querySelector('button') as HTMLElement
+          
+          if (nameEl) {
+            nameEl.style.animation = 'animate 1s ease-in-out 1 forwards'
+          }
+          if (desEl) {
+            desEl.style.animation = 'animate 1s ease-in-out 0.3s 1 forwards'
+          }
+          if (buttonEl) {
+            buttonEl.style.animation = 'animate 1s ease-in-out 0.6s 1 forwards'
+          }
+        }, 50)
+      }
+    }
+  }
+
+  const handleNext = () => {
+    if (slideRef.current) {
+      const items = slideRef.current.querySelectorAll('.item')
+      if (items.length > 0) {
+        // Get current slide (2nd item) and next slide (1st item)
+        const currentSlide = items[1] as HTMLElement
+        const nextSlide = items[0] as HTMLElement
+        
+        if (currentSlide && nextSlide) {
+          // Position next slide off-screen to the right before animation
+          nextSlide.style.transform = 'translate3d(100%, 0, 0)'
+          nextSlide.style.opacity = '0.8'
+          // Force reflow to apply the transform
+          void nextSlide.offsetWidth
+          
+          // Add animation classes
+          currentSlide.classList.add('slide-out-left')
+          nextSlide.classList.add('slide-in-from-right')
+          
+          // Wait for animation to complete, then move items
+          setTimeout(() => {
+            slideRef.current?.appendChild(items[0])
+            // Remove animation classes and reset transform
+            currentSlide.classList.remove('slide-out-left')
+            nextSlide.classList.remove('slide-in-from-right')
+            nextSlide.style.transform = ''
+            nextSlide.style.opacity = ''
+            // Update content visibility after DOM update
+            setTimeout(() => {
+              updateContentVisibility()
+            }, 50)
+          }, 600) // Match animation duration (0.6s)
+        } else {
+          // Fallback if items structure is different
+          slideRef.current.appendChild(items[0])
+          setTimeout(() => {
+            updateContentVisibility()
+          }, 100)
+        }
+        // Update current index
+        setCurrentIndex((prev) => (prev + 1) % services.length)
+        // Reset auto-advance timer
+        resetAutoAdvance()
+      }
+    }
+  }
+
+  const handlePrev = () => {
+    if (slideRef.current) {
+      const items = slideRef.current.querySelectorAll('.item')
+      if (items.length > 0) {
+        // Get current slide (2nd item) and previous slide (3rd item)
+        const currentSlide = items[1] as HTMLElement
+        const prevSlide = items[2] as HTMLElement
+        
+        if (currentSlide && prevSlide) {
+          // Position previous slide off-screen to the right before animation
+          prevSlide.style.transform = 'translate3d(100%, 0, 0)'
+          prevSlide.style.opacity = '0.8'
+          // Force reflow to apply the transform
+          void prevSlide.offsetWidth
+          
+          // Add animation classes
+          currentSlide.classList.add('slide-out-left')
+          prevSlide.classList.add('slide-in-from-right')
+          
+          // Wait for animation to complete, then move items
+          setTimeout(() => {
+            slideRef.current?.prepend(items[items.length - 1])
+            // Remove animation classes and reset transform
+            currentSlide.classList.remove('slide-out-left')
+            prevSlide.classList.remove('slide-in-from-right')
+            prevSlide.style.transform = ''
+            prevSlide.style.opacity = ''
+            // Update content visibility after DOM update
+            setTimeout(() => {
+              updateContentVisibility()
+            }, 50)
+          }, 600) // Match animation duration (0.6s)
+        } else {
+          // Fallback if items structure is different
+          slideRef.current.prepend(items[items.length - 1])
+          setTimeout(() => {
+            updateContentVisibility()
+          }, 100)
+        }
+        // Update current index
+        setCurrentIndex((prev) => (prev - 1 + services.length) % services.length)
+        // Reset auto-advance timer
+        resetAutoAdvance()
+      }
+    }
+  }
+
+  // Auto-advance functionality (works on both mobile and desktop)
+  useEffect(() => {
+    if (isPaused) {
+      if (autoAdvanceTimerRef.current) {
+        clearInterval(autoAdvanceTimerRef.current)
+        autoAdvanceTimerRef.current = null
+      }
+      return
+    }
+
+    // Start auto-advance
+    const startAutoAdvance = () => {
+      if (autoAdvanceTimerRef.current) {
+        clearInterval(autoAdvanceTimerRef.current)
+      }
+      autoAdvanceTimerRef.current = setInterval(() => {
+        if (slideRef.current && !isPaused) {
+          const items = slideRef.current.querySelectorAll('.item')
+          if (items.length > 0) {
+            // Get current slide (2nd item) and next slide (1st item)
+            const currentSlide = items[1] as HTMLElement
+            const nextSlide = items[0] as HTMLElement
+            
+            if (currentSlide && nextSlide) {
+              // Position next slide off-screen to the right before animation
+              nextSlide.style.transform = 'translate3d(100%, 0, 0)'
+              nextSlide.style.opacity = '0.8'
+              // Force reflow to apply the transform
+              void nextSlide.offsetWidth
+              
+              // Add animation classes
+              currentSlide.classList.add('slide-out-left')
+              nextSlide.classList.add('slide-in-from-right')
+              
+              // Wait for animation to complete, then move items
+              setTimeout(() => {
+                slideRef.current?.appendChild(items[0])
+                // Remove animation classes and reset transform
+                currentSlide.classList.remove('slide-out-left')
+                nextSlide.classList.remove('slide-in-from-right')
+                nextSlide.style.transform = ''
+                nextSlide.style.opacity = ''
+                // Update content visibility after DOM update
+                setTimeout(() => {
+                  updateContentVisibility()
+                }, 50)
+              }, 600) // Match animation duration (0.6s)
+            } else {
+              // Fallback if items structure is different
+              slideRef.current.appendChild(items[0])
+              setTimeout(() => {
+                updateContentVisibility()
+              }, 100)
+            }
+            // Update current index
+            setCurrentIndex((prev) => (prev + 1) % services.length)
+          }
+        }
+      }, 5000) // Auto-advance every 5 seconds
+    }
+
+    startAutoAdvance()
+
+    return () => {
+      if (autoAdvanceTimerRef.current) {
+        clearInterval(autoAdvanceTimerRef.current)
+        autoAdvanceTimerRef.current = null
+      }
+    }
+  }, [isPaused])
+
+  const resetAutoAdvance = () => {
+    if (autoAdvanceTimerRef.current) {
+      clearInterval(autoAdvanceTimerRef.current)
+      autoAdvanceTimerRef.current = null
+    }
+    if (!isPaused) {
+      autoAdvanceTimerRef.current = setInterval(() => {
+        if (slideRef.current && !isPaused) {
+          const items = slideRef.current.querySelectorAll('.item')
+          if (items.length > 0) {
+            // Get current slide (2nd item) and next slide (1st item)
+            const currentSlide = items[1] as HTMLElement
+            const nextSlide = items[0] as HTMLElement
+            
+            if (currentSlide && nextSlide) {
+              // Position next slide off-screen to the right before animation
+              nextSlide.style.transform = 'translate3d(100%, 0, 0)'
+              nextSlide.style.opacity = '0.8'
+              // Force reflow to apply the transform
+              void nextSlide.offsetWidth
+              
+              // Add animation classes
+              currentSlide.classList.add('slide-out-left')
+              nextSlide.classList.add('slide-in-from-right')
+              
+              // Wait for animation to complete, then move items
+              setTimeout(() => {
+                slideRef.current?.appendChild(items[0])
+                // Remove animation classes and reset transform
+                currentSlide.classList.remove('slide-out-left')
+                nextSlide.classList.remove('slide-in-from-right')
+                nextSlide.style.transform = ''
+                nextSlide.style.opacity = ''
+                // Update content visibility after DOM update
+                setTimeout(() => {
+                  updateContentVisibility()
+                }, 50)
+              }, 600) // Match animation duration (0.6s)
+            } else {
+              // Fallback if items structure is different
+              slideRef.current.appendChild(items[0])
+              setTimeout(() => {
+                updateContentVisibility()
+              }, 100)
+            }
+            // Update current index
+            setCurrentIndex((prev) => (prev + 1) % services.length)
+          }
+        }
+      }, 5000)
+    }
+  }
+
+  // Initialize content visibility on mount
+  useEffect(() => {
+    updateContentVisibility()
+  }, [])
+
+  // Touch swipe handlers
+  const handleTouchStart = (e: React.TouchEvent) => {
+    touchStartXRef.current = e.touches[0].clientX
+    // Pause auto-advance during touch
+    if (autoAdvanceTimerRef.current) {
+      clearInterval(autoAdvanceTimerRef.current)
+    }
+  }
+
+  const handleTouchMove = (e: React.TouchEvent) => {
+    touchEndXRef.current = e.touches[0].clientX
+  }
+
+  const handleTouchEnd = () => {
+    if (!touchStartXRef.current || !touchEndXRef.current) return
+
+    const swipeDistance = touchStartXRef.current - touchEndXRef.current
+    const minSwipeDistance = 50 // Minimum distance for a swipe
+
+    if (Math.abs(swipeDistance) > minSwipeDistance) {
+      if (swipeDistance > 0) {
+        // Swipe left - next
+        handleNext()
+      } else {
+        // Swipe right - previous
+        handlePrev()
+      }
+    }
+
+    // Resume auto-advance
+    resetAutoAdvance()
+
+    // Reset touch values
+    touchStartXRef.current = 0
+    touchEndXRef.current = 0
+  }
+
+  // Handle hover to pause/resume slideshow
+  const handleMouseEnter = () => {
+    setIsPaused(true)
+  }
+
+  const handleMouseLeave = () => {
+    setIsPaused(false)
+  }
+
+  // Function to jump to a specific slide index
+  const goToSlide = (targetIndex: number) => {
+    if (targetIndex === currentIndex) return
+    
+    const diff = (targetIndex - currentIndex + services.length) % services.length
+    const isForward = diff <= services.length / 2
+    
+    // Calculate how many steps to move
+    const steps = isForward ? diff : services.length - diff
+    
+    // Animate to the target slide step by step
+    const animateToTarget = (remainingSteps: number) => {
+      if (remainingSteps === 0) return
+      
+      if (isForward) {
+        handleNext()
+      } else {
+        handlePrev()
+      }
+      
+      // Continue animating if more steps needed
+      if (remainingSteps > 1) {
+        setTimeout(() => {
+          animateToTarget(remainingSteps - 1)
+        }, 650) // Slightly longer than animation duration to ensure smooth transitions
+      }
+    }
+    
+    animateToTarget(steps)
+  }
+
+  return (
+    <section className="flip-carousel-section" id="apply">
+      <div 
+        className="carousel-container" 
+        ref={containerRef}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+      >
+        <div 
+          className="carousel-wrapper"
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
+        >
+          <div className="slide" ref={slideRef}>
+            {services.map((service) => (
+              <div key={service.id} className="item">
+                <Image
+                  src={service.image}
+                  alt={service.name}
+                  className="service-image"
+                  width={800}
+                  height={450}
+                  priority={service.id <= 2}
+                />
+                <div className="content">
+                  <div className="name">{service.name}</div>
+                  <div className="des">{service.description}</div>
+                  <Link className="seeMore" href={`/loans/${service.slug}`}>
+                    <button>{t('carousel.applyNow')}</button>
+                  </Link>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+        {/* Navigation Dots */}
+        <div className="carousel-dots">
+          {services.map((_, index) => (
+            <button
+              key={index}
+              className={`carousel-dot ${index === currentIndex ? 'active' : ''}`}
+              onClick={() => goToSlide(index)}
+              aria-label={`Go to slide ${index + 1}`}
+            />
+          ))}
+        </div>
+      </div>
+    </section>
+  )
+}

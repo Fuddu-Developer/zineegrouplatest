@@ -1,0 +1,34 @@
+import LoanCalculator from '@/components/LoanCalculator'
+import LoanTypeSwitcher from '@/components/LoanTypeSwitcher'
+import Header from '@/components/Header'
+import Footer from '@/components/Footer'
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Business Loan Calculator | Zineegroup',
+  description: 'Calculate your business loan EMI. Get business loans to expand your business with competitive interest rates.',
+}
+
+export default function BusinessLoansPage() {
+  return (
+    <>
+      <Header />
+      <main className="loan-page-main">
+      <div className="loan-page-container">
+        <div className="loan-page-header">
+          <h1>Business Loans</h1>
+          <p>Business loan enables you to expand your business and network. It provides financial stability in your business.</p>
+        </div>
+        <LoanTypeSwitcher />
+        <LoanCalculator
+          loanType="Business Loan"
+          defaultInterestRate={12.5}
+          minAmount={100000}
+          maxAmount={10000000}
+        />
+      </div>
+    </main>
+    <Footer />
+    </>
+  )
+}

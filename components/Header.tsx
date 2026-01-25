@@ -1,0 +1,362 @@
+'use client'
+
+import { useEffect, useState } from 'react'
+import Link from 'next/link'
+import Image from 'next/image'
+import { usePathname } from 'next/navigation'
+import StockTicker from './StockTicker'
+import { useLanguage } from '@/contexts/LanguageContext'
+import { useDarkMode } from '@/contexts/DarkModeContext'
+
+type NavLink = {
+  href: string
+  labelKey: string
+  highlight?: boolean
+}
+
+const NAV_LINKS: NavLink[] = [
+  { href: '/', labelKey: 'nav.home' },
+  { href: '/about-us', labelKey: 'nav.about' },
+  { href: '/emi-calculator', labelKey: 'nav.emi' },
+  { href: '/apply-for-loan', labelKey: 'nav.apply', highlight: true },
+  { href: '/cibil-score', labelKey: 'nav.cibil' },
+  { href: '/contact', labelKey: 'nav.contact' },
+]
+
+export default function Header() {
+  const [isScrolled, setIsScrolled] = useState(false)
+  const [activeLinkLabel, setActiveLinkLabel] = useState<string | null>(null)
+  const [isLanguageDropdownOpen, setIsLanguageDropdownOpen] = useState(false)
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const pathname = usePathname()
+  const { language, setLanguage, t } = useLanguage()
+  const { toggleTheme, isDark } = useDarkMode()
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50)
+    }
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  useEffect(() => {
+    // Set Grid Dots style permanently (Style 3)
+    const vectorBackground = document.getElementById('vectorBackground')
+    const mainHeader = document.getElementById('mainHeader')
+    const mainFooter = document.getElementById('mainFooter')
+    
+    // Set background style
+    if (vectorBackground) {
+      vectorBackground.className = 'vector-background style-3'
+    }
+    
+    // Set header style
+    if (mainHeader) {
+      mainHeader.classList.remove('header-style-1', 'header-style-2', 'header-style-4', 'header-style-5')
+      mainHeader.classList.add('header-style-3')
+    }
+    
+    // Set footer style
+    if (mainFooter) {
+      mainFooter.classList.remove('footer-style-1', 'footer-style-2', 'footer-style-4', 'footer-style-5')
+      mainFooter.classList.add('footer-style-3')
+    }
+  }, [])
+
+  // Reset active link label when pathname changes to a different route
+  useEffect(() => {
+    // Find all links that match the current pathname
+    const matchingLinks = NAV_LINKS.filter(link => {
+      const matches = link.href === '/'
+        ? pathname === link.href
+        : pathname.startsWith(link.href)
+      return matches
+    })
+    
+    // Find links with duplicate hrefs that match
+    const hrefCounts = new Map<string, number>()
+    matchingLinks.forEach(link => {
+      hrefCounts.set(link.href, (hrefCounts.get(link.href) || 0) + 1)
+    })
+    
+    // Only reset if we're on a route with no duplicate links
+    // If there are duplicates, keep the stored label (from click) unless it's invalid
+    const hasDuplicates = Array.from(hrefCounts.values()).some(count => count > 1)
+    if (!hasDuplicates) {
+      setActiveLinkLabel(null)
+    } else {
+      // Verify the stored label is still valid for the current route
+      setActiveLinkLabel(prevLabel => {
+        if (prevLabel) {
+          const labelStillValid = matchingLinks.some(link => t(link.labelKey) === prevLabel)
+          return labelStillValid ? prevLabel : null
+        }
+        return null
+      })
+    }
+  }, [pathname, t])
+
+  // Close language dropdown and mobile menu when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const target = event.target as HTMLElement
+      if (!target.closest('.language-switcher')) {
+        setIsLanguageDropdownOpen(false)
+      }
+      if (!target.closest('.mobile-menu-toggle') && !target.closest('.main-nav')) {
+        setIsMobileMenuOpen(false)
+      }
+    }
+    document.addEventListener('mousedown', handleClickOutside)
+    return () => document.removeEventListener('mousedown', handleClickOutside)
+  }, [])
+
+  // Close mobile menu when route changes
+  useEffect(() => {
+    setIsMobileMenuOpen(false)
+  }, [pathname])
+
+  // Prevent body scroll when mobile menu is open
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = 'hidden'
+    } else {
+      document.body.style.overflow = ''
+    }
+    return () => {
+      document.body.style.overflow = ''
+    }
+  }, [isMobileMenuOpen])
+
+  return (
+    <>
+      <StockTicker />
+      <header
+        className={`main-header ${isScrolled ? 'main-header-scrolled' : ''}`}
+        id="mainHeader"
+      >
+        <div className="container">
+          <div className="logo">
+            <Image 
+              src="/assets/images/Logo-Helloans.png" 
+              alt="Company Logo"
+              width={150}
+              height={50}
+              priority
+            />
+          </div>
+          <button 
+            className="mobile-menu-toggle"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            aria-label="Toggle menu"
+            aria-expanded={isMobileMenuOpen}
+          >
+            <span className={`hamburger-line ${isMobileMenuOpen ? 'open' : ''}`}></span>
+            <span className={`hamburger-line ${isMobileMenuOpen ? 'open' : ''}`}></span>
+            <span className={`hamburger-line ${isMobileMenuOpen ? 'open' : ''}`}></span>
+          </button>
+          <nav className={`main-nav ${isMobileMenuOpen ? 'mobile-open' : ''}`}>
+            <div className="main-nav-pill">
+              {NAV_LINKS.map((item, index) => {
+                const itemLabel = t(item.labelKey)
+                // Check if this link matches the current pathname
+                const matchesPath =
+                  item.href === '/'
+                    ? pathname === item.href
+                    : pathname.startsWith(item.href)
+                
+                // Determine which link should be active
+                let isActive = false
+                
+                if (matchesPath) {
+                  // Find all links with the same href that match
+                  const linksWithSameHref = NAV_LINKS.filter((link) => {
+                    const linkMatches = link.href === '/'
+                      ? pathname === link.href
+                      : pathname.startsWith(link.href)
+                    return linkMatches && link.href === item.href
+                  })
+                  
+                  // If we have duplicate links for this route
+                  if (linksWithSameHref.length > 1) {
+                    // If we have a stored active link label (from a click), use that
+                    if (activeLinkLabel) {
+                      isActive = itemLabel === activeLinkLabel
+                    } else {
+                      // Otherwise, prefer the last one (Contact us) as default
+                      let lastMatchingIndex = -1
+                      for (let i = NAV_LINKS.length - 1; i >= 0; i--) {
+                        const link = NAV_LINKS[i]
+                        const linkMatches = link.href === '/'
+                          ? pathname === link.href
+                          : pathname.startsWith(link.href)
+                        if (linkMatches && link.href === item.href) {
+                          lastMatchingIndex = i
+                          break
+                        }
+                      }
+                      isActive = lastMatchingIndex === index
+                    }
+                  } else {
+                    // Only one link matches, so it's active
+                    isActive = true
+                  }
+                }
+
+                const handleClick = () => {
+                  // Immediately set the active link label when clicked
+                  // This ensures the correct link is highlighted when clicked
+                  setActiveLinkLabel(itemLabel)
+                  // Close mobile menu when a link is clicked
+                  setIsMobileMenuOpen(false)
+                }
+
+                return (
+                  <Link
+                    key={item.href + item.labelKey}
+                    href={item.href}
+                    onClick={handleClick}
+                    className={[
+                      'nav-link',
+                      isActive ? 'nav-link-active' : '',
+                      item.highlight ? 'nav-link-highlight' : '',
+                    ]
+                      .filter(Boolean)
+                      .join(' ')}
+                  >
+                    <span className="nav-link-label">{itemLabel}</span>
+                    {item.highlight && (
+                      <span className="nav-link-chip">{t('nav.instantApproval')}</span>
+                    )}
+                  </Link>
+                )
+              })}
+            </div>
+          </nav>
+          <div className="header-actions">
+            {/* Language Switcher */}
+            <div className="language-switcher">
+              <button
+                className="language-switcher-button"
+                onClick={() => setIsLanguageDropdownOpen(!isLanguageDropdownOpen)}
+                aria-label="Select language"
+                aria-expanded={isLanguageDropdownOpen}
+              >
+                <div className="language-switcher-icon">
+                  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="2" y="2" width="10" height="10" rx="2" fill="#3B82F6"/>
+                    <text x="7" y="9" fontSize="8" fill="white" fontWeight="bold">A</text>
+                    <rect x="12" y="12" width="10" height="10" rx="2" fill="#EC4899"/>
+                    <text x="16.5" y="19" fontSize="8" fill="white" fontWeight="bold">ए</text>
+                  </svg>
+                </div>
+                <span className="language-switcher-text">
+                  {language === 'en' ? t('lang.english') : t('lang.hindi')}
+                </span>
+                <svg 
+                  className={`language-switcher-chevron ${isLanguageDropdownOpen ? 'open' : ''}`}
+                  viewBox="0 0 24 24" 
+                  fill="none" 
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path d="M6 9l6 6 6-6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              </button>
+              
+              {isLanguageDropdownOpen && (
+                <div className="language-switcher-dropdown">
+                  <button
+                    className={`language-option ${language === 'en' ? 'active' : ''}`}
+                    onClick={() => {
+                      setLanguage('en')
+                      setIsLanguageDropdownOpen(false)
+                    }}
+                  >
+                    <span className="language-option-text">{t('lang.english')}</span>
+                    {language === 'en' && (
+                      <svg className="language-option-check" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M20 6L9 17l-5-5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                      </svg>
+                    )}
+                  </button>
+                  <button
+                    className={`language-option ${language === 'hi' ? 'active' : ''}`}
+                    onClick={() => {
+                      setLanguage('hi')
+                      setIsLanguageDropdownOpen(false)
+                    }}
+                  >
+                    <span className="language-option-text">{t('lang.hindi')}</span>
+                    {language === 'hi' && (
+                      <svg className="language-option-check" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M20 6L9 17l-5-5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                      </svg>
+                    )}
+                  </button>
+                </div>
+              )}
+            </div>
+
+            {/* Dark Mode Toggle */}
+            <button
+              onClick={toggleTheme}
+              className="theme-toggle"
+              aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
+              title={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
+            >
+              {isDark ? (
+                <svg className="theme-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <circle cx="12" cy="12" r="5" stroke="currentColor" strokeWidth="2"/>
+                  <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+                </svg>
+              ) : (
+                <svg className="theme-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+              )}
+            </button>
+
+            <div className="btn-call-wrapper">
+              <a href="tel:+919540185185" className="btn-call">
+                <svg className="btn-call-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  {/* Phone icon */}
+                  <path d="M22 16.92v3.02a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3.02a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7a2 2 0 0 1 1.72 2.03z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+                </svg>
+                <span className="btn-call-label">{t('nav.talkToExpert')}</span>
+                <span className="btn-call-separator"></span>
+              </a>
+              
+              {/* Popup Card */}
+              <div className="btn-call-popup">
+                <div className="popup-header">
+                  <svg className="popup-expert-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="12" cy="8" r="4" stroke="currentColor" strokeWidth="2"/>
+                    <path d="M6 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2" stroke="currentColor" strokeWidth="2"/>
+                  </svg>
+                  <h3 className="popup-title">{t('nav.talkToExpert')}</h3>
+                </div>
+                
+                <div className="popup-section">
+                  <p className="popup-label">Sales Enquiry</p>
+                  <p className="popup-call-text">Call Us: <a href="tel:+919540185185" className="popup-phone">+91 9540 185 185</a></p>
+                  <p className="popup-call-text">Email: <a href="mailto:info@zineegroup.com" className="popup-phone">info@zineegroup.com</a></p>
+                </div>
+                
+                <div className="popup-section">
+                  <p className="popup-label">Service Helpline</p>
+                  <p className="popup-call-text">Call Us: <a href="tel:+919540185185" className="popup-phone">+91 9540 185 185</a></p>
+                  <p className="popup-call-text">Email: <a href="mailto:info@zineegroup.com" className="popup-phone">info@zineegroup.com</a></p>
+                </div>
+                
+                <p className="popup-availability">
+                  Our advisors are available 7 days a week, <strong>9:30 am - 6:30 pm</strong> to assist you with the best offers or help resolve any queries.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </header>
+    </>
+  )
+}

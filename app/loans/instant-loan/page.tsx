@@ -1,0 +1,34 @@
+import LoanCalculator from '@/components/LoanCalculator'
+import LoanTypeSwitcher from '@/components/LoanTypeSwitcher'
+import Header from '@/components/Header'
+import Footer from '@/components/Footer'
+import type { Metadata } from 'next'
+
+export const metadata: Metadata = {
+  title: 'Instant Loan Calculator | Zineegroup',
+  description: 'Get instant loans for unexpected expenses. Quick approval and fast disbursal.',
+}
+
+export default function InstantLoanPage() {
+  return (
+    <>
+      <Header />
+      <main className="loan-page-main">
+      <div className="loan-page-container">
+        <div className="loan-page-header">
+          <h1>Instant Loan</h1>
+          <p>A convenient and speedy way to get the funds you require for unanticipated expenses.</p>
+        </div>
+        <LoanTypeSwitcher />
+        <LoanCalculator
+          loanType="Instant Loan"
+          defaultInterestRate={12.0}
+          minAmount={50000}
+          maxAmount={2000000}
+        />
+      </div>
+    </main>
+    <Footer />
+    </>
+  )
+}

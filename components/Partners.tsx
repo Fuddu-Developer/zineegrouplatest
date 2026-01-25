@@ -1,0 +1,36 @@
+'use client'
+
+import Image from 'next/image'
+import { useLanguage } from '@/contexts/LanguageContext'
+
+const partners = [
+  { image: '/assets/images/CB.png', alt: 'CB Bank', className: 'partner-card-1' },
+  { image: '/assets/images/AX.png', alt: 'Axis Bank', className: 'partner-card-2' },
+  { image: '/assets/images/HDFC.png', alt: 'HDFC Bank', className: 'partner-card-3' },
+  { image: '/assets/images/Kotak-1.png', alt: 'Kotak Bank', className: 'partner-card-4' },
+  { image: '/assets/images/PNB.png', alt: 'PNB Bank', className: 'partner-card-5' },
+  { image: '/assets/images/BOB.png', alt: 'Bank of Baroda', className: 'partner-card-6' },
+]
+
+export default function Partners() {
+  const { t } = useLanguage()
+  
+  return (
+    <section className="partners-section">
+      <h2 className="section-title">{t('partners.title')}</h2>
+      <div className="partners-grid">
+        {partners.map((partner, index) => (
+          <div key={index} className={`partner-logo ${partner.className}`}>
+            <Image
+              src={partner.image}
+              alt={partner.alt}
+              width={150}
+              height={80}
+              style={{ maxWidth: '100%', maxHeight: '80px', objectFit: 'contain' }}
+            />
+          </div>
+        ))}
+      </div>
+    </section>
+  )
+}
