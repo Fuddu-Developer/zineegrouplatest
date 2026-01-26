@@ -2,6 +2,7 @@
 
 import { useState, useCallback, useEffect } from 'react'
 import Image from 'next/image'
+import { useRouter } from 'next/navigation'
 
 interface Bank {
   id: string
@@ -16,6 +17,15 @@ interface Bank {
   eligibility: string[]
   features: string[]
   maxLoanAmount: number
+  eligibilityDetails?: {
+    age: string
+    employment: string[]
+    workExperience: string
+    income: string
+    creditScore?: string
+    documents?: string[]
+  }
+  applicationUrl?: string
 }
 
 interface LoanCalculatorProps {
@@ -40,6 +50,18 @@ const defaultBanks: Bank[] = [
     maxLoanAmount: 30000000,
     eligibility: ['Salaried & Self-employed', 'Age: 21-60 years', 'Min Income: ₹15,000/month'],
     features: ['Government bank', 'Competitive rates', 'Flexible tenure', 'Trusted service'],
+    eligibilityDetails: {
+      age: '21 to 60 years',
+      employment: [
+        'Salaried employees from government and private sector',
+        'Self-employed professionals'
+      ],
+      workExperience: 'Minimum 2 years of work experience',
+      income: 'Minimum monthly income of ₹15,000',
+      creditScore: 'Minimum credit score of 650',
+      documents: ['PAN Card', 'Aadhaar Card', 'Salary certificate', 'Bank statements', 'Identity proof']
+    },
+    applicationUrl: '/apply/canara'
   },
   {
     id: 'axis',
@@ -54,6 +76,18 @@ const defaultBanks: Bank[] = [
     maxLoanAmount: 40000000,
     eligibility: ['Salaried & Self-employed', 'Age: 21-60 years', 'Min Income: ₹15,000/month'],
     features: ['Instant approval', 'Zero foreclosure charges', 'Flexible EMI options', 'Digital process'],
+    eligibilityDetails: {
+      age: '21 to 60 years',
+      employment: [
+        'Salaried employees from private and public sector companies',
+        'Self-employed professionals and business owners'
+      ],
+      workExperience: 'Minimum 1 year of work experience',
+      income: 'Minimum monthly income of ₹15,000 for salaried, ₹25,000 for self-employed',
+      creditScore: 'Minimum credit score of 700',
+      documents: ['PAN Card', 'Aadhaar Card', 'Salary slips/Bank statements', 'Identity proof', 'Address proof']
+    },
+    applicationUrl: '/apply/axis'
   },
   {
     id: 'hdfc',
@@ -68,6 +102,18 @@ const defaultBanks: Bank[] = [
     maxLoanAmount: 40000000,
     eligibility: ['Salaried & Self-employed', 'Age: 21-60 years', 'Min Income: ₹15,000/month'],
     features: ['Quick approval', 'Flexible tenure', 'No prepayment charges', 'Online application'],
+    eligibilityDetails: {
+      age: '21 to 60 years',
+      employment: [
+        'Employees working in private limited companies',
+        'Employees of public sector undertakings (central, state, and local government bodies)'
+      ],
+      workExperience: 'Minimum of 2 years of total work experience, with at least 1 year in the current organisation',
+      income: 'Minimum monthly net income of ₹25,000',
+      creditScore: 'Minimum credit score of 720',
+      documents: ['PAN Card', 'Aadhaar Card', 'Salary slips (last 3 months)', 'Bank statements (last 6 months)', 'Employment certificate']
+    },
+    applicationUrl: '/apply/hdfc'
   },
   {
     id: 'kotak',
@@ -82,6 +128,18 @@ const defaultBanks: Bank[] = [
     maxLoanAmount: 30000000,
     eligibility: ['Salaried & Self-employed', 'Age: 21-58 years', 'Min Income: ₹20,000/month'],
     features: ['Fast processing', 'Competitive rates', 'No hidden charges', 'Easy documentation'],
+    eligibilityDetails: {
+      age: '21 to 58 years',
+      employment: [
+        'Salaried employees from private and public sector',
+        'Self-employed professionals and business owners'
+      ],
+      workExperience: 'Minimum 1 year of work experience',
+      income: 'Minimum monthly income of ₹20,000',
+      creditScore: 'Minimum credit score of 700',
+      documents: ['PAN Card', 'Aadhaar Card', 'Salary slips', 'Bank statements', 'Identity and address proof']
+    },
+    applicationUrl: '/apply/kotak'
   },
   {
     id: 'pnb',
@@ -96,6 +154,18 @@ const defaultBanks: Bank[] = [
     maxLoanAmount: 20000000,
     eligibility: ['Salaried & Self-employed', 'Age: 21-58 years', 'Min Income: ₹15,000/month'],
     features: ['Low processing fee', 'Government bank', 'Flexible repayment', 'Trusted service'],
+    eligibilityDetails: {
+      age: '21 to 58 years',
+      employment: [
+        'Salaried employees from government and private sector',
+        'Self-employed professionals'
+      ],
+      workExperience: 'Minimum 2 years of work experience',
+      income: 'Minimum monthly income of ₹15,000',
+      creditScore: 'Minimum credit score of 650',
+      documents: ['PAN Card', 'Aadhaar Card', 'Salary certificate', 'Bank statements', 'Identity proof']
+    },
+    applicationUrl: '/apply/pnb'
   },
   {
     id: 'bob',
@@ -110,6 +180,18 @@ const defaultBanks: Bank[] = [
     maxLoanAmount: 30000000,
     eligibility: ['Salaried & Self-employed', 'Age: 21-60 years', 'Min Income: ₹15,000/month'],
     features: ['Competitive rates', 'Quick processing', 'Flexible terms', 'Easy documentation'],
+    eligibilityDetails: {
+      age: '21 to 60 years',
+      employment: [
+        'Salaried employees',
+        'Self-employed professionals and business owners'
+      ],
+      workExperience: 'Minimum 1 year of work experience',
+      income: 'Minimum monthly income of ₹15,000',
+      creditScore: 'Minimum credit score of 650',
+      documents: ['PAN Card', 'Aadhaar Card', 'Income proof', 'Bank statements', 'KYC documents']
+    },
+    applicationUrl: '/apply/bob'
   },
 ]
 
@@ -120,6 +202,7 @@ export default function LoanCalculator({
   maxAmount = 5000000,
   defaultInterestRate = 10.5,
 }: LoanCalculatorProps) {
+  const router = useRouter()
   const [selectedBank, setSelectedBank] = useState(banks[0].id)
   const [loanAmount, setLoanAmount] = useState(500000)
   const [tenure, setTenure] = useState(3)
@@ -409,7 +492,113 @@ export default function LoanCalculator({
           </div>
         </div>
 
-        {/* Right Section: EMI Summary */}
+        {/* Right Section: Eligibility Section */}
+        <div className="right-section-container">
+          <div className="eligibility-summary">
+            <h3 className="eligibility-title">Eligibility Criteria</h3>
+            
+            {selectedBankData.eligibilityDetails ? (
+              <div className="eligibility-content">
+                <div className="eligibility-section">
+                  <div className="eligibility-item">
+                    <svg className="eligibility-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                      <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                    <div>
+                      <strong>Age:</strong> {selectedBankData.eligibilityDetails.age}
+                    </div>
+                  </div>
+                  
+                  <div className="eligibility-item">
+                    <svg className="eligibility-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                      <circle cx="12" cy="10" r="3"></circle>
+                    </svg>
+                    <div>
+                      <strong>Employment:</strong>
+                      <ul className="eligibility-list">
+                        {selectedBankData.eligibilityDetails.employment.map((item, idx) => (
+                          <li key={idx}>{item}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+                  
+                  <div className="eligibility-item">
+                    <svg className="eligibility-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                      <polyline points="14 2 14 8 20 8"></polyline>
+                      <line x1="16" y1="13" x2="8" y2="13"></line>
+                      <line x1="16" y1="17" x2="8" y2="17"></line>
+                      <polyline points="10 9 9 9 8 9"></polyline>
+                    </svg>
+                    <div>
+                      <strong>Work Experience:</strong> {selectedBankData.eligibilityDetails.workExperience}
+                    </div>
+                  </div>
+                  
+                  <div className="eligibility-item">
+                    <svg className="eligibility-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                      <line x1="12" y1="1" x2="12" y2="23"></line>
+                      <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                    </svg>
+                    <div>
+                      <strong>Income:</strong> {selectedBankData.eligibilityDetails.income}
+                    </div>
+                  </div>
+                  
+                  {selectedBankData.eligibilityDetails.creditScore && (
+                    <div className="eligibility-item">
+                      <svg className="eligibility-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                        <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                      </svg>
+                      <div>
+                        <strong>Credit Score:</strong> {selectedBankData.eligibilityDetails.creditScore}
+                      </div>
+                    </div>
+                  )}
+                  
+                  {selectedBankData.eligibilityDetails.documents && (
+                    <div className="eligibility-item">
+                      <svg className="eligibility-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                        <polyline points="14 2 14 8 20 8"></polyline>
+                      </svg>
+                      <div>
+                        <strong>Required Documents:</strong>
+                        <ul className="eligibility-list">
+                          {selectedBankData.eligibilityDetails.documents.map((doc, idx) => (
+                            <li key={idx}>{doc}</li>
+                          ))}
+                        </ul>
+                      </div>
+                    </div>
+                  )}
+                </div>
+              </div>
+            ) : (
+              <div className="eligibility-content">
+                <div className="eligibility-section">
+                  {selectedBankData.eligibility.map((item, idx) => (
+                    <div key={idx} className="eligibility-item">
+                      <svg className="eligibility-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                        <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                      </svg>
+                      <div>{item}</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+
+      {/* Separate EMI Calculator Container - Below */}
+      <div className="emi-calculator-container">
         <div className="emi-summary">
           <div className="selected-bank-header">
             {selectedBankData.logo && (
@@ -428,59 +617,45 @@ export default function LoanCalculator({
               <span className="selected-bank-rate">{interestRate}% p.a.</span>
             </div>
           </div>
-          <h3 className="emi-title">Your Monthly EMI Payment</h3>
-          <div className="emi-amount">{formatCurrency(emi)}</div>
-          <div className="emi-note">For {tenure} {tenureUnit === 'Yr' ? 'year' : 'month'}{tenure > 1 ? 's' : ''}</div>
+          
+          <h3 className="emi-title">Calculate Your EMI</h3>
+          
+          <div className="emi-calculator-section">
+            <div className="emi-display-box">
+              <div className="emi-label">Monthly EMI</div>
+              <div className="emi-amount-small">{formatCurrency(emi)}</div>
+              <div className="emi-note-small">For {tenure} {tenureUnit === 'Yr' ? 'year' : 'month'}{tenure > 1 ? 's' : ''}</div>
+            </div>
+            
+            <div className="breakdown-small">
+              <div className="breakdown-item-small">
+                <span>Principal</span>
+                <span>{formatCurrency(loanAmount)}</span>
+              </div>
+              <div className="breakdown-item-small">
+                <span>Interest</span>
+                <span>{formatCurrency(interestAmount)}</span>
+              </div>
+              <div className="breakdown-item-small">
+                <span>Total</span>
+                <span>{formatCurrency(totalAmount)}</span>
+              </div>
+            </div>
 
-          <div className="breakdown">
-            <div className="breakdown-item">
-              <span className="breakdown-label">Principal Amount</span>
-              <span className="breakdown-value">{formatCurrency(loanAmount)}</span>
-            </div>
-            <div className="breakdown-item">
-              <span className="breakdown-label">Interest Amount</span>
-              <span className="breakdown-value">{formatCurrency(interestAmount)}</span>
-            </div>
-            <div className="breakdown-item">
-              <span className="breakdown-label">Processing Fee</span>
-              <span className="breakdown-value">{formatCurrency(processingFeeAmount)}</span>
-            </div>
-            <div className="breakdown-item total">
-              <span className="breakdown-label">Total Amount</span>
-              <span className="breakdown-value">{formatCurrency(totalAmount)}</span>
-            </div>
+            <button 
+              className="cta-button-loan" 
+              type="button"
+              onClick={() => {
+                const url = selectedBankData.applicationUrl || `/apply/${selectedBankData.id}?loanType=${encodeURIComponent(loanType)}&amount=${loanAmount}&tenure=${tenure}&tenureUnit=${tenureUnit}`
+                router.push(url)
+              }}
+            >
+              Apply with {selectedBankData.name} →
+            </button>
+            <button className="secondary-button-loan" type="button">
+              Get Expert Advice
+            </button>
           </div>
-
-          <div className="loan-highlights">
-            <div className="highlight-item">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
-                <polyline points="22 4 12 14.01 9 11.01" />
-              </svg>
-              <span>Quick Approval</span>
-            </div>
-            <div className="highlight-item">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
-                <polyline points="22 4 12 14.01 9 11.01" />
-              </svg>
-              <span>Flexible Tenure</span>
-            </div>
-            <div className="highlight-item">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
-                <polyline points="22 4 12 14.01 9 11.01" />
-              </svg>
-              <span>Online Process</span>
-            </div>
-          </div>
-
-          <button className="cta-button-loan" type="button">
-            Apply Now with {selectedBankData.name} →
-          </button>
-          <button className="secondary-button-loan" type="button">
-            Get Expert Advice
-          </button>
         </div>
       </div>
     </div>
