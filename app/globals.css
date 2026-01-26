@@ -9398,6 +9398,506 @@ html[lang="hi"] .btn-call-label {
     position: relative;
 }
 
+/* Axis Bank specific styling */
+.bank-app-page-wrapper.axis-bank-theme {
+    background: #E8D0E0 !important;
+}
+
+/* Override body background for Axis Bank page */
+body:has(.bank-app-page-wrapper.axis-bank-theme) {
+    background-color: #E8D0E0 !important;
+}
+
+/* Ensure html background also matches */
+html:has(.bank-app-page-wrapper.axis-bank-theme) {
+    background-color: #E8D0E0 !important;
+}
+
+/* Override vector background for Axis Bank */
+body:has(.bank-app-page-wrapper.axis-bank-theme) .vector-background,
+body:has(.bank-app-page-wrapper.axis-bank-theme) #vectorBackground {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+}
+
+/* Ensure wrapper covers full viewport */
+.bank-app-page-wrapper.axis-bank-theme {
+    background: #E8D0E0 !important;
+    width: 100% !important;
+    min-height: 100vh !important;
+    position: relative;
+    z-index: 1;
+}
+
+/* Axis Bank form theme overrides - replace all blue with magenta */
+.bank-app-page-wrapper.axis-bank-theme .form-welcome-title {
+    color: #8B0040 !important;
+}
+
+.bank-app-page-wrapper.axis-bank-theme .radio-option-bank.selected {
+    border-color: #8B0040 !important;
+    background: #F5E6F0 !important;
+}
+
+.bank-app-page-wrapper.axis-bank-theme .radio-option-bank:hover {
+    border-color: #8B0040 !important;
+}
+
+.bank-app-page-wrapper.axis-bank-theme .radio-option-bank input[type="radio"] {
+    accent-color: #8B0040 !important;
+}
+
+.bank-app-page-wrapper.axis-bank-theme .radio-option-bank input[type="radio"]:checked {
+    accent-color: #8B0040 !important;
+}
+
+.bank-app-page-wrapper.axis-bank-theme .form-alternative-link {
+    color: #8B0040 !important;
+}
+
+.bank-app-page-wrapper.axis-bank-theme .consent-link-text {
+    color: #8B0040 !important;
+}
+
+.bank-app-page-wrapper.axis-bank-theme .footer-link {
+    color: #8B0040 !important;
+}
+
+/* Override any inline blue colors */
+.bank-app-page-wrapper.axis-bank-theme [style*="color: #004C8A"],
+.bank-app-page-wrapper.axis-bank-theme [style*="color: #1e40af"],
+.bank-app-page-wrapper.axis-bank-theme [style*="color: #0047AB"] {
+    color: #8B0040 !important;
+}
+
+/* Axis Bank Form Container - remove blue background */
+.bank-app-page-wrapper.axis-bank-theme .bank-app-form-container {
+    background: transparent !important;
+}
+
+/* Axis Bank Form Card - add theme-colored border */
+.bank-app-page-wrapper.axis-bank-theme .bank-app-form-card {
+    border: 2px solid #8B0040 !important;
+    box-shadow: 0 4px 20px rgba(139, 0, 64, 0.15) !important;
+}
+
+/* Axis Bank Form Field Labels */
+.bank-app-page-wrapper.axis-bank-theme .form-field-label {
+    color: #8B0040 !important;
+}
+
+/* Axis Bank Input Focus States */
+.bank-app-page-wrapper.axis-bank-theme .mobile-input-wrapper:focus-within {
+    border-color: #8B0040 !important;
+    box-shadow: 0 0 0 3px rgba(139, 0, 64, 0.1) !important;
+}
+
+.bank-app-page-wrapper.axis-bank-theme .dob-input:focus {
+    border-color: #8B0040 !important;
+    box-shadow: 0 0 0 3px rgba(139, 0, 64, 0.1) !important;
+}
+
+.bank-app-page-wrapper.axis-bank-theme .form-input-mobile:focus {
+    outline: none;
+}
+
+.bank-app-page-wrapper.axis-bank-theme .dob-input:focus {
+    outline: none;
+}
+
+/* Axis Bank Button */
+.bank-app-page-wrapper.axis-bank-theme .eligibility-button:not(.disabled) {
+    background: #8B0040 !important;
+    border: none !important;
+}
+
+.bank-app-page-wrapper.axis-bank-theme .eligibility-button:not(.disabled):hover {
+    background: #7a0030 !important;
+    box-shadow: 0 4px 12px rgba(139, 0, 64, 0.4) !important;
+}
+
+/* Axis Bank File Upload Hover */
+.bank-app-page-wrapper.axis-bank-theme .file-upload-label:hover {
+    border-color: #8B0040 !important;
+    background: #F5E6F0 !important;
+}
+
+/* Axis Bank Checkbox */
+.bank-app-page-wrapper.axis-bank-theme .consent-checkbox-label input[type="checkbox"] {
+    accent-color: #8B0040 !important;
+}
+
+/* Axis Bank Country Code Background */
+.bank-app-page-wrapper.axis-bank-theme .country-code {
+    background: #F5E6F0 !important;
+    color: #8B0040 !important;
+    border-right: 2px solid #8B0040 !important;
+}
+
+/* ============================================
+   PNB BANK HEADER & THEME STYLES
+   ============================================ */
+
+/* PNB Bank Header Styles */
+.pnb-bank-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background: #9B004A;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    padding: 16px 0;
+}
+
+.pnb-header-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    width: 100%;
+}
+
+/* PNB Logo Section */
+.pnb-logo-section {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.pnb-logo {
+    height: 45px;
+    width: auto;
+    object-fit: contain;
+}
+
+.pnb-bank-name {
+    color: white;
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    font-family: var(--font-poppins), sans-serif;
+    white-space: nowrap;
+}
+
+/* PNB Actions Section */
+.pnb-actions-section {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.pnb-action-link {
+    color: white;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    transition: opacity 0.2s;
+}
+
+.pnb-action-link:hover {
+    opacity: 0.8;
+}
+
+.pnb-action-divider {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 14px;
+}
+
+.pnb-action-button-secondary {
+    background: white;
+    border: 1px solid #e5e7eb;
+    color: #9B004A;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 10px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: inherit;
+    white-space: nowrap;
+}
+
+.pnb-action-button-secondary:hover {
+    background: #f9fafb;
+    border-color: #d1d5db;
+}
+
+.pnb-action-button-primary {
+    background: #9B004A;
+    border: none;
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 10px 24px;
+    border-radius: 6px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.2s;
+    font-family: inherit;
+    white-space: nowrap;
+}
+
+.pnb-action-button-primary:hover {
+    background: #7a0038;
+    box-shadow: 0 2px 8px rgba(155, 0, 74, 0.3);
+}
+
+.pnb-chevron {
+    width: 16px;
+    height: 16px;
+}
+
+/* PNB Page Background */
+.bank-app-page-wrapper.pnb-bank-theme {
+    background: #F5E6F0 !important;
+    width: 100% !important;
+    min-height: 100vh !important;
+    position: relative;
+    z-index: 1;
+}
+
+/* Override body background for PNB page */
+body:has(.bank-app-page-wrapper.pnb-bank-theme) {
+    background-color: #F5E6F0 !important;
+}
+
+html:has(.bank-app-page-wrapper.pnb-bank-theme) {
+    background-color: #F5E6F0 !important;
+}
+
+/* Override vector background for PNB */
+body:has(.bank-app-page-wrapper.pnb-bank-theme) .vector-background,
+body:has(.bank-app-page-wrapper.pnb-bank-theme) #vectorBackground {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+}
+
+/* PNB Form Theme Overrides */
+.bank-app-page-wrapper.pnb-bank-theme .form-welcome-title {
+    color: #9B004A !important;
+}
+
+.bank-app-page-wrapper.pnb-bank-theme .radio-option-bank.selected {
+    border-color: #9B004A !important;
+    background: #F5E6F0 !important;
+}
+
+.bank-app-page-wrapper.pnb-bank-theme .radio-option-bank:hover {
+    border-color: #9B004A !important;
+}
+
+.bank-app-page-wrapper.pnb-bank-theme .radio-option-bank input[type="radio"] {
+    accent-color: #9B004A !important;
+}
+
+.bank-app-page-wrapper.pnb-bank-theme .form-alternative-link {
+    color: #9B004A !important;
+}
+
+.bank-app-page-wrapper.pnb-bank-theme .consent-link-text {
+    color: #9B004A !important;
+}
+
+.bank-app-page-wrapper.pnb-bank-theme .footer-link {
+    color: #9B004A !important;
+}
+
+/* PNB Form Container */
+.bank-app-page-wrapper.pnb-bank-theme .bank-app-form-container {
+    background: transparent !important;
+}
+
+/* PNB Form Card */
+.bank-app-page-wrapper.pnb-bank-theme .bank-app-form-card {
+    border: 2px solid #9B004A !important;
+    box-shadow: 0 4px 20px rgba(155, 0, 74, 0.15) !important;
+}
+
+/* PNB Form Field Labels */
+.bank-app-page-wrapper.pnb-bank-theme .form-field-label {
+    color: #9B004A !important;
+}
+
+/* PNB Input Focus States */
+.bank-app-page-wrapper.pnb-bank-theme .mobile-input-wrapper:focus-within {
+    border-color: #9B004A !important;
+    box-shadow: 0 0 0 3px rgba(155, 0, 74, 0.1) !important;
+}
+
+.bank-app-page-wrapper.pnb-bank-theme .dob-input:focus {
+    border-color: #9B004A !important;
+    box-shadow: 0 0 0 3px rgba(155, 0, 74, 0.1) !important;
+}
+
+.bank-app-page-wrapper.pnb-bank-theme .form-input-mobile:focus {
+    outline: none;
+}
+
+.bank-app-page-wrapper.pnb-bank-theme .dob-input:focus {
+    outline: none;
+}
+
+/* PNB Button */
+.bank-app-page-wrapper.pnb-bank-theme .eligibility-button:not(.disabled) {
+    background: #9B004A !important;
+    border: none !important;
+}
+
+.bank-app-page-wrapper.pnb-bank-theme .eligibility-button:not(.disabled):hover {
+    background: #7a0038 !important;
+    box-shadow: 0 4px 12px rgba(155, 0, 74, 0.4) !important;
+}
+
+/* PNB File Upload Hover */
+.bank-app-page-wrapper.pnb-bank-theme .file-upload-label:hover {
+    border-color: #9B004A !important;
+    background: #F5E6F0 !important;
+}
+
+/* PNB Checkbox */
+.bank-app-page-wrapper.pnb-bank-theme .consent-checkbox-label input[type="checkbox"] {
+    accent-color: #9B004A !important;
+}
+
+/* PNB Country Code Background */
+.bank-app-page-wrapper.pnb-bank-theme .country-code {
+    background: #F5E6F0 !important;
+    color: #9B004A !important;
+    border-right: 2px solid #9B004A !important;
+}
+
+/* PNB Input Borders */
+.bank-app-page-wrapper.pnb-bank-theme .mobile-input-wrapper {
+    border-color: #e2e8f0 !important;
+}
+
+.bank-app-page-wrapper.pnb-bank-theme .mobile-input-wrapper:focus-within {
+    border-color: #9B004A !important;
+    box-shadow: 0 0 0 3px rgba(155, 0, 74, 0.1) !important;
+}
+
+.bank-app-page-wrapper.pnb-bank-theme .dob-input {
+    border-color: #e2e8f0 !important;
+}
+
+.bank-app-page-wrapper.pnb-bank-theme .dob-input:focus {
+    border-color: #9B004A !important;
+    box-shadow: 0 0 0 3px rgba(155, 0, 74, 0.1) !important;
+}
+
+/* PNB File Upload Border */
+.bank-app-page-wrapper.pnb-bank-theme .file-upload-label {
+    border-color: #cbd5e1 !important;
+}
+
+.bank-app-page-wrapper.pnb-bank-theme .file-upload-label:hover {
+    border-color: #9B004A !important;
+    background: #F5E6F0 !important;
+}
+
+/* Override any inline blue colors for PNB */
+.bank-app-page-wrapper.pnb-bank-theme [style*="color: #004C8A"],
+.bank-app-page-wrapper.pnb-bank-theme [style*="color: #1e40af"],
+.bank-app-page-wrapper.pnb-bank-theme [style*="color: #0047AB"] {
+    color: #9B004A !important;
+}
+
+/* PNB Responsive Design */
+@media (max-width: 768px) {
+    .pnb-bank-header {
+        padding: 12px 0;
+    }
+
+    .pnb-logo-section {
+        gap: 8px;
+    }
+
+    .pnb-logo {
+        height: 32px;
+    }
+
+    .pnb-bank-name {
+        font-size: 14px;
+        letter-spacing: 1px;
+    }
+
+    .pnb-actions-section {
+        gap: 8px;
+        flex-wrap: wrap;
+    }
+
+    .pnb-action-link {
+        font-size: 12px;
+    }
+
+    .pnb-action-button-secondary,
+    .pnb-action-button-primary {
+        font-size: 12px;
+        padding: 8px 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .pnb-logo-section {
+        gap: 6px;
+    }
+
+    .pnb-logo {
+        height: 28px;
+    }
+
+    .pnb-bank-name {
+        font-size: 12px;
+        letter-spacing: 0.5px;
+    }
+
+    .pnb-action-link {
+        font-size: 11px;
+    }
+
+    .pnb-action-button-primary {
+        font-size: 11px;
+        padding: 8px 12px;
+    }
+}
+
+/* Axis Bank Input Borders */
+.bank-app-page-wrapper.axis-bank-theme .mobile-input-wrapper {
+    border-color: #e2e8f0 !important;
+}
+
+.bank-app-page-wrapper.axis-bank-theme .mobile-input-wrapper:focus-within {
+    border-color: #8B0040 !important;
+    box-shadow: 0 0 0 3px rgba(139, 0, 64, 0.1) !important;
+}
+
+.bank-app-page-wrapper.axis-bank-theme .dob-input {
+    border-color: #e2e8f0 !important;
+}
+
+.bank-app-page-wrapper.axis-bank-theme .dob-input:focus {
+    border-color: #8B0040 !important;
+    box-shadow: 0 0 0 3px rgba(139, 0, 64, 0.1) !important;
+}
+
+/* Axis Bank File Upload Border */
+.bank-app-page-wrapper.axis-bank-theme .file-upload-label {
+    border-color: #cbd5e1 !important;
+}
+
+.bank-app-page-wrapper.axis-bank-theme .file-upload-label:hover {
+    border-color: #8B0040 !important;
+    background: #F5E6F0 !important;
+}
+
 /* Override body padding for bank application pages */
 body:has(.bank-app-page-wrapper) {
     padding-top: 0 !important;
@@ -10795,5 +11295,179 @@ body:has(.bank-app-page-wrapper) {
     .dark .feature-card,
     .dark .testimonial-card {
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+    }
+}
+
+/* Axis Bank Header Styles */
+.axis-bank-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background: #8B0040;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    padding: 16px 0;
+}
+
+.axis-header-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    width: 100%;
+}
+
+/* Logo Section */
+.axis-logo-section {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.axis-logo {
+    height: 45px;
+    width: auto;
+    object-fit: contain;
+}
+
+.axis-bank-name {
+    color: white;
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    font-family: var(--font-poppins), sans-serif;
+    white-space: nowrap;
+}
+
+/* Actions Section */
+.axis-actions-section {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.axis-action-link {
+    color: white;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    transition: opacity 0.2s;
+}
+
+.axis-action-link:hover {
+    opacity: 0.8;
+}
+
+.axis-action-divider {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 14px;
+}
+
+.axis-action-button-secondary {
+    background: white;
+    border: 1px solid #e5e7eb;
+    color: #79286C;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 10px 20px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: inherit;
+    white-space: nowrap;
+}
+
+.axis-action-button-secondary:hover {
+    background: #f9fafb;
+    border-color: #d1d5db;
+}
+
+.axis-action-button-primary {
+    background: #79286C;
+    border: none;
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 10px 24px;
+    border-radius: 6px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.2s;
+    font-family: inherit;
+    white-space: nowrap;
+}
+
+.axis-action-button-primary:hover {
+    background: #6a1f5a;
+    box-shadow: 0 2px 8px rgba(121, 40, 108, 0.3);
+}
+
+.axis-chevron {
+    width: 16px;
+    height: 16px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .axis-bank-header {
+        padding: 12px 0;
+    }
+
+    .axis-logo-section {
+        gap: 8px;
+    }
+
+    .axis-logo {
+        height: 32px;
+    }
+
+    .axis-bank-name {
+        font-size: 14px;
+        letter-spacing: 1px;
+    }
+
+    .axis-actions-section {
+        gap: 8px;
+        flex-wrap: wrap;
+    }
+
+    .axis-action-link {
+        font-size: 12px;
+    }
+
+    .axis-action-button-secondary,
+    .axis-action-button-primary {
+        font-size: 12px;
+        padding: 8px 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .axis-logo-section {
+        gap: 6px;
+    }
+
+    .axis-logo {
+        height: 28px;
+    }
+
+    .axis-bank-name {
+        font-size: 12px;
+        letter-spacing: 0.5px;
+    }
+
+    .axis-action-link {
+        font-size: 11px;
+    }
+
+    .axis-action-button-primary {
+        font-size: 11px;
+        padding: 8px 12px;
     }
 }

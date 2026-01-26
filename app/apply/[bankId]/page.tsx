@@ -3,14 +3,16 @@
 import { useSearchParams } from 'next/navigation'
 import { useState, useEffect } from 'react'
 import Image from 'next/image'
+import AxisBankHeader from '@/components/AxisBankHeader'
+import PNBHeader from '@/components/PNBHeader'
 
 const bankInfo: Record<string, { name: string; logo: string; color: string; primaryColor: string }> = {
   hdfc: { name: 'HDFC Bank', logo: '/assets/images/HDFC.png', color: '#004C8A', primaryColor: '#E31837' },
-  axis: { name: 'Axis Bank', logo: '/assets/images/AX.png', color: '#E31837', primaryColor: '#E31837' },
+  axis: { name: 'Axis Bank', logo: '/assets/images/AX.png', color: '#8B0040', primaryColor: '#8B0040' },
   kotak: { name: 'Kotak Mahindra Bank', logo: '/assets/images/Kotak-1.png', color: '#00AEEF', primaryColor: '#00AEEF' },
   idfc: { name: 'IDFC FIRST Bank', logo: '/assets/images/CB.png', color: '#E31837', primaryColor: '#E31837' },
   bob: { name: 'Bank of Baroda', logo: '/assets/images/BOB.png', color: '#003A6B', primaryColor: '#FFB81C' },
-  pnb: { name: 'Punjab National Bank', logo: '/assets/images/PNB.png', color: '#FF6B00', primaryColor: '#FF6B00' },
+  pnb: { name: 'Punjab National Bank', logo: '/assets/images/PNB.png', color: '#9B004A', primaryColor: '#9B004A' },
 }
 
 export default function BankApplicationPage({ params }: { params: { bankId: string } }) {
@@ -187,10 +189,30 @@ export default function BankApplicationPage({ params }: { params: { bankId: stri
       }
     `
     
+    // Hide vector background for Axis Bank and PNB
+    if (bankId === 'axis' || bankId === 'pnb') {
+      const vectorBg = document.getElementById('vectorBackground')
+      if (vectorBg) {
+        vectorBg.style.display = 'none'
+      }
+      const bgColor = bankId === 'axis' ? '#E8D0E0' : '#F5E6F0'
+      document.body.style.backgroundColor = bgColor
+      document.documentElement.style.backgroundColor = bgColor
+    }
+    
     return () => {
       const element = document.getElementById(styleId)
       if (element) {
         element.remove()
+      }
+      // Restore vector background when leaving Axis Bank or PNB page
+      if (bankId === 'axis' || bankId === 'pnb') {
+        const vectorBg = document.getElementById('vectorBackground')
+        if (vectorBg) {
+          vectorBg.style.display = ''
+        }
+        document.body.style.backgroundColor = ''
+        document.documentElement.style.backgroundColor = ''
       }
     }
   }, [bankId, bank.primaryColor])
@@ -210,12 +232,24 @@ export default function BankApplicationPage({ params }: { params: { bankId: stri
 
   return (
     <div 
-      className="bank-app-page-wrapper" 
-      style={{ marginTop: 0, paddingTop: 0, position: 'relative' }}
+      className={`bank-app-page-wrapper ${bankId === 'axis' ? 'axis-bank-theme' : ''} ${bankId === 'pnb' ? 'pnb-bank-theme' : ''}`}
+      style={{ 
+        marginTop: 0, 
+        paddingTop: (bankId === 'axis' || bankId === 'pnb') ? '85px' : 0, 
+        position: 'relative',
+        backgroundColor: bankId === 'axis' ? '#E8D0E0' : bankId === 'pnb' ? '#F5E6F0' : undefined,
+        minHeight: (bankId === 'axis' || bankId === 'pnb') ? '100vh' : undefined
+      }}
     >
+        {/* Axis Bank Header */}
+        {bankId === 'axis' && <AxisBankHeader />}
+        
+        {/* PNB Header */}
+        {bankId === 'pnb' && <PNBHeader />}
+        
         {/* Bank Header Banner - Using Image if available */}
         {hasHeaderImage && (
-          <div className="hdfc-header-banner" style={{ position: isApplied ? 'fixed' : 'relative', top: 0, left: 0, right: 0, zIndex: 1 }}>
+          <div className="hdfc-header-banner" style={{ position: isApplied ? 'fixed' : 'relative', top: bankId === 'axis' ? '130px' : 0, left: 0, right: 0, zIndex: 1 }}>
             <Image
               src={bankHeaderImages[bankId]}
               alt={`${bank.name} Personal Loan Offer`}
@@ -228,7 +262,7 @@ export default function BankApplicationPage({ params }: { params: { bankId: stri
           </div>
         )}
         
-        {!hasHeaderImage && (
+        {!hasHeaderImage && bankId !== 'axis' && (
           <>
             {/* Top Header Bar - Dark Blue Strip */}
             <div className="bank-app-top-header" style={{ backgroundColor: bank.color }}>

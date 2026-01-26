@@ -3,6 +3,7 @@ import { Inter, Poppins } from 'next/font/google'
 import './globals.css'
 import { LanguageProvider } from '@/contexts/LanguageContext'
 import { DarkModeProvider } from '@/contexts/DarkModeContext'
+import ChatBot from '@/components/ChatBot'
 
 const inter = Inter({ 
   subsets: ['latin'],
@@ -41,6 +42,8 @@ export default function RootLayout({
             {/* Vector Background Container - Available on all pages */}
             <div className="vector-background" id="vectorBackground"></div>
             {children}
+            {/* Floating ChatBot - Available on all pages */}
+            <ChatBot />
           </LanguageProvider>
         </DarkModeProvider>
       </body>
