@@ -3502,42 +3502,65 @@ html[lang="hi"] .btn-call-label {
     color: white;
 }
 
-/* EMI Summary Section */
-.emi-summary,
+/* Right Section Container */
+.right-section-container {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    height: 100%;
+    overflow: hidden;
+}
+
+/* Eligibility Summary Section */
 .eligibility-summary {
     padding: 40px;
     background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    max-height: 100vh;
+    gap: 24px;
+    flex: 1;
     overflow-y: auto;
 }
 
-.eligibility-summary {
-    gap: 24px;
+/* Separate EMI Calculator Container - Below Main Grid */
+.emi-calculator-container {
+    width: 100%;
+    margin-top: 30px;
+    background: white;
+    border-radius: 24px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+/* EMI Summary Section - Inside Separate Container */
+.emi-summary {
+    padding: 40px;
+    background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 
 .emi-title,
 .eligibility-title {
     font-family: var(--font-poppins), sans-serif;
-    font-size: 20px;
+    font-size: 24px;
     font-weight: 600;
     color: #1e293b;
-    margin-bottom: 20px;
+    margin-bottom: 24px;
 }
 
 .eligibility-content {
     background: white;
     border-radius: 12px;
-    padding: 20px;
+    padding: 28px;
     margin-bottom: 20px;
 }
 
 .eligibility-section {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 24px;
 }
 
 .eligibility-item {
@@ -3547,8 +3570,8 @@ html[lang="hi"] .btn-call-label {
 }
 
 .eligibility-icon {
-    width: 24px;
-    height: 24px;
+    width: 28px;
+    height: 28px;
     color: #1e40af;
     flex-shrink: 0;
     margin-top: 2px;
@@ -3556,36 +3579,37 @@ html[lang="hi"] .btn-call-label {
 
 .eligibility-item > div {
     flex: 1;
-    font-size: 14px;
+    font-size: 16px;
     color: #475569;
-    line-height: 1.6;
+    line-height: 1.7;
 }
 
 .eligibility-item strong {
     color: #1e293b;
     font-weight: 600;
+    font-size: 18px;
     display: block;
-    margin-bottom: 4px;
+    margin-bottom: 6px;
 }
 
 .eligibility-list {
-    margin: 8px 0 0 0;
-    padding-left: 20px;
+    margin: 10px 0 0 0;
+    padding-left: 24px;
     list-style: disc;
 }
 
 .eligibility-list li {
-    margin-bottom: 6px;
+    margin-bottom: 8px;
     color: #64748b;
-    line-height: 1.5;
+    font-size: 16px;
+    line-height: 1.6;
 }
 
-/* EMI Calculator Section Below Eligibility */
+/* EMI Calculator Section - Now Separate */
 .emi-calculator-section {
     background: white;
     border-radius: 12px;
     padding: 20px;
-    margin-top: 20px;
 }
 
 .calculator-section-title {
@@ -4229,8 +4253,18 @@ html[lang="hi"] .btn-call-label {
         grid-template-columns: 1fr;
     }
 
-    .emi-summary {
+    .right-section-container {
+        flex-direction: column;
+    }
+
+    .emi-summary,
+    .eligibility-summary {
         padding: 30px;
+    }
+
+    .emi-calculator-container {
+        margin-top: 20px;
+        border-radius: 16px;
     }
 
     .loan-type-switcher-grid {
@@ -8792,10 +8826,27 @@ html[lang="hi"] .btn-call-label {
     font-weight: 700;
 }
 
-/* EMI Summary Section */
+/* Right Section Container - Dark Mode */
+.dark .right-section-container {
+    border-left: 1px solid rgba(59, 130, 246, 0.2);
+}
+
+/* Eligibility Summary Section - Dark Mode */
+.dark .eligibility-summary {
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.15), rgba(37, 99, 235, 0.2)) !important;
+    box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.2);
+}
+
+/* Separate EMI Calculator Container - Dark Mode */
+.dark .emi-calculator-container {
+    background: linear-gradient(135deg, #1e293b, #0f172a) !important;
+    border: 1px solid rgba(59, 130, 246, 0.2);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+}
+
+/* EMI Summary Section - Dark Mode */
 .dark .emi-summary {
     background: linear-gradient(135deg, rgba(59, 130, 246, 0.15), rgba(37, 99, 235, 0.2)) !important;
-    border-left: 1px solid rgba(59, 130, 246, 0.2);
     box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.2);
 }
 
@@ -8932,9 +8983,12 @@ html[lang="hi"] .btn-call-label {
         border-bottom: 1px solid rgba(59, 130, 246, 0.1);
     }
     
-    .dark .emi-summary {
+    .dark .right-section-container {
         border-left: none;
-        border-top: 1px solid rgba(59, 130, 246, 0.1);
+    }
+    
+    .dark .emi-calculator-container {
+        border-radius: 16px;
     }
 }
 
@@ -9546,7 +9600,7 @@ body:has(.bank-app-page-wrapper.axis-bank-theme) #vectorBackground {
     left: 0;
     right: 0;
     z-index: 1000;
-    background: #9B004A;
+    background: #A20A3A !important;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     padding: 16px 0;
 }
@@ -9557,9 +9611,10 @@ body:has(.bank-app-page-wrapper.axis-bank-theme) #vectorBackground {
     padding: 0 20px;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-start;
     gap: 20px;
     width: 100%;
+    background: #A20A3A !important;
 }
 
 /* PNB Logo Section */
@@ -9567,6 +9622,9 @@ body:has(.bank-app-page-wrapper.axis-bank-theme) #vectorBackground {
     display: flex;
     align-items: center;
     gap: 12px;
+    background: #A20A3A !important;
+    padding: 8px 16px;
+    border-radius: 0;
 }
 
 .pnb-logo {
@@ -9611,7 +9669,7 @@ body:has(.bank-app-page-wrapper.axis-bank-theme) #vectorBackground {
 .pnb-action-button-secondary {
     background: white;
     border: 1px solid #e5e7eb;
-    color: #9B004A;
+    color: #A20A3A;
     font-size: 14px;
     font-weight: 600;
     padding: 10px 20px;
@@ -9628,7 +9686,7 @@ body:has(.bank-app-page-wrapper.axis-bank-theme) #vectorBackground {
 }
 
 .pnb-action-button-primary {
-    background: #9B004A;
+    background: #A20A3A;
     border: none;
     color: white;
     font-size: 14px;
@@ -9645,8 +9703,8 @@ body:has(.bank-app-page-wrapper.axis-bank-theme) #vectorBackground {
 }
 
 .pnb-action-button-primary:hover {
-    background: #7a0038;
-    box-shadow: 0 2px 8px rgba(155, 0, 74, 0.3);
+    background: #8a092e;
+    box-shadow: 0 2px 8px rgba(162, 10, 58, 0.3);
 }
 
 .pnb-chevron {
@@ -9656,7 +9714,7 @@ body:has(.bank-app-page-wrapper.axis-bank-theme) #vectorBackground {
 
 /* PNB Page Background */
 .bank-app-page-wrapper.pnb-bank-theme {
-    background: #F5E6F0 !important;
+    background: #F7E9F1 !important;
     width: 100% !important;
     min-height: 100vh !important;
     position: relative;
@@ -9665,11 +9723,11 @@ body:has(.bank-app-page-wrapper.axis-bank-theme) #vectorBackground {
 
 /* Override body background for PNB page */
 body:has(.bank-app-page-wrapper.pnb-bank-theme) {
-    background-color: #F5E6F0 !important;
+    background-color: #F7E9F1 !important;
 }
 
 html:has(.bank-app-page-wrapper.pnb-bank-theme) {
-    background-color: #F5E6F0 !important;
+    background-color: #F7E9F1 !important;
 }
 
 /* Override vector background for PNB */
@@ -9682,59 +9740,60 @@ body:has(.bank-app-page-wrapper.pnb-bank-theme) #vectorBackground {
 
 /* PNB Form Theme Overrides */
 .bank-app-page-wrapper.pnb-bank-theme .form-welcome-title {
-    color: #9B004A !important;
+    color: #A20A3A !important;
 }
 
 .bank-app-page-wrapper.pnb-bank-theme .radio-option-bank.selected {
-    border-color: #9B004A !important;
-    background: #F5E6F0 !important;
+    border-color: #A20A3A !important;
+    background: #F7E9F1 !important;
 }
 
 .bank-app-page-wrapper.pnb-bank-theme .radio-option-bank:hover {
-    border-color: #9B004A !important;
+    border-color: #A20A3A !important;
 }
 
 .bank-app-page-wrapper.pnb-bank-theme .radio-option-bank input[type="radio"] {
-    accent-color: #9B004A !important;
+    accent-color: #A20A3A !important;
 }
 
 .bank-app-page-wrapper.pnb-bank-theme .form-alternative-link {
-    color: #9B004A !important;
+    color: #A20A3A !important;
 }
 
 .bank-app-page-wrapper.pnb-bank-theme .consent-link-text {
-    color: #9B004A !important;
+    color: #A20A3A !important;
 }
 
 .bank-app-page-wrapper.pnb-bank-theme .footer-link {
-    color: #9B004A !important;
+    color: #A20A3A !important;
 }
 
 /* PNB Form Container */
 .bank-app-page-wrapper.pnb-bank-theme .bank-app-form-container {
-    background: transparent !important;
+    background: #F7E9F1 !important;
 }
 
 /* PNB Form Card */
 .bank-app-page-wrapper.pnb-bank-theme .bank-app-form-card {
-    border: 2px solid #9B004A !important;
-    box-shadow: 0 4px 20px rgba(155, 0, 74, 0.15) !important;
+    background: white !important;
+    border: 1px solid #e5e7eb !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
 }
 
 /* PNB Form Field Labels */
 .bank-app-page-wrapper.pnb-bank-theme .form-field-label {
-    color: #9B004A !important;
+    color: #A20A3A !important;
 }
 
 /* PNB Input Focus States */
 .bank-app-page-wrapper.pnb-bank-theme .mobile-input-wrapper:focus-within {
-    border-color: #9B004A !important;
-    box-shadow: 0 0 0 3px rgba(155, 0, 74, 0.1) !important;
+    border-color: #A20A3A !important;
+    box-shadow: 0 0 0 3px rgba(162, 10, 58, 0.1) !important;
 }
 
 .bank-app-page-wrapper.pnb-bank-theme .dob-input:focus {
-    border-color: #9B004A !important;
-    box-shadow: 0 0 0 3px rgba(155, 0, 74, 0.1) !important;
+    border-color: #A20A3A !important;
+    box-shadow: 0 0 0 3px rgba(162, 10, 58, 0.1) !important;
 }
 
 .bank-app-page-wrapper.pnb-bank-theme .form-input-mobile:focus {
@@ -9747,31 +9806,31 @@ body:has(.bank-app-page-wrapper.pnb-bank-theme) #vectorBackground {
 
 /* PNB Button */
 .bank-app-page-wrapper.pnb-bank-theme .eligibility-button:not(.disabled) {
-    background: #9B004A !important;
+    background: #A20A3A !important;
     border: none !important;
 }
 
 .bank-app-page-wrapper.pnb-bank-theme .eligibility-button:not(.disabled):hover {
-    background: #7a0038 !important;
-    box-shadow: 0 4px 12px rgba(155, 0, 74, 0.4) !important;
+    background: #8a092e !important;
+    box-shadow: 0 4px 12px rgba(162, 10, 58, 0.4) !important;
 }
 
 /* PNB File Upload Hover */
 .bank-app-page-wrapper.pnb-bank-theme .file-upload-label:hover {
-    border-color: #9B004A !important;
-    background: #F5E6F0 !important;
+    border-color: #A20A3A !important;
+    background: #F7E9F1 !important;
 }
 
 /* PNB Checkbox */
 .bank-app-page-wrapper.pnb-bank-theme .consent-checkbox-label input[type="checkbox"] {
-    accent-color: #9B004A !important;
+    accent-color: #A20A3A !important;
 }
 
 /* PNB Country Code Background */
 .bank-app-page-wrapper.pnb-bank-theme .country-code {
-    background: #F5E6F0 !important;
-    color: #9B004A !important;
-    border-right: 2px solid #9B004A !important;
+    background: #F7E9F1 !important;
+    color: #A20A3A !important;
+    border-right: 2px solid #A20A3A !important;
 }
 
 /* PNB Input Borders */
@@ -9780,8 +9839,8 @@ body:has(.bank-app-page-wrapper.pnb-bank-theme) #vectorBackground {
 }
 
 .bank-app-page-wrapper.pnb-bank-theme .mobile-input-wrapper:focus-within {
-    border-color: #9B004A !important;
-    box-shadow: 0 0 0 3px rgba(155, 0, 74, 0.1) !important;
+    border-color: #A20A3A !important;
+    box-shadow: 0 0 0 3px rgba(162, 10, 58, 0.1) !important;
 }
 
 .bank-app-page-wrapper.pnb-bank-theme .dob-input {
@@ -9789,8 +9848,8 @@ body:has(.bank-app-page-wrapper.pnb-bank-theme) #vectorBackground {
 }
 
 .bank-app-page-wrapper.pnb-bank-theme .dob-input:focus {
-    border-color: #9B004A !important;
-    box-shadow: 0 0 0 3px rgba(155, 0, 74, 0.1) !important;
+    border-color: #A20A3A !important;
+    box-shadow: 0 0 0 3px rgba(162, 10, 58, 0.1) !important;
 }
 
 /* PNB File Upload Border */
@@ -9799,7 +9858,7 @@ body:has(.bank-app-page-wrapper.pnb-bank-theme) #vectorBackground {
 }
 
 .bank-app-page-wrapper.pnb-bank-theme .file-upload-label:hover {
-    border-color: #9B004A !important;
+    border-color: #A20A3A !important;
     background: #F5E6F0 !important;
 }
 
@@ -9807,7 +9866,330 @@ body:has(.bank-app-page-wrapper.pnb-bank-theme) #vectorBackground {
 .bank-app-page-wrapper.pnb-bank-theme [style*="color: #004C8A"],
 .bank-app-page-wrapper.pnb-bank-theme [style*="color: #1e40af"],
 .bank-app-page-wrapper.pnb-bank-theme [style*="color: #0047AB"] {
-    color: #9B004A !important;
+    color: #A20A3A !important;
+}
+
+/* ============================================
+   PNB FORM STRUCTURE STYLES
+   ============================================ */
+
+.pnb-form-wrapper {
+    width: 100%;
+}
+
+/* Primary Tabs */
+.pnb-primary-tabs {
+    display: flex;
+    gap: 0;
+    border-bottom: 2px solid #e5e7eb;
+    margin-bottom: 20px;
+}
+
+.pnb-primary-tab {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    background: transparent;
+    border: none;
+    border-bottom: 3px solid transparent;
+    color: #64748b;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: inherit;
+}
+
+.pnb-primary-tab svg {
+    width: 18px;
+    height: 18px;
+}
+
+.pnb-primary-tab:hover {
+    color: #A20A3A;
+    background: #f9fafb;
+}
+
+.pnb-primary-tab.active {
+    color: #A20A3A;
+    border-bottom-color: #A20A3A;
+    background: transparent;
+}
+
+/* Secondary Tabs */
+.pnb-secondary-tabs {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 24px;
+}
+
+.pnb-secondary-tab {
+    padding: 10px 20px;
+    background: #f3f4f6;
+    border: none;
+    border-radius: 6px;
+    color: #475569;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: inherit;
+}
+
+.pnb-secondary-tab:hover {
+    background: #e5e7eb;
+}
+
+.pnb-secondary-tab.active {
+    background: #A20A3A;
+    color: white;
+}
+
+/* Form Content */
+.pnb-form-content {
+    width: 100%;
+}
+
+.pnb-mandatory-note {
+    text-align: right;
+    font-size: 12px;
+    color: #64748b;
+    margin-bottom: 20px;
+}
+
+/* Two Column Layout */
+.pnb-form-two-column {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-bottom: 24px;
+}
+
+.pnb-form-column {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+/* Form Fields */
+.pnb-form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.pnb-form-label {
+    font-size: 14px;
+    font-weight: 500;
+    color: #1e293b;
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+}
+
+.pnb-form-input,
+.pnb-form-select {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    font-size: 14px;
+    font-family: inherit;
+    color: #1e293b;
+    background: white;
+    transition: all 0.2s;
+}
+
+.pnb-form-input:focus,
+.pnb-form-select:focus {
+    outline: none;
+    border-color: #A20A3A;
+    box-shadow: 0 0 0 3px rgba(162, 10, 58, 0.1);
+}
+
+.pnb-form-input.pnb-readonly {
+    background: #f9fafb;
+    color: #94a3b8;
+    cursor: not-allowed;
+}
+
+/* Radio Group */
+.pnb-radio-group {
+    display: flex;
+    gap: 20px;
+}
+
+.pnb-radio-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    color: #1e293b;
+    cursor: pointer;
+}
+
+.pnb-radio-label input[type="radio"] {
+    accent-color: #A20A3A;
+    cursor: pointer;
+}
+
+/* Mobile Wrapper */
+.pnb-mobile-wrapper {
+    display: flex;
+    gap: 8px;
+}
+
+.pnb-mobile-wrapper .pnb-form-input {
+    flex: 1;
+}
+
+.pnb-verify-button {
+    padding: 10px 20px;
+    background: #A20A3A;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: inherit;
+    white-space: nowrap;
+}
+
+.pnb-verify-button:hover {
+    background: #8a092e;
+}
+
+.pnb-privacy-link {
+    font-size: 12px;
+    color: #3b82f6;
+    text-decoration: none;
+    margin-top: 4px;
+}
+
+.pnb-privacy-link:hover {
+    text-decoration: underline;
+}
+
+/* Consent Text */
+.pnb-consent-text {
+    font-size: 12px;
+    color: #475569;
+    line-height: 1.5;
+}
+
+/* Address Section */
+.pnb-address-section {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+}
+
+.pnb-address-column {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.pnb-address-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: #1e293b;
+    margin-bottom: 8px;
+    text-decoration: underline;
+}
+
+.pnb-checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    color: #475569;
+    margin-bottom: 8px;
+    cursor: pointer;
+}
+
+.pnb-checkbox-label input[type="checkbox"] {
+    accent-color: #A20A3A;
+    cursor: pointer;
+}
+
+/* Form Actions */
+.pnb-form-actions {
+    margin-top: 32px;
+    padding-top: 24px;
+    border-top: 1px solid #e5e7eb;
+    display: flex;
+    justify-content: center;
+}
+
+.pnb-submit-button {
+    padding: 12px 48px;
+    background: #A20A3A;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: inherit;
+}
+
+.pnb-submit-button:hover:not(.disabled) {
+    background: #8a092e;
+    box-shadow: 0 4px 12px rgba(162, 10, 58, 0.3);
+}
+
+.pnb-submit-button.disabled {
+    background: #d1d5db;
+    color: #94a3b8;
+    cursor: not-allowed;
+}
+
+.pnb-placeholder-text {
+    text-align: center;
+    color: #94a3b8;
+    padding: 40px 20px;
+    font-size: 14px;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .pnb-form-two-column,
+    .pnb-address-section {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .pnb-primary-tabs {
+        flex-wrap: wrap;
+    }
+
+    .pnb-primary-tab {
+        padding: 10px 16px;
+        font-size: 13px;
+    }
+
+    .pnb-secondary-tabs {
+        flex-wrap: wrap;
+    }
+
+    .pnb-secondary-tab {
+        padding: 8px 16px;
+        font-size: 13px;
+    }
+
+    .pnb-mobile-wrapper {
+        flex-direction: column;
+    }
+
+    .pnb-verify-button {
+        width: 100%;
+    }
 }
 
 /* PNB Responsive Design */
@@ -11316,7 +11698,7 @@ body:has(.bank-app-page-wrapper) {
     padding: 0 20px;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-start;
     gap: 20px;
     width: 100%;
 }

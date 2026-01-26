@@ -12,7 +12,7 @@ const bankInfo: Record<string, { name: string; logo: string; color: string; prim
   kotak: { name: 'Kotak Mahindra Bank', logo: '/assets/images/Kotak-1.png', color: '#00AEEF', primaryColor: '#00AEEF' },
   idfc: { name: 'IDFC FIRST Bank', logo: '/assets/images/CB.png', color: '#E31837', primaryColor: '#E31837' },
   bob: { name: 'Bank of Baroda', logo: '/assets/images/BOB.png', color: '#003A6B', primaryColor: '#FFB81C' },
-  pnb: { name: 'Punjab National Bank', logo: '/assets/images/PNB.png', color: '#9B004A', primaryColor: '#9B004A' },
+  pnb: { name: 'Punjab National Bank', logo: '/assets/images/PNB.png', color: '#A20A3A', primaryColor: '#A20A3A' },
 }
 
 export default function BankApplicationPage({ params }: { params: { bankId: string } }) {
@@ -31,16 +31,57 @@ export default function BankApplicationPage({ params }: { params: { bankId: stri
     consentPerfios: false,
     panCard: null as File | null,
     aadhaarCard: null as File | null,
+    // PNB specific fields
+    existingCustomer: '',
+    referredBy: '',
+    loanPurpose: '',
+    loanAmount: '',
+    gender: '',
+    maritalStatus: '',
+    email: '',
+    name: '',
+    residentialStatus: '',
+    panNo: '',
+    permanentAddressLine1: '',
+    permanentAddressLine2: '',
+    permanentDistrict: '',
+    permanentCity: '',
+    permanentState: '',
+    permanentPincode: '',
+    presentAddressLine1: '',
+    presentAddressLine2: '',
+    presentDistrict: '',
+    presentCity: '',
+    presentState: '',
+    presentPincode: '',
+    sameAsPresentAddress: false,
+    sameAsPermanentAddress: false,
   })
+  
+  const [activePrimaryTab, setActivePrimaryTab] = useState('personal')
+  const [activeSecondaryTab, setActiveSecondaryTab] = useState('personal')
   
   const [panPreview, setPanPreview] = useState<string | null>(null)
   const [aadhaarPreview, setAadhaarPreview] = useState<string | null>(null)
   
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isApplied, setIsApplied] = useState(false)
-  const canProceed = formData.mobileNumber.length === 10 && 
-                     formData.day && formData.month && formData.year && 
-                     formData.consentPersonalData
+  const canProceed = bankId === 'pnb' 
+    ? formData.mobileNumber.length === 10 && 
+      formData.name && 
+      formData.email && 
+      formData.day && formData.month && formData.year &&
+      formData.existingCustomer &&
+      formData.loanPurpose &&
+      formData.loanAmount &&
+      formData.gender &&
+      formData.maritalStatus &&
+      formData.residentialStatus &&
+      formData.panNo &&
+      formData.consentPersonalData
+    : formData.mobileNumber.length === 10 && 
+      formData.day && formData.month && formData.year && 
+      formData.consentPersonalData
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value, type } = e.target
@@ -195,7 +236,7 @@ export default function BankApplicationPage({ params }: { params: { bankId: stri
       if (vectorBg) {
         vectorBg.style.display = 'none'
       }
-      const bgColor = bankId === 'axis' ? '#E8D0E0' : '#F5E6F0'
+      const bgColor = bankId === 'axis' ? '#E8D0E0' : '#F7E9F1'
       document.body.style.backgroundColor = bgColor
       document.documentElement.style.backgroundColor = bgColor
     }
@@ -237,7 +278,7 @@ export default function BankApplicationPage({ params }: { params: { bankId: stri
         marginTop: 0, 
         paddingTop: (bankId === 'axis' || bankId === 'pnb') ? '85px' : 0, 
         position: 'relative',
-        backgroundColor: bankId === 'axis' ? '#E8D0E0' : bankId === 'pnb' ? '#F5E6F0' : undefined,
+        backgroundColor: bankId === 'axis' ? '#E8D0E0' : bankId === 'pnb' ? '#F7E9F1' : undefined,
         minHeight: (bankId === 'axis' || bankId === 'pnb') ? '100vh' : undefined
       }}
     >
@@ -262,7 +303,7 @@ export default function BankApplicationPage({ params }: { params: { bankId: stri
           </div>
         )}
         
-        {!hasHeaderImage && bankId !== 'axis' && (
+        {!hasHeaderImage && bankId !== 'axis' && bankId !== 'pnb' && (
           <>
             {/* Top Header Bar - Dark Blue Strip */}
             <div className="bank-app-top-header" style={{ backgroundColor: bank.color }}>
@@ -381,9 +422,24 @@ export default function BankApplicationPage({ params }: { params: { bankId: stri
         {!isApplied && (
           <div className="bank-app-form-container">
             <div className="bank-app-form-card">
-              <h2 className="form-welcome-title">Welcome! Check your Personal Loan offer</h2>
-              
-              <form onSubmit={handleSubmit} className="bank-app-form">
+              {bankId === 'pnb' ? (
+                <PNBFormStructure 
+                  formData={formData}
+                  handleChange={handleChange}
+                  handleSubmit={handleSubmit}
+                  bank={bank}
+                  activePrimaryTab={activePrimaryTab}
+                  setActivePrimaryTab={setActivePrimaryTab}
+                  activeSecondaryTab={activeSecondaryTab}
+                  setActiveSecondaryTab={setActiveSecondaryTab}
+                  canProceed={canProceed}
+                  isSubmitting={isSubmitting}
+                />
+              ) : (
+                <>
+                  <h2 className="form-welcome-title">Welcome! Check your Personal Loan offer</h2>
+                  
+                  <form onSubmit={handleSubmit} className="bank-app-form">
               {/* Mobile Number */}
               <div className="form-field-group">
                 <label className="form-field-label">Your registered mobile number</label>
@@ -594,9 +650,548 @@ export default function BankApplicationPage({ params }: { params: { bankId: stri
                 For full details read our <a href="#" className="footer-link" style={{ color: bank.primaryColor }}>Terms & Conditions</a> and <a href="#" className="footer-link" style={{ color: bank.primaryColor }}>Privacy Policy</a>
               </p>
             </form>
+                </>
+              )}
           </div>
         </div>
         )}
+    </div>
+  )
+}
+
+// PNB Form Structure Component
+function PNBFormStructure({
+  formData,
+  handleChange,
+  handleSubmit,
+  bank,
+  activePrimaryTab,
+  setActivePrimaryTab,
+  activeSecondaryTab,
+  setActiveSecondaryTab,
+  canProceed,
+  isSubmitting,
+}: {
+  formData: any
+  handleChange: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void
+  handleSubmit: (e: React.FormEvent) => void
+  bank: any
+  activePrimaryTab: string
+  setActivePrimaryTab: (tab: string) => void
+  activeSecondaryTab: string
+  setActiveSecondaryTab: (tab: string) => void
+  canProceed: boolean
+  isSubmitting: boolean
+}) {
+  const handleAddressCopy = (type: 'permanent' | 'present') => {
+    if (type === 'permanent') {
+      if (formData.sameAsPresentAddress) {
+        // Copy present address to permanent
+        // This would need to be handled in the parent component
+      }
+    } else {
+      if (formData.sameAsPermanentAddress) {
+        // Copy permanent address to present
+        // This would need to be handled in the parent component
+      }
+    }
+  }
+
+  return (
+    <div className="pnb-form-wrapper">
+      {/* Primary Tabs */}
+      <div className="pnb-primary-tabs">
+        <button
+          type="button"
+          className={`pnb-primary-tab ${activePrimaryTab === 'personal' ? 'active' : ''}`}
+          onClick={() => setActivePrimaryTab('personal')}
+        >
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+            <path d="M14 2v6h6"></path>
+            <circle cx="12" cy="13" r="2"></circle>
+          </svg>
+          Personal Details
+        </button>
+        <button
+          type="button"
+          className={`pnb-primary-tab ${activePrimaryTab === 'employment' ? 'active' : ''}`}
+          onClick={() => setActivePrimaryTab('employment')}
+        >
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+          </svg>
+          Employment Details
+        </button>
+        <button
+          type="button"
+          className={`pnb-primary-tab ${activePrimaryTab === 'asset' ? 'active' : ''}`}
+          onClick={() => setActivePrimaryTab('asset')}
+        >
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+            <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+          </svg>
+          Asset Details
+        </button>
+      </div>
+
+      {/* Secondary Tabs - Only show for Personal Details */}
+      {activePrimaryTab === 'personal' && (
+        <div className="pnb-secondary-tabs">
+          <button
+            type="button"
+            className={`pnb-secondary-tab ${activeSecondaryTab === 'personal' ? 'active' : ''}`}
+            onClick={() => setActiveSecondaryTab('personal')}
+          >
+            Personal Details
+          </button>
+          <button
+            type="button"
+            className={`pnb-secondary-tab ${activeSecondaryTab === 'address' ? 'active' : ''}`}
+            onClick={() => setActiveSecondaryTab('address')}
+          >
+            Address Details
+          </button>
+        </div>
+      )}
+
+      <form onSubmit={handleSubmit} className="pnb-form">
+        {activePrimaryTab === 'personal' && activeSecondaryTab === 'personal' && (
+          <div className="pnb-form-content">
+            <div className="pnb-mandatory-note">The fields with * are mandatory.</div>
+            
+            <div className="pnb-form-two-column">
+              {/* Left Column */}
+              <div className="pnb-form-column">
+                <div className="pnb-form-field">
+                  <label className="pnb-form-label">Are you an existing PNB customer *</label>
+                  <div className="pnb-radio-group">
+                    <label className="pnb-radio-label">
+                      <input
+                        type="radio"
+                        name="existingCustomer"
+                        value="yes"
+                        checked={formData.existingCustomer === 'yes'}
+                        onChange={handleChange}
+                        required
+                      />
+                      <span>Yes</span>
+                    </label>
+                    <label className="pnb-radio-label">
+                      <input
+                        type="radio"
+                        name="existingCustomer"
+                        value="no"
+                        checked={formData.existingCustomer === 'no'}
+                        onChange={handleChange}
+                        required
+                      />
+                      <span>No</span>
+                    </label>
+                  </div>
+                </div>
+
+                <div className="pnb-form-field">
+                  <label className="pnb-form-label">Referred by</label>
+                  <select
+                    name="referredBy"
+                    value={formData.referredBy}
+                    onChange={handleChange}
+                    className="pnb-form-select"
+                  >
+                    <option value="">- SELECT -</option>
+                    <option value="friend">Friend</option>
+                    <option value="relative">Relative</option>
+                    <option value="colleague">Colleague</option>
+                    <option value="advertisement">Advertisement</option>
+                  </select>
+                </div>
+
+                <div className="pnb-form-field">
+                  <label className="pnb-form-label">Loan Purpose *</label>
+                  <select
+                    name="loanPurpose"
+                    value={formData.loanPurpose}
+                    onChange={handleChange}
+                    className="pnb-form-select"
+                    required
+                  >
+                    <option value="">- SELECT -</option>
+                    <option value="medical">Medical</option>
+                    <option value="education">Education</option>
+                    <option value="wedding">Wedding</option>
+                    <option value="home-renovation">Home Renovation</option>
+                    <option value="debt-consolidation">Debt Consolidation</option>
+                    <option value="other">Other</option>
+                  </select>
+                </div>
+
+                <div className="pnb-form-field">
+                  <label className="pnb-form-label">Loan Amount *</label>
+                  <input
+                    type="text"
+                    name="loanAmount"
+                    value={formData.loanAmount}
+                    onChange={handleChange}
+                    className="pnb-form-input"
+                    placeholder="Enter loan amount"
+                    required
+                  />
+                </div>
+
+                <div className="pnb-form-field">
+                  <label className="pnb-form-label">Gender *</label>
+                  <select
+                    name="gender"
+                    value={formData.gender}
+                    onChange={handleChange}
+                    className="pnb-form-select"
+                    required
+                  >
+                    <option value="">- SELECT -</option>
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="other">Other</option>
+                  </select>
+                </div>
+
+                <div className="pnb-form-field">
+                  <label className="pnb-form-label">Marital Status *</label>
+                  <select
+                    name="maritalStatus"
+                    value={formData.maritalStatus}
+                    onChange={handleChange}
+                    className="pnb-form-select"
+                    required
+                  >
+                    <option value="">- SELECT -</option>
+                    <option value="single">Single</option>
+                    <option value="married">Married</option>
+                    <option value="divorced">Divorced</option>
+                    <option value="widowed">Widowed</option>
+                  </select>
+                </div>
+
+                <div className="pnb-form-field">
+                  <label className="pnb-form-label">Mobile No *</label>
+                  <div className="pnb-mobile-wrapper">
+                    <input
+                      type="tel"
+                      name="mobileNumber"
+                      value={formData.mobileNumber}
+                      onChange={handleChange}
+                      className="pnb-form-input"
+                      placeholder="Enter mobile number"
+                      maxLength={10}
+                      required
+                    />
+                    <button type="button" className="pnb-verify-button">Verify</button>
+                  </div>
+                </div>
+
+                <div className="pnb-form-field">
+                  <label className="pnb-form-label">Email *</label>
+                  <input
+                    type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    className="pnb-form-input"
+                    placeholder="Enter email address"
+                    required
+                  />
+                  <a href="#" className="pnb-privacy-link">Privacy policy</a>
+                </div>
+              </div>
+
+              {/* Right Column */}
+              <div className="pnb-form-column">
+                <div className="pnb-form-field">
+                  <label className="pnb-form-label">Loan Type *</label>
+                  <input
+                    type="text"
+                    value="PERSONAL LOAN"
+                    className="pnb-form-input pnb-readonly"
+                    readOnly
+                  />
+                </div>
+
+                <div className="pnb-form-field">
+                  <label className="pnb-form-label">Name *</label>
+                  <input
+                    type="text"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    className="pnb-form-input"
+                    placeholder="Enter full name"
+                    required
+                  />
+                </div>
+
+                <div className="pnb-form-field">
+                  <label className="pnb-form-label">Date of Birth *</label>
+                  <input
+                    type="text"
+                    name="dob"
+                    value={`${formData.day || 'DD'}/${formData.month || 'MM'}/${formData.year || 'YYYY'}`}
+                    onChange={(e) => {
+                      const value = e.target.value.replace(/\D/g, '')
+                      if (value.length <= 8) {
+                        const day = value.slice(0, 2)
+                        const month = value.slice(2, 4)
+                        const year = value.slice(4, 8)
+                        handleChange({ target: { name: 'day', value: day } } as any)
+                        handleChange({ target: { name: 'month', value: month } } as any)
+                        handleChange({ target: { name: 'year', value: year } } as any)
+                      }
+                    }}
+                    className="pnb-form-input"
+                    placeholder="DD/MM/YYYY"
+                    maxLength={10}
+                    required
+                  />
+                </div>
+
+                <div className="pnb-form-field">
+                  <label className="pnb-form-label">Residential Status *</label>
+                  <select
+                    name="residentialStatus"
+                    value={formData.residentialStatus}
+                    onChange={handleChange}
+                    className="pnb-form-select"
+                    required
+                  >
+                    <option value="">- SELECT -</option>
+                    <option value="resident-indian">Resident Indian</option>
+                    <option value="nri">NRI</option>
+                    <option value="pio">PIO</option>
+                  </select>
+                </div>
+
+                <div className="pnb-form-field">
+                  <label className="pnb-form-label">
+                    <input
+                      type="checkbox"
+                      name="consentPersonalData"
+                      checked={formData.consentPersonalData}
+                      onChange={handleChange}
+                      required
+                    />
+                    <span className="pnb-consent-text">
+                      I authorise PNB and its representatives to call me or sms me with reference to my application, this consent will override any registration for dnd/ndnc. I have read and acknowledged pnb bank's data privacy notice
+                    </span>
+                  </label>
+                </div>
+
+                <div className="pnb-form-field">
+                  <label className="pnb-form-label">PAN No *</label>
+                  <input
+                    type="text"
+                    name="panNo"
+                    value={formData.panNo}
+                    onChange={handleChange}
+                    className="pnb-form-input"
+                    placeholder="Enter PAN number"
+                    maxLength={10}
+                    required
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {activePrimaryTab === 'personal' && activeSecondaryTab === 'address' && (
+          <div className="pnb-form-content">
+            <div className="pnb-address-section">
+              <div className="pnb-address-column">
+                <h3 className="pnb-address-title">Permanent Address</h3>
+                <label className="pnb-checkbox-label">
+                  <input
+                    type="checkbox"
+                    name="sameAsPresentAddress"
+                    checked={formData.sameAsPresentAddress}
+                    onChange={handleChange}
+                  />
+                  <span>Same as Present address</span>
+                </label>
+                <div className="pnb-form-field">
+                  <label className="pnb-form-label">Address Line 1 *</label>
+                  <input
+                    type="text"
+                    name="permanentAddressLine1"
+                    value={formData.permanentAddressLine1}
+                    onChange={handleChange}
+                    className="pnb-form-input"
+                    required
+                  />
+                </div>
+                <div className="pnb-form-field">
+                  <label className="pnb-form-label">Address Line 2 *</label>
+                  <input
+                    type="text"
+                    name="permanentAddressLine2"
+                    value={formData.permanentAddressLine2}
+                    onChange={handleChange}
+                    className="pnb-form-input"
+                    required
+                  />
+                </div>
+                <div className="pnb-form-field">
+                  <label className="pnb-form-label">District *</label>
+                  <input
+                    type="text"
+                    name="permanentDistrict"
+                    value={formData.permanentDistrict}
+                    onChange={handleChange}
+                    className="pnb-form-input"
+                    required
+                  />
+                </div>
+                <div className="pnb-form-field">
+                  <label className="pnb-form-label">City *</label>
+                  <input
+                    type="text"
+                    name="permanentCity"
+                    value={formData.permanentCity}
+                    onChange={handleChange}
+                    className="pnb-form-input"
+                    required
+                  />
+                </div>
+                <div className="pnb-form-field">
+                  <label className="pnb-form-label">State *</label>
+                  <input
+                    type="text"
+                    name="permanentState"
+                    value={formData.permanentState}
+                    onChange={handleChange}
+                    className="pnb-form-input"
+                    required
+                  />
+                </div>
+                <div className="pnb-form-field">
+                  <label className="pnb-form-label">Pincode *</label>
+                  <input
+                    type="text"
+                    name="permanentPincode"
+                    value={formData.permanentPincode}
+                    onChange={handleChange}
+                    className="pnb-form-input"
+                    maxLength={6}
+                    required
+                  />
+                </div>
+              </div>
+
+              <div className="pnb-address-column">
+                <h3 className="pnb-address-title">Present Address</h3>
+                <label className="pnb-checkbox-label">
+                  <input
+                    type="checkbox"
+                    name="sameAsPermanentAddress"
+                    checked={formData.sameAsPermanentAddress}
+                    onChange={handleChange}
+                  />
+                  <span>Same as Permanent address</span>
+                </label>
+                <div className="pnb-form-field">
+                  <label className="pnb-form-label">Address Line 1 *</label>
+                  <input
+                    type="text"
+                    name="presentAddressLine1"
+                    value={formData.presentAddressLine1}
+                    onChange={handleChange}
+                    className="pnb-form-input"
+                    required
+                  />
+                </div>
+                <div className="pnb-form-field">
+                  <label className="pnb-form-label">Address Line 2 *</label>
+                  <input
+                    type="text"
+                    name="presentAddressLine2"
+                    value={formData.presentAddressLine2}
+                    onChange={handleChange}
+                    className="pnb-form-input"
+                    required
+                  />
+                </div>
+                <div className="pnb-form-field">
+                  <label className="pnb-form-label">District *</label>
+                  <input
+                    type="text"
+                    name="presentDistrict"
+                    value={formData.presentDistrict}
+                    onChange={handleChange}
+                    className="pnb-form-input"
+                    required
+                  />
+                </div>
+                <div className="pnb-form-field">
+                  <label className="pnb-form-label">City *</label>
+                  <input
+                    type="text"
+                    name="presentCity"
+                    value={formData.presentCity}
+                    onChange={handleChange}
+                    className="pnb-form-input"
+                    required
+                  />
+                </div>
+                <div className="pnb-form-field">
+                  <label className="pnb-form-label">State *</label>
+                  <input
+                    type="text"
+                    name="presentState"
+                    value={formData.presentState}
+                    onChange={handleChange}
+                    className="pnb-form-input"
+                    required
+                  />
+                </div>
+                <div className="pnb-form-field">
+                  <label className="pnb-form-label">Pincode *</label>
+                  <input
+                    type="text"
+                    name="presentPincode"
+                    value={formData.presentPincode}
+                    onChange={handleChange}
+                    className="pnb-form-input"
+                    maxLength={6}
+                    required
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {activePrimaryTab === 'employment' && (
+          <div className="pnb-form-content">
+            <p className="pnb-placeholder-text">Employment Details section - To be implemented</p>
+          </div>
+        )}
+
+        {activePrimaryTab === 'asset' && (
+          <div className="pnb-form-content">
+            <p className="pnb-placeholder-text">Asset Details section - To be implemented</p>
+          </div>
+        )}
+
+        <div className="pnb-form-actions">
+          <button
+            type="submit"
+            className={`pnb-submit-button ${!canProceed ? 'disabled' : ''}`}
+            disabled={!canProceed || isSubmitting}
+          >
+            {isSubmitting ? 'Submitting...' : 'Submit'}
+          </button>
+        </div>
+      </form>
     </div>
   )
 }
