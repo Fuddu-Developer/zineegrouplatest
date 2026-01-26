@@ -1,6 +1,7 @@
 'use client'
 
 import { useState, useCallback, useEffect } from 'react'
+import Image from 'next/image'
 
 interface Bank {
   id: string
@@ -27,21 +28,23 @@ interface LoanCalculatorProps {
 
 const defaultBanks: Bank[] = [
   {
-    id: 'hdfc',
-    name: 'HDFC Bank',
+    id: 'canara',
+    name: 'Canara Bank',
+    logo: '/assets/images/CB.png',
     interestRate: 10.5,
-    processingFee: 'Up to 2.5% of loan amount',
+    processingFee: 'Up to 2% of loan amount',
     minAmount: 50000,
-    maxAmount: 40000000,
+    maxAmount: 30000000,
     minTenure: 1,
     maxTenure: 5,
-    maxLoanAmount: 40000000,
+    maxLoanAmount: 30000000,
     eligibility: ['Salaried & Self-employed', 'Age: 21-60 years', 'Min Income: ₹15,000/month'],
-    features: ['Quick approval', 'Flexible tenure', 'No prepayment charges', 'Online application'],
+    features: ['Government bank', 'Competitive rates', 'Flexible tenure', 'Trusted service'],
   },
   {
     id: 'axis',
     name: 'Axis Bank',
+    logo: '/assets/images/AX.png',
     interestRate: 10.49,
     processingFee: 'Up to 2% of loan amount',
     minAmount: 50000,
@@ -53,8 +56,23 @@ const defaultBanks: Bank[] = [
     features: ['Instant approval', 'Zero foreclosure charges', 'Flexible EMI options', 'Digital process'],
   },
   {
+    id: 'hdfc',
+    name: 'HDFC Bank',
+    logo: '/assets/images/HDFC.png',
+    interestRate: 10.5,
+    processingFee: 'Up to 2.5% of loan amount',
+    minAmount: 50000,
+    maxAmount: 40000000,
+    minTenure: 1,
+    maxTenure: 5,
+    maxLoanAmount: 40000000,
+    eligibility: ['Salaried & Self-employed', 'Age: 21-60 years', 'Min Income: ₹15,000/month'],
+    features: ['Quick approval', 'Flexible tenure', 'No prepayment charges', 'Online application'],
+  },
+  {
     id: 'kotak',
     name: 'Kotak Mahindra Bank',
+    logo: '/assets/images/Kotak-1.png',
     interestRate: 10.99,
     processingFee: 'Up to 2.5% of loan amount',
     minAmount: 50000,
@@ -66,60 +84,9 @@ const defaultBanks: Bank[] = [
     features: ['Fast processing', 'Competitive rates', 'No hidden charges', 'Easy documentation'],
   },
   {
-    id: 'idfc',
-    name: 'IDFC FIRST Bank',
-    interestRate: 10.25,
-    processingFee: 'Up to 3% of loan amount',
-    minAmount: 50000,
-    maxAmount: 40000000,
-    minTenure: 1,
-    maxTenure: 5,
-    maxLoanAmount: 40000000,
-    eligibility: ['Salaried & Self-employed', 'Age: 23-60 years', 'Min Income: ₹15,000/month'],
-    features: ['Low interest rates', 'Quick disbursal', 'Flexible repayment', 'Online approval'],
-  },
-  {
-    id: 'sbi',
-    name: 'SBI Bank',
-    interestRate: 10.75,
-    processingFee: 'Up to 1% of loan amount',
-    minAmount: 50000,
-    maxAmount: 20000000,
-    minTenure: 1,
-    maxTenure: 5,
-    maxLoanAmount: 20000000,
-    eligibility: ['Salaried & Self-employed', 'Age: 21-58 years', 'Min Income: ₹15,000/month'],
-    features: ['Low processing fee', 'Trusted bank', 'Flexible tenure', 'Easy application'],
-  },
-  {
-    id: 'icici',
-    name: 'ICICI Bank',
-    interestRate: 10.75,
-    processingFee: 'Up to 2.25% of loan amount',
-    minAmount: 50000,
-    maxAmount: 50000000,
-    minTenure: 1,
-    maxTenure: 5,
-    maxLoanAmount: 50000000,
-    eligibility: ['Salaried & Self-employed', 'Age: 21-60 years', 'Min Income: ₹15,000/month'],
-    features: ['High loan amount', 'Quick approval', 'Flexible EMI', 'Digital process'],
-  },
-  {
-    id: 'bob',
-    name: 'Bank of Baroda',
-    interestRate: 10.50,
-    processingFee: 'Up to 2% of loan amount',
-    minAmount: 50000,
-    maxAmount: 30000000,
-    minTenure: 1,
-    maxTenure: 5,
-    maxLoanAmount: 30000000,
-    eligibility: ['Salaried & Self-employed', 'Age: 21-60 years', 'Min Income: ₹15,000/month'],
-    features: ['Competitive rates', 'Quick processing', 'Flexible terms', 'Easy documentation'],
-  },
-  {
     id: 'pnb',
     name: 'Punjab National Bank',
+    logo: '/assets/images/PNB.png',
     interestRate: 10.85,
     processingFee: 'Up to 1.5% of loan amount',
     minAmount: 50000,
@@ -129,6 +96,20 @@ const defaultBanks: Bank[] = [
     maxLoanAmount: 20000000,
     eligibility: ['Salaried & Self-employed', 'Age: 21-58 years', 'Min Income: ₹15,000/month'],
     features: ['Low processing fee', 'Government bank', 'Flexible repayment', 'Trusted service'],
+  },
+  {
+    id: 'bob',
+    name: 'Bank of Baroda',
+    logo: '/assets/images/BOB.png',
+    interestRate: 10.50,
+    processingFee: 'Up to 2% of loan amount',
+    minAmount: 50000,
+    maxAmount: 30000000,
+    minTenure: 1,
+    maxTenure: 5,
+    maxLoanAmount: 30000000,
+    eligibility: ['Salaried & Self-employed', 'Age: 21-60 years', 'Min Income: ₹15,000/month'],
+    features: ['Competitive rates', 'Quick processing', 'Flexible terms', 'Easy documentation'],
   },
 ]
 
@@ -236,7 +217,17 @@ export default function LoanCalculator({
                   type="button"
                 >
                   <div className="bank-option-content">
-                    <span className="bank-name">{bank.name}</span>
+                    {bank.logo && (
+                      <div className="bank-logo-container">
+                        <Image
+                          src={bank.logo}
+                          alt={bank.name}
+                          width={120}
+                          height={90}
+                          className="bank-logo"
+                        />
+                      </div>
+                    )}
                     <span className="bank-rate">{bank.interestRate}% p.a.</span>
                   </div>
                 </button>
@@ -255,7 +246,18 @@ export default function LoanCalculator({
                   </div>
                   {sortedBanks.map((bank) => (
                     <div key={bank.id} className={`comparison-row ${selectedBank === bank.id ? 'selected' : ''}`}>
-                      <div className="comparison-bank-name">{bank.name}</div>
+                      <div className="comparison-bank-name">
+                        {bank.logo && (
+                          <Image
+                            src={bank.logo}
+                            alt={bank.name}
+                            width={80}
+                            height={60}
+                            className="comparison-bank-logo"
+                          />
+                        )}
+                        <span>{bank.name}</span>
+                      </div>
                       <div className="comparison-rate">{bank.interestRate}%</div>
                       <div className="comparison-fee">{bank.processingFee}</div>
                       <div className="comparison-max">{formatCurrency(bank.maxLoanAmount)}</div>
@@ -410,8 +412,21 @@ export default function LoanCalculator({
         {/* Right Section: EMI Summary */}
         <div className="emi-summary">
           <div className="selected-bank-header">
-            <h4 className="selected-bank-name">{selectedBankData.name}</h4>
-            <span className="selected-bank-rate">{interestRate}% p.a.</span>
+            {selectedBankData.logo && (
+              <div className="selected-bank-logo-container">
+                <Image
+                  src={selectedBankData.logo}
+                  alt={selectedBankData.name}
+                  width={140}
+                  height={105}
+                  className="selected-bank-logo"
+                />
+              </div>
+            )}
+            <div className="selected-bank-info">
+              <h4 className="selected-bank-name">{selectedBankData.name}</h4>
+              <span className="selected-bank-rate">{interestRate}% p.a.</span>
+            </div>
           </div>
           <h3 className="emi-title">Your Monthly EMI Payment</h3>
           <div className="emi-amount">{formatCurrency(emi)}</div>
