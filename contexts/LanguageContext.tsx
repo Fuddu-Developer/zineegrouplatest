@@ -30,9 +30,7 @@ const translations = {
     
     // Hero
     'hero.title': 'Providing the best future for your best living.',
-    'hero.highlight': 'best future',
-    'hero.highlight2': 'best living',
-    'hero.button': 'Learn More →',
+    'hero.highlight': 'best',
     
     // Features
     'features.personalPrivacy': 'Personal Privacy',
@@ -56,6 +54,9 @@ const translations = {
     'carousel.balanceTransfer': 'Balance Transfer',
     'carousel.balanceTransferDesc': 'Transfer your existing loan to us and save on interest rates with better terms and conditions.',
     'carousel.applyNow': 'Apply Now',
+    
+    // Loan Tiles Section
+    'loanTiles.title': 'Our Loan Products',
     
     // Trust Section
     'trust.title': 'Trust with',
@@ -195,9 +196,7 @@ const translations = {
     
     // Hero
     'hero.title': 'आपके सर्वोत्तम जीवन के लिए सर्वोत्तम भविष्य प्रदान करना।',
-    'hero.highlight': 'सर्वोत्तम भविष्य',
-    'hero.highlight2': 'सर्वोत्तम जीवन',
-    'hero.button': 'और जानें →',
+    'hero.highlight': 'सर्वोत्तम',
     
     // Features
     'features.personalPrivacy': 'व्यक्तिगत गोपनीयता',
@@ -221,6 +220,9 @@ const translations = {
     'carousel.balanceTransfer': 'बैलेंस ट्रांसफर',
     'carousel.balanceTransferDesc': 'अपने मौजूदा ऋण को हमारे पास स्थानांतरित करें और बेहतर शर्तों और शर्तों के साथ ब्याज दरों पर बचत करें।',
     'carousel.applyNow': 'अभी आवेदन करें',
+    
+    // Loan Tiles Section
+    'loanTiles.title': 'हमारे ऋण उत्पाद',
     
     // Trust Section
     'trust.title': 'विश्वास के साथ',

@@ -4,38 +4,45 @@ import { useLanguage } from '@/contexts/LanguageContext'
 
 export default function Hero() {
   const { t } = useLanguage()
-  
-  const handleLearnMore = () => {
-    const carousel = document.querySelector('.flip-carousel-section')
-    if (carousel) {
-      carousel.scrollIntoView({ behavior: 'smooth', block: 'start' })
-    }
-  }
 
   const title = t('hero.title')
-  const highlight1 = t('hero.highlight')
-  const highlight2 = t('hero.highlight2')
+  const highlight = t('hero.highlight')
   
-  // Split title to insert highlights
-  const parts = title.split(highlight1)
-  const firstPart = parts[0]
-  const rest = parts[1] || ''
-  const secondParts = rest.split(highlight2)
-  const middlePart = secondParts[0] || ''
-  const lastPart = secondParts[1] || ''
+  // Capitalize the first letter of the highlight text
+  const capitalizedHighlight = highlight.charAt(0).toUpperCase() + highlight.slice(1)
+  
+  // Split title to insert highlights for both instances of "best"
+  // Title: "Providing the best future for your best living."
+  // Should display as:
+  // Line 1: "Providing the best future"
+  // Line 2: "for your best living."
+  
+  const parts = title.split(highlight)
+  // parts[0] = "Providing the "
+  // parts[1] = " future for your "
+  // parts[2] = " living."
+  
+  const beforeFirstBest = parts[0] // "Providing the "
+  const betweenBests = parts[1] || '' // " future for your "
+  const afterSecondBest = parts[2] || '' // " living."
+  
+  // Split betweenBests at " future " to get the line break
+  const middleParts = betweenBests.split(' future ')
+  const firstLineEnd = middleParts[0] || '' // ""
+  const secondLineStart = middleParts[1] || '' // "for your "
 
   return (
     <div className="hero-section" id="home">
       <h1>
-        {firstPart}
-        <span className="highlight">{highlight1}</span>
-        {middlePart}
-        <span className="highlight">{highlight2}</span>
-        {lastPart}
+        {beforeFirstBest}
+        <span className="highlight">{capitalizedHighlight}</span>
+        {firstLineEnd}
+        {firstLineEnd === '' && ' future'}
+        <br />
+        {secondLineStart}
+        <span className="highlight">{capitalizedHighlight}</span>
+        {afterSecondBest}
       </h1>
-      <button className="btn-learn-more" onClick={handleLearnMore}>
-        {t('hero.button')}
-      </button>
     </div>
   )
 }

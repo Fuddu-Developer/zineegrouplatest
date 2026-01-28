@@ -18,12 +18,10 @@ export default function Footer() {
                   src="/assets/images/Logo-Helloans.png" 
                   alt="Helloans Logo" 
                   className="footer-logo-img"
-                  width={40}
-                  height={40}
+                  width={80}
+                  height={80}
                 />
                 <div className="logo-text">
-                  <div className="logo-group">ZINEE GROUP</div>
-                  <div className="logo-helloans">HELLOANS</div>
                 </div>
               </div>
               <div className="logo-tagline">{t('footer.tagline')}</div>

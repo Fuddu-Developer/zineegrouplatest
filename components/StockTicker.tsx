@@ -2,34 +2,40 @@
 
 import { useEffect, useState } from 'react'
 
-interface Stock {
-  symbol: string
-  price: number
-  change: number
-  changePercent: number
+interface BankLoan {
+  bank: string
+  loanType: string
+  roi: number
+}
+
+interface TickerItem {
+  type: 'bank' | 'loan'
+  bank?: string
+  loanType?: string
+  roi?: number
 }
 
 export default function StockTicker() {
-  const [stocks, setStocks] = useState<Stock[]>([])
+  const [bankLoans, setBankLoans] = useState<BankLoan[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
-  const fetchStocks = async () => {
+  const fetchBankLoans = async () => {
     try {
       const response = await fetch('/api/stocks')
       if (!response.ok) {
-        throw new Error('Failed to fetch stock data')
+        throw new Error('Failed to fetch bank loan data')
       }
       const data = await response.json()
       if (data.stocks && Array.isArray(data.stocks)) {
-        setStocks(data.stocks)
+        setBankLoans(data.stocks)
         setError(null)
       } else {
-        throw new Error('Invalid stock data format')
+        throw new Error('Invalid bank loan data format')
       }
     } catch (err: any) {
-      console.error('Error fetching stocks:', err)
-      setError(err.message || 'Failed to load stock data')
+      console.error('Error fetching bank loans:', err)
+      setError(err.message || 'Failed to load bank loan data')
       // Keep previous data on error to avoid flickering
     } finally {
       setIsLoading(false)
@@ -38,67 +44,112 @@ export default function StockTicker() {
 
   useEffect(() => {
     // Fetch immediately on mount
-    fetchStocks()
+    fetchBankLoans()
 
-    // Set up polling every 30 seconds (adjust based on your API rate limits)
-    const interval = setInterval(fetchStocks, 30000)
+    // Set up polling every 30 seconds to update ROIs
+    const interval = setInterval(fetchBankLoans, 30000)
 
     return () => clearInterval(interval)
   }, [])
 
-  const formatPrice = (price: number) => {
-    return price.toFixed(2)
+  const formatROI = (roi: number) => {
+    return `${roi.toFixed(2)}%`
   }
 
-  const formatChange = (change: number) => {
-    const sign = change >= 0 ? '+' : ''
-    return `${sign}${change.toFixed(2)}`
+  // Group loans by bank and create ticker items
+  const createTickerItems = (): TickerItem[] => {
+    const items: TickerItem[] = []
+    const groupedByBank: { [key: string]: BankLoan[] } = {}
+
+    // Group loans by bank
+    bankLoans.forEach((loan) => {
+      if (!groupedByBank[loan.bank]) {
+        groupedByBank[loan.bank] = []
+      }
+      groupedByBank[loan.bank].push(loan)
+    })
+
+    // Create ticker items: bank name first, then all its loans
+    Object.entries(groupedByBank).forEach(([bank, loans]) => {
+      // Add bank name item
+      items.push({ type: 'bank', bank })
+      // Add all loan items for this bank
+      loans.forEach((loan) => {
+        items.push({
+          type: 'loan',
+          bank: loan.bank,
+          loanType: loan.loanType,
+          roi: loan.roi,
+        })
+      })
+    })
+
+    return items
   }
 
-  const formatChangePercent = (percent: number) => {
-    const sign = percent >= 0 ? '+' : ''
-    return `${sign}${percent.toFixed(2)}%`
-  }
-
-  // Don't render if there's an error and no stocks
-  if (isLoading && stocks.length === 0) {
+  // Don't render if there's an error and no bank loans
+  if (isLoading && bankLoans.length === 0) {
     return (
       <div className="stock-ticker">
         <div className="stock-ticker-content">
           <div className="stock-ticker-item">
-            <span className="stock-loading">Loading stock data...</span>
+            <span className="stock-loading">Loading bank loan rates...</span>
           </div>
         </div>
       </div>
     )
   }
 
-  if (error && stocks.length === 0) {
+  if (error && bankLoans.length === 0) {
     return null // Don't show ticker if there's an error and no data
   }
+
+  const tickerItems = createTickerItems()
 
   return (
     <div className="stock-ticker">
       <div className="stock-ticker-content">
-        {stocks.map((stock, index) => (
-          <div key={`${stock.symbol}-${index}`} className="stock-ticker-item">
-            <span className="stock-symbol">{stock.symbol}</span>
-            <span className="stock-price">${formatPrice(stock.price)}</span>
-            <span className={`stock-change ${stock.change >= 0 ? 'positive' : 'negative'}`}>
-              {formatChange(stock.change)} ({formatChangePercent(stock.changePercent)})
-            </span>
-          </div>
-        ))}
+        {tickerItems.map((item, index) => {
+          if (item.type === 'bank') {
+            return (
+              <div key={`bank-${item.bank}-${index}`} className="stock-ticker-item">
+                <span className="stock-symbol" style={{ fontSize: '14px', fontWeight: '700' }}>
+                  {item.bank}
+                </span>
+              </div>
+            )
+          } else {
+            return (
+              <div key={`loan-${item.bank}-${item.loanType}-${index}`} className="stock-ticker-item">
+                <span className="stock-price">{item.loanType}</span>
+                <span className="stock-change positive">
+                  ROI: {formatROI(item.roi!)}
+                </span>
+              </div>
+            )
+          }
+        })}
         {/* Duplicate items for seamless scrolling effect */}
-        {stocks.map((stock, index) => (
-          <div key={`${stock.symbol}-${index}-dup`} className="stock-ticker-item">
-            <span className="stock-symbol">{stock.symbol}</span>
-            <span className="stock-price">${formatPrice(stock.price)}</span>
-            <span className={`stock-change ${stock.change >= 0 ? 'positive' : 'negative'}`}>
-              {formatChange(stock.change)} ({formatChangePercent(stock.changePercent)})
-            </span>
-          </div>
-        ))}
+        {tickerItems.map((item, index) => {
+          if (item.type === 'bank') {
+            return (
+              <div key={`bank-${item.bank}-${index}-dup`} className="stock-ticker-item">
+                <span className="stock-symbol" style={{ fontSize: '14px', fontWeight: '700' }}>
+                  {item.bank}
+                </span>
+              </div>
+            )
+          } else {
+            return (
+              <div key={`loan-${item.bank}-${item.loanType}-${index}-dup`} className="stock-ticker-item">
+                <span className="stock-price">{item.loanType}</span>
+                <span className="stock-change positive">
+                  ROI: {formatROI(item.roi!)}
+                </span>
+              </div>
+            )
+          }
+        })}
       </div>
     </div>
   )

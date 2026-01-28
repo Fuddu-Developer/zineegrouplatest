@@ -820,6 +820,15 @@ html[lang="hi"] .btn-call-label {
     .btn-call-wrapper:hover .btn-call-popup {
         transform: translateX(-50%) translateY(0);
     }
+
+    .hero-section h1 {
+        font-size: 36px;
+    }
+
+    .hero-features {
+        flex-direction: column;
+        gap: 24px;
+    }
 }
 
 .btn-call-wrapper:hover .btn-call-popup {
@@ -928,45 +937,70 @@ html[lang="hi"] .btn-call-label {
     padding: 0 20px;
 }
 
+/* Hero and Carousel Container */
+.hero-carousel-container {
+    display: flex;
+    gap: 30px;
+    align-items: flex-start;
+    margin-bottom: 60px;
+    flex-wrap: wrap;
+}
+
+@media (min-width: 1024px) {
+    .hero-carousel-container {
+        flex-wrap: nowrap;
+    }
+}
+
 /* Hero Section */
 .hero-section {
     position: relative;
     overflow: hidden;
-    background: radial-gradient(circle at top left, rgba(59, 130, 246, 0.85), rgba(37, 99, 235, 0.95))
-        no-repeat;
-    background-size: 160% 160%;
-    color: #eff6ff;
-    padding: 90px 50px 80px;
+    background: transparent;
+    color: #475569;
+    padding: 60px 30px 50px;
     border-radius: 24px;
-    margin-bottom: 60px;
-    text-align: center;
-    box-shadow: 0 24px 60px rgba(15, 23, 42, 0.35);
-    transform-origin: center;
-    animation: heroGlow 18s ease-in-out infinite alternate;
+    text-align: left;
+    height: 280px;
+    width: 100%;
+    max-width: 500px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex-shrink: 0;
 }
 
 .hero-section h1 {
+    padding-bottom: 0;
     font-family: var(--font-poppins), sans-serif;
-    font-size: 52px;
-    font-weight: 700;
-    margin-bottom: 32px;
-    line-height: 1.2;
-    color: #f9fafb;
+    font-size: 42px;
+    font-weight: 400;
+    margin-bottom: 0;
+    line-height: 1.3;
+    color: #475569;
     letter-spacing: -0.5px;
-    text-shadow: 0 10px 30px rgba(15, 23, 42, 0.45);
+    width: 100%;
+    max-width: 500px;
 }
 
 .hero-section h1 .highlight {
-    position: relative;
-    background: linear-gradient(135deg, #93C5FD 0%, #BFDBFE 30%, #FFFFFF 30%, #BFDBFE 70%, #93C5FD 100%);
-    background-size: 250% 100%;
+    background: linear-gradient(90deg, #1e40af 0%, #1e40af 25%, #3b82f6 50%, #93c5fd 85%, #1e40af 100%);
+    background-size: 300% 100%;
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
     color: transparent;
-    z-index: 1;
-    animation: gradient-shift 1.25s ease infinite;
     font-weight: 700;
+    animation: gradientRun 5s linear infinite;
+}
+
+@keyframes gradientRun {
+    0% {
+        background-position: 0% 50%;
+    }
+    100% {
+        background-position: 300% 50%;
+    }
 }
 
 .btn-learn-more {
@@ -1053,21 +1087,138 @@ html[lang="hi"] .btn-call-label {
     filter: blur(0) !important;
 }
 
-/* Carousel Section - Exact match to your example */
-.flip-carousel-section {
-    margin: 80px 0;
-    padding: 60px 0;
-    min-height: 550px;
+/* Loan Tiles Section - Insurance tile style */
+.loan-tiles-section {
+    margin: 30px 0 20px;
+    padding: 20px 0;
+}
+
+.loan-tiles-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.loan-tiles-header {
+    max-width: 1400px;
+    margin: 0 auto 40px;
+    padding: 0 20px;
+    text-align: center;
+}
+
+.loan-tiles-title {
+    font-family: var(--font-poppins), sans-serif;
+    color: #1e293b;
+    font-size: 36px;
+    font-weight: 600;
+    margin: 0;
+    display: inline-block;
+    position: relative;
+}
+
+.loan-tiles-title::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 3px;
+    background: linear-gradient(90deg, #a78bfa 0%, #c4b5fd 100%);
+    border-radius: 2px;
+}
+
+.loan-tiles-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 20px;
+    justify-items: center;
+}
+
+@media (max-width: 1200px) {
+    .loan-tiles-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+.loan-tile {
+    position: relative;
+    width: 100%;
+    max-width: 180px;
+    height: 220px;
+    border-radius: 20px;
+    border: 2px solid;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 30px 20px 25px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    overflow: hidden;
+    cursor: pointer;
+}
+
+.loan-tile:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.loan-tile-icon-wrapper {
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-bottom: 20px;
+    flex-shrink: 0;
+}
+
+.loan-tile-icon-circle {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    background-color: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+}
+
+.loan-tile-icon-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
+}
+
+.loan-tile-label {
+    font-family: var(--font-poppins), sans-serif;
+    color: #1e293b;
+    font-size: 15px;
+    font-weight: 700;
+    text-align: center;
+    line-height: 1.3;
+    margin: 0;
+    padding: 0 5px;
+}
+
+/* Carousel Section - Exact match to your example */
+.flip-carousel-section {
+    margin: 0;
+    padding: 0;
+    min-height: 280px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    min-width: 0;
 }
 
 .carousel-container {
     position: relative;
     width: 100%;
-    max-width: 1400px;
-    height: 450px;
+    max-width: 100%;
+    height: 280px;
     background: #eef2ff;
     box-shadow: 0 30px 50px rgba(0, 0, 0, 0.1);
     border-radius: 20px;
@@ -1164,38 +1315,73 @@ html[lang="hi"] .btn-call-label {
     flex-direction: row;
     align-items: center;
     justify-content: flex-start;
-    overflow: hidden;
+    overflow: visible;
 }
 
+/* Base image styles for items 1 and 2 - images positioned on the right */
 .slide .item:nth-child(1) .service-image,
 .slide .item:nth-child(2) .service-image {
     position: absolute;
     top: 10%;
-    left: 27%;
-    width: 48%;
-    height: 85%;
+    right: 0;
+    left: auto;
+    width: 55%;
+    height: 90%;
     object-fit: contain;
-    object-position: left center;
+    object-position: right center;
     background: transparent;
     z-index: 20;
-    padding: 40px;
+    padding: 30px;
+}
+
+/* Hide preview images on all items except the main visible one (item 2) */
+.slide .item:nth-child(1) .service-image,
+.slide .item:nth-child(3) .service-image,
+.slide .item:nth-child(4) .service-image,
+.slide .item:nth-child(5) .service-image,
+.slide .item:nth-child(6) .service-image {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+}
+
+/* Adjust main visible image on 2nd item only - positioned on the right */
+.slide .item:nth-child(2) .service-image {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    left: auto;
+    transform: translateY(-50%);
+    width: 52%;
+    height: auto;
+    max-height: 85%;
+    object-fit: contain;
+    object-position: center center;
+    padding: 25px;
+    z-index: 20;
 }
 
 /* Content positioning for main visible cards (items 1 and 2) */
 .slide .item:nth-child(1) .content,
 .slide .item:nth-child(2) .content {
     position: absolute;
-    top: 35%;
+    top: 0;
     left: 0;
-    width: 45%;
-    transform: translateY(-50%);
+    width: 48%;
+    height: 100%;
+    transform: none;
     z-index: 2;
     background: rgba(238, 242, 255, 0.75);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    padding: 40px;
-    border-radius: 16px;
+    padding: 30px 35px;
+    border-radius: 16px 0 0 16px;
     overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    box-sizing: border-box;
 }
 
 /* Hide content on 1st item (leftmost small card) */
@@ -1205,14 +1391,14 @@ html[lang="hi"] .btn-call-label {
     visibility: hidden !important;
 }
 
-/* Blur overlay for image area behind text */
+/* Blur overlay for image area behind text - now on the right side */
 .slide .item:nth-child(1)::before,
 .slide .item:nth-child(2)::before {
     content: '';
     position: absolute;
     top: 0;
-    left: 0;
-    width: 45%;
+    right: 0;
+    width: 52%;
     height: 100%;
     background: rgba(238, 242, 255, 0.3);
     backdrop-filter: blur(15px);
@@ -1249,6 +1435,27 @@ html[lang="hi"] .btn-call-label {
     opacity: 0;
 }
 
+/* Hide all preview tiles - only show the main visible tile (item 2) */
+.slide .item:nth-child(1),
+.slide .item:nth-child(3),
+.slide .item:nth-child(4),
+.slide .item:nth-child(5),
+.slide .item:nth-child(6),
+.slide .item:nth-child(n + 6) {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+}
+
+/* Ensure main visible tile (item 2) is displayed */
+.slide .item:nth-child(2) {
+    display: flex !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+}
+
 /* Content overlay - only visible on 2nd item */
 .item .content {
     position: absolute;
@@ -1277,31 +1484,53 @@ html[lang="hi"] .btn-call-label {
 }
 
 .content .name {
-    font-size: 36px;
+    font-size: 34px;
     text-transform: capitalize;
     font-weight: 700;
     opacity: 0;
     animation: animate 1s ease-in-out 1 forwards;
     color: #0f172a;
-    margin-bottom: 12px;
+    margin-bottom: 14px;
     letter-spacing: -0.5px;
     text-shadow: 0 2px 4px rgba(255, 255, 255, 0.9);
+    line-height: 1.25;
+    width: 100%;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    max-width: 100%;
 }
 
 .content .des {
     margin-top: 0;
-    margin-bottom: 12px;
+    margin-bottom: 0;
     opacity: 0;
     animation: animate 1s ease-in-out 0.3s 1 forwards;
     color: #0f172a;
-    font-size: 16px;
+    font-size: 15px;
     line-height: 1.6;
     font-weight: 500;
     text-shadow: 0 1px 3px rgba(255, 255, 255, 0.9);
+    width: 100%;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    max-width: 100%;
 }
 
-.content button {
-    padding: 14px 32px;
+/* Carousel Apply Button - positioned below image */
+.carousel-apply-button {
+    position: absolute;
+    bottom: 20px;
+    right: 0;
+    width: 52%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 25;
+    text-decoration: none;
+}
+
+.carousel-apply-button button {
+    padding: 12px 28px;
     border: none;
     cursor: pointer;
     opacity: 0;
@@ -1312,14 +1541,37 @@ html[lang="hi"] .btn-call-label {
     color: #ffffff;
     font-weight: 600;
     font-family: var(--font-poppins), sans-serif;
-    font-size: 16px;
+    font-size: 15px;
     box-shadow: 0 4px 12px rgba(30, 64, 175, 0.3);
+    white-space: nowrap;
+    flex-shrink: 0;
 }
 
-.content button:hover {
+.carousel-apply-button button:hover {
     background-color: #1e3a8a;
     transform: translateY(-2px);
     box-shadow: 0 6px 16px rgba(30, 64, 175, 0.4);
+}
+
+/* Hide button on 1st item (leftmost small card) */
+.slide .item:nth-child(1) .carousel-apply-button {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+}
+
+/* Ensure button is visible on 2nd item (main visible card) */
+.slide .item:nth-child(2) .carousel-apply-button {
+    display: flex !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+}
+
+/* Hide button on all other items */
+.slide .item:not(:nth-child(2)) .carousel-apply-button {
+    display: none !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
 }
 
 @keyframes animate {
@@ -1447,14 +1699,23 @@ html[lang="hi"] .btn-call-label {
     color: #64748b;
 }
 
+/* Carousel Navigation Wrapper */
+.carousel-navigation-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 16px;
+    margin-top: 30px;
+    padding: 0 20px;
+}
+
 /* Carousel Navigation Dots */
 .carousel-dots {
     display: flex;
     justify-content: center;
     align-items: center;
     gap: 12px;
-    margin-top: 30px;
-    padding: 0 20px;
+    padding: 0;
 }
 
 .carousel-dot {
@@ -1496,6 +1757,47 @@ html[lang="hi"] .btn-call-label {
     transform: scale(1.05);
 }
 
+/* Carousel Navigation Buttons */
+.carousel-nav-button {
+    position: relative;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid rgba(30, 64, 175, 0.6);
+    background: rgba(255, 255, 255, 0.9);
+    color: #1e40af;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    outline: none;
+    flex-shrink: 0;
+}
+
+.carousel-nav-button:hover {
+    background: #1e40af;
+    color: white;
+    border-color: #1e40af;
+    transform: scale(1.1);
+    box-shadow: 0 4px 12px rgba(30, 64, 175, 0.3);
+}
+
+.carousel-nav-button:active {
+    transform: scale(1.05);
+}
+
+.carousel-nav-button:focus {
+    outline: 2px solid rgba(30, 64, 175, 0.5);
+    outline-offset: 2px;
+}
+
+.carousel-nav-button svg {
+    width: 24px;
+    height: 24px;
+    stroke-width: 2.5;
+}
 
 /* Products Section */
 .products-section {
@@ -1900,7 +2202,7 @@ html[lang="hi"] .btn-call-label {
 }
 
 .read-all-reviews {
-    background-color: #7c3aed;
+    background-color: #1e40af;
     color: #ffffff;
     font-size: 16px;
     font-weight: 600;
@@ -1914,9 +2216,9 @@ html[lang="hi"] .btn-call-label {
 }
 
 .read-all-reviews:hover {
-    background-color: #6d28d9;
+    background-color: #1e3a8a;
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(124, 58, 237, 0.3);
+    box-shadow: 0 4px 12px rgba(30, 64, 175, 0.3);
 }
 
 .testimonials-grid {
@@ -2010,7 +2312,7 @@ html[lang="hi"] .btn-call-label {
 }
 
 .testimonial-divider {
-    margin-top: 10px;
+    margin-top: 20px;
     margin-bottom: 8px;
     height: 1px;
     width: 100%;
@@ -2324,7 +2626,7 @@ html[lang="hi"] .btn-call-label {
 }
 
 .footer-logo-img {
-    height: 40px;
+    height: 80px;
     width: auto;
     object-fit: contain;
 }
@@ -2524,6 +2826,18 @@ html[lang="hi"] .btn-call-label {
 
     .content-wrapper {
         padding: 0 15px;
+    }
+
+    .hero-carousel-container {
+        gap: 20px;
+    }
+
+    .hero-section {
+        max-width: 45%;
+    }
+
+    .flip-carousel-section {
+        flex: 1;
     }
 
     .main-header .container {
@@ -2796,10 +3110,17 @@ html[lang="hi"] .btn-call-label {
         font-size: 11px;
     }
 
+    .hero-carousel-container {
+        flex-direction: column;
+        gap: 20px;
+    }
+
     .hero-section {
         padding: 60px 30px 50px;
-        margin-bottom: 40px;
+        margin-bottom: 0;
         border-radius: 16px;
+        max-width: 100%;
+        width: 100%;
     }
 
     .hero-section h1 {
@@ -2807,6 +3128,7 @@ html[lang="hi"] .btn-call-label {
         line-height: 1.3;
         margin-bottom: 24px;
         padding: 0 10px;
+        max-width: 100%;
     }
 
     .btn-learn-more {
@@ -2815,22 +3137,81 @@ html[lang="hi"] .btn-call-label {
         min-height: 44px; /* Touch target size */
     }
 
+    .loan-tiles-section {
+        margin: 20px 0 15px;
+        padding: 15px 0;
+    }
+
+    .loan-tiles-container {
+        padding: 0 15px;
+    }
+
+    .loan-tiles-header {
+        margin-bottom: 30px;
+        padding: 0 15px;
+    }
+
+    .loan-tiles-title {
+        font-size: 28px;
+    }
+
+    .loan-tiles-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 15px;
+    }
+
+    .loan-tile {
+        max-width: 100%;
+        height: 220px;
+        padding: 25px 15px 20px;
+    }
+
+    .loan-tile-icon-circle {
+        width: 110px;
+        height: 110px;
+        padding: 8px;
+    }
+
+    .loan-tile-icon-wrapper {
+        margin-bottom: 15px;
+    }
+
+    .loan-tile-label {
+        font-size: 13px;
+    }
+
     .flip-carousel-section {
-        padding: 40px 0;
-        margin: 40px 0;
+        padding: 0;
+        margin: 0;
         min-height: auto;
+        width: 100%;
     }
 
     .carousel-container {
         width: 100%;
         max-width: 100%;
-        height: 500px;
-        margin: 0 10px;
+        height: 280px;
+        margin: 0;
     }
 
     .carousel-dots {
         margin-top: 20px;
         gap: 10px;
+    }
+
+    .carousel-navigation-wrapper {
+        margin-top: 20px;
+        gap: 12px;
+    }
+
+    .carousel-nav-button {
+        width: 36px;
+        height: 36px;
+    }
+
+    .carousel-nav-button svg {
+        width: 20px;
+        height: 20px;
     }
 
     .carousel-dot {
@@ -2862,8 +3243,8 @@ html[lang="hi"] .btn-call-label {
         z-index: 1 !important;
     }
 
-    /* Mobile: Show ONLY the first item */
-    .slide .item:first-child {
+    /* Mobile: Show ONLY the main visible item (item 2) */
+    .slide .item:nth-child(2) {
         position: relative !important;
         left: 50% !important;
         transform: translateX(-50%) !important;
@@ -2871,11 +3252,17 @@ html[lang="hi"] .btn-call-label {
         visibility: visible !important;
         z-index: 10 !important;
         transition: opacity 0.3s ease, transform 0.3s ease;
+        display: flex !important;
     }
 
-    /* Mobile: Ensure all other items are completely hidden */
-    .slide .item:not(:first-child) {
-        left: -9999px !important;
+    /* Mobile: Hide all preview tiles (items 1, 3, 4, 5, 6+) */
+    .slide .item:nth-child(1),
+    .slide .item:nth-child(3),
+    .slide .item:nth-child(4),
+    .slide .item:nth-child(5),
+    .slide .item:nth-child(6),
+    .slide .item:not(:nth-child(2)) {
+        display: none !important;
         opacity: 0 !important;
         visibility: hidden !important;
         pointer-events: none !important;
@@ -2915,7 +3302,18 @@ html[lang="hi"] .btn-call-label {
         object-fit: contain;
     }
 
+    /* Hide preview images on all items except the main visible one (item 2) on mobile */
     .slide .item:nth-child(1) .service-image,
+    .slide .item:nth-child(3) .service-image,
+    .slide .item:nth-child(4) .service-image,
+    .slide .item:nth-child(5) .service-image,
+    .slide .item:nth-child(6) .service-image {
+        display: none !important;
+        opacity: 0 !important;
+        visibility: hidden !important;
+    }
+
+    /* Main visible image on item 2 for mobile */
     .slide .item:nth-child(2) .service-image {
         position: relative !important;
         top: auto !important;
@@ -2923,6 +3321,7 @@ html[lang="hi"] .btn-call-label {
         width: 100% !important;
         height: 200px !important;
         z-index: auto !important;
+        transform: none !important;
     }
 
     .slide .item .content {
@@ -2965,7 +3364,16 @@ html[lang="hi"] .btn-call-label {
         margin-bottom: 12px;
     }
 
-    .content button {
+    .carousel-apply-button {
+        position: relative !important;
+        bottom: auto !important;
+        right: auto !important;
+        width: 100% !important;
+        margin-top: 15px;
+        justify-content: center;
+    }
+
+    .carousel-apply-button button {
         width: 100%;
         padding: 12px 24px;
         font-size: 14px;
@@ -2974,6 +3382,24 @@ html[lang="hi"] .btn-call-label {
     /* Mobile: Navigation buttons hidden */
     .carousel-container .button {
         display: none;
+    }
+
+    .carousel-nav-button {
+        width: 40px;
+        height: 40px;
+    }
+
+    .carousel-nav-button-prev {
+        left: 10px;
+    }
+
+    .carousel-nav-button-next {
+        right: 10px;
+    }
+
+    .carousel-nav-button svg {
+        width: 20px;
+        height: 20px;
     }
 
     .products-grid {
@@ -3106,6 +3532,48 @@ html[lang="hi"] .btn-call-label {
         font-size: 14px;
     }
 
+    .loan-tiles-section {
+        margin: 15px 0 10px;
+        padding: 10px 0;
+    }
+
+    .loan-tiles-container {
+        padding: 0 10px;
+    }
+
+    .loan-tiles-header {
+        margin-bottom: 20px;
+        padding: 0 10px;
+    }
+
+    .loan-tiles-title {
+        font-size: 24px;
+    }
+
+    .loan-tiles-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+
+    .loan-tile {
+        height: 220px;
+        padding: 20px 12px 18px;
+    }
+
+    .loan-tile-icon-circle {
+        width: 90px;
+        height: 90px;
+        padding: 8px;
+    }
+
+    .loan-tile-icon-wrapper {
+        margin-bottom: 12px;
+    }
+
+    .loan-tile-label {
+        font-size: 12px;
+    }
+
     .flip-carousel-section {
         padding: 30px 0;
         margin: 30px 0;
@@ -3117,8 +3585,12 @@ html[lang="hi"] .btn-call-label {
     }
 
     .carousel-dots {
-        margin-top: 15px;
         gap: 8px;
+    }
+
+    .carousel-navigation-wrapper {
+        margin-top: 15px;
+        gap: 10px;
     }
 
     .carousel-dot {
@@ -3167,6 +3639,24 @@ html[lang="hi"] .btn-call-label {
 
     .carousel-container .button {
         display: none;
+    }
+
+    .carousel-nav-button {
+        width: 36px;
+        height: 36px;
+    }
+
+    .carousel-nav-button-prev {
+        left: 8px;
+    }
+
+    .carousel-nav-button-next {
+        right: 8px;
+    }
+
+    .carousel-nav-button svg {
+        width: 18px;
+        height: 18px;
     }
 
     .features-section {
@@ -7563,25 +8053,22 @@ html[lang="hi"] .btn-call-label {
 
 /* Hero Section */
 .dark .hero-section {
-    background: radial-gradient(circle at top left, 
-        rgba(59, 130, 246, 0.3), 
-        rgba(37, 99, 235, 0.4),
-        rgba(15, 23, 42, 0.8));
-    box-shadow: inset 0 0 100px rgba(0, 0, 0, 0.5);
-    border: 1px solid rgba(59, 130, 246, 0.2);
+    background: transparent;
 }
 
 .dark .hero-section h1 {
-    color: #f9fafb;
-    text-shadow: 0 4px 20px rgba(0, 0, 0, 0.8);
+    color: #cbd5e1;
 }
 
 .dark .hero-section h1 .highlight {
-    background: linear-gradient(135deg, #60a5fa, #93c5fd, #bfdbfe);
+    background: linear-gradient(90deg, #1e3a8a 0%, #1e3a8a 25%, #60a5fa 50%, #93c5fd 85%, #1e3a8a 100%);
+    background-size: 300% 100%;
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
-    filter: drop-shadow(0 0 8px rgba(96, 165, 250, 0.5));
+    color: transparent;
+    font-weight: 700;
+    animation: gradientRun 5s linear infinite;
 }
 
 .dark .btn-learn-more {
@@ -9347,6 +9834,24 @@ html[lang="hi"] .btn-call-label {
 
 .dark .service-image:hover {
     filter: brightness(1);
+}
+
+.dark .carousel-nav-button {
+    background: rgba(30, 41, 59, 0.9);
+    border-color: rgba(59, 130, 246, 0.6);
+    color: #60a5fa;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.dark .carousel-nav-button:hover {
+    background: #3b82f6;
+    color: white;
+    border-color: #3b82f6;
+    box-shadow: 0 6px 16px rgba(59, 130, 246, 0.4);
+}
+
+.dark .carousel-nav-button:focus {
+    outline-color: rgba(59, 130, 246, 0.5);
 }
 
 /* Testimonials Grid */
@@ -11708,7 +12213,7 @@ body:has(.bank-app-page-wrapper) {
     }
     
     .dark .hero-section {
-        padding: 60px 30px 50px;
+        padding: 0;
     }
     
     .dark .hero-section h1 {

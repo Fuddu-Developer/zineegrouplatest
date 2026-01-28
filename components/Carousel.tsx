@@ -77,6 +77,7 @@ export default function Carousel() {
     
     const items = slideRef.current.querySelectorAll('.item')
     const contents = slideRef.current.querySelectorAll('.content')
+    const buttons = slideRef.current.querySelectorAll('.carousel-apply-button')
     
     // Hide all content first to prevent overlap
     contents.forEach((content) => {
@@ -88,7 +89,6 @@ export default function Carousel() {
       // Reset animation by removing and re-adding the animation class
       const nameEl = contentEl.querySelector('.name') as HTMLElement
       const desEl = contentEl.querySelector('.des') as HTMLElement
-      const buttonEl = contentEl.querySelector('button') as HTMLElement
       
       if (nameEl) {
         nameEl.style.animation = 'none'
@@ -100,19 +100,31 @@ export default function Carousel() {
         desEl.style.opacity = '0'
         void desEl.offsetWidth
       }
-      if (buttonEl) {
-        buttonEl.style.animation = 'none'
-        buttonEl.style.opacity = '0'
-        void buttonEl.offsetWidth
+    })
+    
+    // Hide all buttons
+    buttons.forEach((button) => {
+      const buttonEl = button as HTMLElement
+      buttonEl.style.display = 'none'
+      buttonEl.style.opacity = '0'
+      buttonEl.style.visibility = 'hidden'
+      
+      const buttonInner = buttonEl.querySelector('button') as HTMLElement
+      if (buttonInner) {
+        buttonInner.style.animation = 'none'
+        buttonInner.style.opacity = '0'
+        void buttonInner.offsetWidth
       }
     })
     
-    // Show content only on the 2nd item (main visible card)
+    // Show content and button only on the 2nd item (main visible card)
     if (items.length > 1) {
       const secondItem = items[1] as HTMLElement
       const secondContent = secondItem.querySelector('.content') as HTMLElement
+      const secondButton = secondItem.querySelector('.carousel-apply-button') as HTMLElement
+      
       if (secondContent) {
-        secondContent.style.display = 'block'
+        secondContent.style.display = 'flex'
         secondContent.style.opacity = '1'
         secondContent.style.visibility = 'visible'
         
@@ -120,7 +132,6 @@ export default function Carousel() {
         setTimeout(() => {
           const nameEl = secondContent.querySelector('.name') as HTMLElement
           const desEl = secondContent.querySelector('.des') as HTMLElement
-          const buttonEl = secondContent.querySelector('button') as HTMLElement
           
           if (nameEl) {
             nameEl.style.animation = 'animate 1s ease-in-out 1 forwards'
@@ -128,8 +139,18 @@ export default function Carousel() {
           if (desEl) {
             desEl.style.animation = 'animate 1s ease-in-out 0.3s 1 forwards'
           }
-          if (buttonEl) {
-            buttonEl.style.animation = 'animate 1s ease-in-out 0.6s 1 forwards'
+        }, 50)
+      }
+      
+      if (secondButton) {
+        secondButton.style.display = 'flex'
+        secondButton.style.opacity = '1'
+        secondButton.style.visibility = 'visible'
+        
+        setTimeout(() => {
+          const buttonInner = secondButton.querySelector('button') as HTMLElement
+          if (buttonInner) {
+            buttonInner.style.animation = 'animate 1s ease-in-out 0.6s 1 forwards'
           }
         }, 50)
       }
@@ -464,24 +485,48 @@ export default function Carousel() {
                 <div className="content">
                   <div className="name">{service.name}</div>
                   <div className="des">{service.description}</div>
-                  <Link className="seeMore" href={`/loans/${service.slug}`}>
-                    <button>{t('carousel.applyNow')}</button>
-                  </Link>
                 </div>
+                <Link className="carousel-apply-button" href={`/loans/${service.slug}`}>
+                  <button>{t('carousel.applyNow')}</button>
+                </Link>
               </div>
             ))}
           </div>
         </div>
-        {/* Navigation Dots */}
-        <div className="carousel-dots">
-          {services.map((_, index) => (
-            <button
-              key={index}
-              className={`carousel-dot ${index === currentIndex ? 'active' : ''}`}
-              onClick={() => goToSlide(index)}
-              aria-label={`Go to slide ${index + 1}`}
-            />
-          ))}
+        {/* Navigation Dots with Buttons */}
+        <div className="carousel-navigation-wrapper">
+          {/* Previous Button */}
+          <button
+            className="carousel-nav-button carousel-nav-button-prev"
+            onClick={handlePrev}
+            aria-label="Previous slide"
+          >
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M15 18L9 12L15 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </button>
+          
+          <div className="carousel-dots">
+            {services.map((_, index) => (
+              <button
+                key={index}
+                className={`carousel-dot ${index === currentIndex ? 'active' : ''}`}
+                onClick={() => goToSlide(index)}
+                aria-label={`Go to slide ${index + 1}`}
+              />
+            ))}
+          </div>
+          
+          {/* Next Button */}
+          <button
+            className="carousel-nav-button carousel-nav-button-next"
+            onClick={handleNext}
+            aria-label="Next slide"
+          >
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M9 18L15 12L9 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </button>
         </div>
       </div>
     </section>
