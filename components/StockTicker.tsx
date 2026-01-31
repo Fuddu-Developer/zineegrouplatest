@@ -52,7 +52,10 @@ export default function StockTicker() {
     return () => clearInterval(interval)
   }, [])
 
-  const formatROI = (roi: number) => {
+  const formatROI = (roi?: number) => {
+    if (roi === undefined || roi === null || Number.isNaN(roi)) {
+      return 'N/A'
+    }
     return `${roi.toFixed(2)}%`
   }
 
@@ -123,7 +126,7 @@ export default function StockTicker() {
               <div key={`loan-${item.bank}-${item.loanType}-${index}`} className="stock-ticker-item">
                 <span className="stock-price">{item.loanType}</span>
                 <span className="stock-change positive">
-                  ROI: {formatROI(item.roi!)}
+                  ROI: {formatROI(item.roi)}
                 </span>
               </div>
             )
@@ -144,7 +147,7 @@ export default function StockTicker() {
               <div key={`loan-${item.bank}-${item.loanType}-${index}-dup`} className="stock-ticker-item">
                 <span className="stock-price">{item.loanType}</span>
                 <span className="stock-change positive">
-                  ROI: {formatROI(item.roi!)}
+                  ROI: {formatROI(item.roi)}
                 </span>
               </div>
             )

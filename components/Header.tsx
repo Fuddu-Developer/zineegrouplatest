@@ -141,8 +141,8 @@ export default function Header() {
             <Image 
               src="/assets/images/Logo-Helloans.png" 
               alt="Company Logo"
-              width={150}
-              height={50}
+              width={200}
+              height={68}
               priority
             />
           </div>

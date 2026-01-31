@@ -82,7 +82,7 @@ export default function ApplyForLoanPage() {
           <div className="contact-page-container">
               {/* Header Section */}
               <div className="contact-header">
-                <h1 className="contact-title">Apply for Loan</h1>
+                <h1 className="contact-title">Apply Now</h1>
                 <p className="contact-intro">Get instant loan approval with competitive interest rates! Fill out the form below and our team will contact you within 24 hours.</p>
                 <div className="loan-benefits">
                   <div className="benefit-item">
@@ -130,7 +130,7 @@ export default function ApplyForLoanPage() {
                       className="contact-box-button phone-button"
                       style={{ textDecoration: 'none', display: 'inline-block' }}
                     >
-                      Contact Us
+                      Talk to an Expert
                     </a>
                   </div>
 
@@ -148,7 +148,7 @@ export default function ApplyForLoanPage() {
                       className="contact-box-button email-button"
                       style={{ textDecoration: 'none', display: 'inline-block' }}
                     >
-                      Contact Us
+                      Talk to an Expert
                     </a>
                   </div>
                 </div>
@@ -400,7 +400,7 @@ export default function ApplyForLoanPage() {
                       className="form-submit-button"
                       disabled={isSubmitting}
                     >
-                      {isSubmitting ? 'Submitting...' : 'Apply for Loan'}
+                      {isSubmitting ? 'Submitting...' : 'Apply Now'}
                     </button>
                   </form>
                 </div>

@@ -203,26 +203,30 @@ export default function LoanCalculator({
   defaultInterestRate = 10.5,
 }: LoanCalculatorProps) {
   const router = useRouter()
-  const [selectedBank, setSelectedBank] = useState(banks[0].id)
+  const isEmiOnly = banks.length === 0
+  const [selectedBank, setSelectedBank] = useState(banks[0]?.id ?? '')
+  const [interestRateInput, setInterestRateInput] = useState(defaultInterestRate)
   const [loanAmount, setLoanAmount] = useState(500000)
   const [tenure, setTenure] = useState(3)
   const [tenureUnit, setTenureUnit] = useState<'Yr' | 'Mo'>('Yr')
   const [showComparison, setShowComparison] = useState(false)
   const [showBankDetails, setShowBankDetails] = useState(false)
 
-  // Get selected bank details
+  // Get selected bank details (only when banks exist)
   const selectedBankData = banks.find(bank => bank.id === selectedBank) || banks[0]
-  const interestRate = selectedBankData.interestRate
+  const interestRate = isEmiOnly ? interestRateInput : (selectedBankData?.interestRate ?? defaultInterestRate)
+  const effectiveMinAmount = isEmiOnly ? minAmount : (selectedBankData?.minAmount ?? minAmount)
+  const effectiveMaxAmount = isEmiOnly ? maxAmount : (selectedBankData?.maxLoanAmount ?? maxAmount)
 
-  // Update loan amount limits based on selected bank
+  // Update loan amount limits based on selected bank or props
   useEffect(() => {
-    if (loanAmount > selectedBankData.maxLoanAmount) {
-      setLoanAmount(selectedBankData.maxLoanAmount)
+    if (loanAmount > effectiveMaxAmount) {
+      setLoanAmount(effectiveMaxAmount)
     }
-    if (loanAmount < selectedBankData.minAmount) {
-      setLoanAmount(selectedBankData.minAmount)
+    if (loanAmount < effectiveMinAmount) {
+      setLoanAmount(effectiveMinAmount)
     }
-  }, [selectedBank, selectedBankData.maxLoanAmount, selectedBankData.minAmount, loanAmount])
+  }, [effectiveMaxAmount, effectiveMinAmount, loanAmount])
 
   // Quick select amounts (in rupees)
   const quickAmounts = [
@@ -264,171 +268,175 @@ export default function LoanCalculator({
     }).format(amount)
   }
 
-  // Calculate processing fee
-  const processingFeeAmount = Math.round(loanAmount * (parseFloat(selectedBankData.processingFee.match(/\d+\.?\d*/)?.[0] || '2') / 100))
+  // Calculate processing fee (only when bank selected)
+  const processingFeeAmount = isEmiOnly ? 0 : Math.round(loanAmount * (parseFloat(selectedBankData?.processingFee?.match(/\d+\.?\d*/)?.[0] || '2') / 100))
 
   // Sort banks by interest rate for comparison
   const sortedBanks = [...banks].sort((a, b) => a.interestRate - b.interestRate)
 
   return (
     <div className="loan-calculator-container">
-      <div className="loan-calculator-grid">
+      <div className={`loan-calculator-grid ${isEmiOnly ? 'emi-only' : ''}`}>
         {/* Left Section: Input Form */}
         <div className="calculator-form">
           <h2 className="calculator-title">Calculate Your {loanType}</h2>
 
-          {/* Bank Selection with Interest Rates */}
-          <div className="form-section">
-            <div className="form-label-row">
-              <label className="form-label">Select Your Bank</label>
-              <div className="action-buttons">
-                <button
-                  type="button"
-                  className="comparison-toggle"
-                  onClick={() => setShowComparison(!showComparison)}
-                >
-                  {showComparison ? 'Hide' : 'Compare'} Banks
-                </button>
+          {/* Bank Selection with Interest Rates - hidden in EMI-only mode */}
+          {!isEmiOnly && (
+            <div className="form-section">
+              <div className="form-label-row">
+                <label className="form-label">Select Your Bank</label>
+                <div className="action-buttons">
+                  <button
+                    type="button"
+                    className="comparison-toggle"
+                    onClick={() => setShowComparison(!showComparison)}
+                  >
+                    {showComparison ? 'Hide' : 'Compare'} Banks
+                  </button>
+                </div>
               </div>
-            </div>
-            <div className="bank-selector">
-              {banks.map((bank) => (
-                <button
-                  key={bank.id}
-                  className={`bank-option ${selectedBank === bank.id ? 'selected' : ''}`}
-                  onClick={() => setSelectedBank(bank.id)}
-                  type="button"
-                >
-                  <div className="bank-option-content">
-                    {bank.logo && (
-                      <div className="bank-logo-container">
-                        <Image
-                          src={bank.logo}
-                          alt={bank.name}
-                          width={120}
-                          height={90}
-                          className="bank-logo"
-                        />
-                      </div>
-                    )}
-                    <span className="bank-rate">{bank.interestRate}% p.a.</span>
-                  </div>
-                </button>
-              ))}
-            </div>
-            {showComparison && (
-              <div className="bank-comparison-table">
-                <h4 className="comparison-title">Bank Comparison</h4>
-                <div className="comparison-table">
-                  <div className="comparison-header">
-                    <div>Bank</div>
-                    <div>Interest Rate</div>
-                    <div>Processing Fee</div>
-                    <div>Max Loan</div>
-                    <div>Action</div>
-                  </div>
-                  {sortedBanks.map((bank) => (
-                    <div key={bank.id} className={`comparison-row ${selectedBank === bank.id ? 'selected' : ''}`}>
-                      <div className="comparison-bank-name">
-                        {bank.logo && (
+              <div className="bank-selector">
+                {banks.map((bank) => (
+                  <button
+                    key={bank.id}
+                    className={`bank-option ${selectedBank === bank.id ? 'selected' : ''}`}
+                    onClick={() => setSelectedBank(bank.id)}
+                    type="button"
+                  >
+                    <div className="bank-option-content">
+                      {bank.logo && (
+                        <div className="bank-logo-container">
                           <Image
                             src={bank.logo}
                             alt={bank.name}
-                            width={80}
-                            height={60}
-                            className="comparison-bank-logo"
+                            width={120}
+                            height={90}
+                            className="bank-logo"
                           />
-                        )}
-                        <span>{bank.name}</span>
-                      </div>
-                      <div className="comparison-rate">{bank.interestRate}%</div>
-                      <div className="comparison-fee">{bank.processingFee}</div>
-                      <div className="comparison-max">{formatCurrency(bank.maxLoanAmount)}</div>
-                      <div>
-                        <button
-                          type="button"
-                          className="comparison-select-btn"
-                          onClick={() => {
-                            setSelectedBank(bank.id)
-                            setShowComparison(false)
-                          }}
-                        >
-                          {selectedBank === bank.id ? 'Selected' : 'Select'}
-                        </button>
-                      </div>
+                        </div>
+                      )}
+                      <span className="bank-rate">{bank.interestRate}% p.a.</span>
                     </div>
-                  ))}
-                </div>
+                  </button>
+                ))}
               </div>
-            )}
-          </div>
+              {showComparison && (
+                <div className="bank-comparison-table">
+                  <h4 className="comparison-title">Bank Comparison</h4>
+                  <div className="comparison-table">
+                    <div className="comparison-header">
+                      <div>Bank</div>
+                      <div>Interest Rate</div>
+                      <div>Processing Fee</div>
+                      <div>Max Loan</div>
+                      <div>Action</div>
+                    </div>
+                    {sortedBanks.map((bank) => (
+                      <div key={bank.id} className={`comparison-row ${selectedBank === bank.id ? 'selected' : ''}`}>
+                        <div className="comparison-bank-name">
+                          {bank.logo && (
+                            <Image
+                              src={bank.logo}
+                              alt={bank.name}
+                              width={80}
+                              height={60}
+                              className="comparison-bank-logo"
+                            />
+                          )}
+                          <span>{bank.name}</span>
+                        </div>
+                        <div className="comparison-rate">{bank.interestRate}%</div>
+                        <div className="comparison-fee">{bank.processingFee}</div>
+                        <div className="comparison-max">{formatCurrency(bank.maxLoanAmount)}</div>
+                        <div>
+                          <button
+                            type="button"
+                            className="comparison-select-btn"
+                            onClick={() => {
+                              setSelectedBank(bank.id)
+                              setShowComparison(false)
+                            }}
+                          >
+                            {selectedBank === bank.id ? 'Selected' : 'Select'}
+                          </button>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
 
-          {/* Selected Bank Details */}
-          <div className="form-section bank-details-section">
-            <button
-              type="button"
-              className="bank-details-toggle"
-              onClick={() => setShowBankDetails(!showBankDetails)}
-            >
-              <span>View {selectedBankData.name} Details</span>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                <path d={showBankDetails ? "M18 15l-6-6-6 6" : "M6 9l6 6 6-6"} />
-              </svg>
-            </button>
-            {showBankDetails && (
-              <div className="bank-details-content">
-                <div className="bank-detail-item">
-                  <strong>Processing Fee:</strong> {selectedBankData.processingFee}
+          {/* Selected Bank Details - hidden in EMI-only mode */}
+          {!isEmiOnly && selectedBankData && (
+            <div className="form-section bank-details-section">
+              <button
+                type="button"
+                className="bank-details-toggle"
+                onClick={() => setShowBankDetails(!showBankDetails)}
+              >
+                <span>View {selectedBankData.name} Details</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                  <path d={showBankDetails ? "M18 15l-6-6-6 6" : "M6 9l6 6 6-6"} />
+                </svg>
+              </button>
+              {showBankDetails && (
+                <div className="bank-details-content">
+                  <div className="bank-detail-item">
+                    <strong>Processing Fee:</strong> {selectedBankData.processingFee}
+                  </div>
+                  <div className="bank-detail-item">
+                    <strong>Loan Amount Range:</strong> {formatCurrency(selectedBankData.minAmount)} - {formatCurrency(selectedBankData.maxLoanAmount)}
+                  </div>
+                  <div className="bank-detail-item">
+                    <strong>Tenure:</strong> {selectedBankData.minTenure} - {selectedBankData.maxTenure} years
+                  </div>
+                  <div className="bank-detail-features">
+                    <strong>Eligibility:</strong>
+                    <ul>
+                      {selectedBankData.eligibility.map((item, idx) => (
+                        <li key={idx}>{item}</li>
+                      ))}
+                    </ul>
+                  </div>
+                  <div className="bank-detail-features">
+                    <strong>Features:</strong>
+                    <ul>
+                      {selectedBankData.features.map((item, idx) => (
+                        <li key={idx}>{item}</li>
+                      ))}
+                    </ul>
+                  </div>
                 </div>
-                <div className="bank-detail-item">
-                  <strong>Loan Amount Range:</strong> {formatCurrency(selectedBankData.minAmount)} - {formatCurrency(selectedBankData.maxLoanAmount)}
-                </div>
-                <div className="bank-detail-item">
-                  <strong>Tenure:</strong> {selectedBankData.minTenure} - {selectedBankData.maxTenure} years
-                </div>
-                <div className="bank-detail-features">
-                  <strong>Eligibility:</strong>
-                  <ul>
-                    {selectedBankData.eligibility.map((item, idx) => (
-                      <li key={idx}>{item}</li>
-                    ))}
-                  </ul>
-                </div>
-                <div className="bank-detail-features">
-                  <strong>Features:</strong>
-                  <ul>
-                    {selectedBankData.features.map((item, idx) => (
-                      <li key={idx}>{item}</li>
-                    ))}
-                  </ul>
-                </div>
-              </div>
-            )}
-          </div>
+              )}
+            </div>
+          )}
 
           {/* Loan Amount */}
           <div className="form-section">
             <label className="form-label">
               Enter Loan Amount
-              <span className="amount-limit">(Max: {formatCurrency(selectedBankData.maxLoanAmount)})</span>
+              <span className="amount-limit">(Max: {formatCurrency(effectiveMaxAmount)})</span>
             </label>
             <div className="amount-display">{formatCurrency(loanAmount)}</div>
             <input
               type="range"
-              min={selectedBankData.minAmount}
-              max={Math.min(selectedBankData.maxLoanAmount, maxAmount)}
+              min={effectiveMinAmount}
+              max={Math.min(effectiveMaxAmount, maxAmount)}
               step={10000}
-              value={Math.min(loanAmount, selectedBankData.maxLoanAmount)}
+              value={Math.min(loanAmount, effectiveMaxAmount)}
               onChange={(e) => setLoanAmount(Number(e.target.value))}
               className="slider"
             />
             <div className="slider-labels">
-              <span>{formatCurrency(selectedBankData.minAmount)}</span>
-              <span>{formatCurrency(Math.min(selectedBankData.maxLoanAmount, maxAmount))}</span>
+              <span>{formatCurrency(effectiveMinAmount)}</span>
+              <span>{formatCurrency(Math.min(effectiveMaxAmount, maxAmount))}</span>
             </div>
             <div className="quick-select-buttons">
               {quickAmounts
-                .filter(amt => amt.value <= selectedBankData.maxLoanAmount)
+                .filter(amt => amt.value <= effectiveMaxAmount)
                 .map((amt) => (
                   <button
                     key={amt.value}
@@ -442,16 +450,39 @@ export default function LoanCalculator({
             </div>
           </div>
 
-          {/* Interest Rate - Now Auto-set from Bank */}
+          {/* Interest Rate - editable in EMI-only, auto from bank otherwise */}
           <div className="form-section">
             <label className="form-label">
               Rate of Interest (Yearly %)
-              <span className="rate-badge">Auto-set from {selectedBankData.name}</span>
+              {!isEmiOnly && selectedBankData && (
+                <span className="rate-badge">Auto-set from {selectedBankData.name}</span>
+              )}
             </label>
-            <div className="rate-display">{interestRate}% p.a.</div>
-            <div className="rate-info">
-              <span className="rate-note">Interest rate is automatically set based on your selected bank</span>
-            </div>
+            {isEmiOnly ? (
+              <>
+                <div className="rate-display">{interestRate}% p.a.</div>
+                <input
+                  type="range"
+                  min={6}
+                  max={24}
+                  step={0.1}
+                  value={interestRateInput}
+                  onChange={(e) => setInterestRateInput(Number(e.target.value))}
+                  className="slider"
+                />
+                <div className="slider-labels">
+                  <span>6%</span>
+                  <span>24%</span>
+                </div>
+              </>
+            ) : (
+              <>
+                <div className="rate-display">{interestRate}% p.a.</div>
+                <div className="rate-info">
+                  <span className="rate-note">Interest rate is automatically set based on your selected bank</span>
+                </div>
+              </>
+            )}
           </div>
 
           {/* Loan Tenure */}
@@ -492,12 +523,13 @@ export default function LoanCalculator({
           </div>
         </div>
 
-        {/* Right Section: Eligibility Section */}
+        {/* Right Section: Eligibility Section - hidden in EMI-only mode */}
+        {!isEmiOnly && (
         <div className="right-section-container">
           <div className="eligibility-summary">
             <h3 className="eligibility-title">Eligibility Criteria</h3>
             
-            {selectedBankData.eligibilityDetails ? (
+            {selectedBankData?.eligibilityDetails ? (
               <div className="eligibility-content">
                 <div className="eligibility-section">
                   <div className="eligibility-item">
@@ -595,28 +627,30 @@ export default function LoanCalculator({
             )}
           </div>
         </div>
-      </div>
+        )}
 
       {/* Separate EMI Calculator Container - Below */}
       <div className="emi-calculator-container">
         <div className="emi-summary">
-          <div className="selected-bank-header">
-            {selectedBankData.logo && (
-              <div className="selected-bank-logo-container">
-                <Image
-                  src={selectedBankData.logo}
-                  alt={selectedBankData.name}
-                  width={140}
-                  height={105}
-                  className="selected-bank-logo"
-                />
+          {!isEmiOnly && selectedBankData && (
+            <div className="selected-bank-header">
+              {selectedBankData.logo && (
+                <div className="selected-bank-logo-container">
+                  <Image
+                    src={selectedBankData.logo}
+                    alt={selectedBankData.name}
+                    width={140}
+                    height={105}
+                    className="selected-bank-logo"
+                  />
+                </div>
+              )}
+              <div className="selected-bank-info">
+                <h4 className="selected-bank-name">{selectedBankData.name}</h4>
+                <span className="selected-bank-rate">{interestRate}% p.a.</span>
               </div>
-            )}
-            <div className="selected-bank-info">
-              <h4 className="selected-bank-name">{selectedBankData.name}</h4>
-              <span className="selected-bank-rate">{interestRate}% p.a.</span>
             </div>
-          </div>
+          )}
           
           <h3 className="emi-title">Calculate Your EMI</h3>
           
@@ -642,19 +676,31 @@ export default function LoanCalculator({
               </div>
             </div>
 
-            <button 
-              className="cta-button-loan" 
-              type="button"
-              onClick={() => {
-                const url = selectedBankData.applicationUrl || `/apply/${selectedBankData.id}?loanType=${encodeURIComponent(loanType)}&amount=${loanAmount}&tenure=${tenure}&tenureUnit=${tenureUnit}`
-                router.push(url)
-              }}
-            >
-              Apply with {selectedBankData.name} →
-            </button>
-            <button className="secondary-button-loan" type="button">
-              Get Expert Advice
-            </button>
+            {isEmiOnly ? (
+              <button 
+                className="cta-button-loan" 
+                type="button"
+                onClick={() => router.push('/apply-for-loan')}
+              >
+                Apply Now →
+              </button>
+            ) : (
+              <>
+                <button 
+                  className="cta-button-loan" 
+                  type="button"
+                  onClick={() => {
+                    const url = selectedBankData?.applicationUrl || `/apply/${selectedBankData?.id}?loanType=${encodeURIComponent(loanType)}&amount=${loanAmount}&tenure=${tenure}&tenureUnit=${tenureUnit}`
+                    router.push(url)
+                  }}
+                >
+                  Apply with {selectedBankData?.name} →
+                </button>
+                <button className="secondary-button-loan" type="button">
+                  Get Expert Advice
+                </button>
+              </>
+            )}
           </div>
         </div>
       </div>

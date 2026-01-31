@@ -24,6 +24,7 @@ export default function EmiCalculatorPage() {
           </div>
           <LoanCalculator
             loanType="EMI"
+            defaultBanks={[]}
             defaultInterestRate={10.5}
             minAmount={50000}
             maxAmount={5000000}

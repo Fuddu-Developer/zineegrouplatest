@@ -20,12 +20,13 @@ const loanTypes = [
     borderColor: '#9333ea',
   },
   {
-    name: 'Professional Loans',
-    slug: 'professional-loans',
-    image: '/assets/images/professionalloans.svg',
-    backgroundColor: '#ccfbf1',
-    borderColor: '#14b8a6',
+    name: 'Overdraft',
+    slug: 'overdraft',
+    image: '/assets/images/instantloan.svg',
+    backgroundColor: '#fef3c7',
+    borderColor: '#f59e0b',
   },
+  
   {
     name: 'Secure Loans',
     slug: 'secure-loans',
@@ -41,16 +42,17 @@ const loanTypes = [
     borderColor: '#6366f1',
   },
   {
-    name: 'Instant Loan',
-    slug: 'instant-loan',
-    image: '/assets/images/instantloan.svg',
-    backgroundColor: '#fef3c7',
-    borderColor: '#f59e0b',
+    name: 'Professional Loans',
+    slug: 'professional-loans',
+    image: '/assets/images/professionalloans.svg',
+    backgroundColor: '#ccfbf1',
+    borderColor: '#14b8a6',
   },
+  
 ]
 
 const translationKeyMap: Record<string, string> = {
-  'instant-loan': 'instantLoan',
+  'overdraft': 'overdraft',
   'personal-loans': 'personalLoans',
   'business-loans': 'businessLoans',
   'professional-loans': 'professionalLoans',
@@ -92,7 +94,7 @@ export default function LoanTiles() {
                 </div>
               </div>
               <div className="loan-tile-label">
-                {t(`carousel.${translationKeyMap[loan.slug]}`)}
+                {t(`carousel.${translationKeyMap[loan.slug] ?? loan.slug}`) || loan.name}
               </div>
             </Link>
           ))}
