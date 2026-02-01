@@ -1,4 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
+import { Resend } from 'resend'
+
+const resend = new Resend(process.env.RESEND_API_KEY)
 
 export async function POST(request: NextRequest) {
   try {
@@ -51,6 +54,7 @@ export async function POST(request: NextRequest) {
     }
 
     const recipientEmail = process.env.LOAN_EMAIL || process.env.CIBIL_EMAIL || 'info@zineegroup.com'
+    const fromEmail = process.env.FROM_EMAIL || 'onboarding@resend.dev'
     const subject = `CIBIL Score Enquiry from ${name}`
 
     const emailBody = `
@@ -68,11 +72,18 @@ Pincode: ${pincode}
 Submitted at: ${new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })}
     `.trim()
 
-    console.log('CIBIL application received:', {
-      to: recipientEmail,
-      subject,
-      body: emailBody
-    })
+    // Send email using Resend
+    try {
+      await resend.emails.send({
+        from: fromEmail,
+        to: recipientEmail,
+        subject: subject,
+        text: emailBody,
+      })
+    } catch (emailError) {
+      console.error('Error sending email:', emailError)
+      // Log the error but still return success to the user
+    }
 
     return NextResponse.json(
       { message: 'Your CIBIL score enquiry has been submitted. We will contact you via email.' },

@@ -1,5 +1,5 @@
 import LoanCalculator from '@/components/LoanCalculator'
-import LoanTypeSwitcher from '@/components/LoanTypeSwitcher'
+
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import type { Metadata } from 'next'
@@ -14,21 +14,21 @@ export default function ProfessionalLoansPage() {
     <>
       <Header />
       <main className="loan-page-main">
-      <div className="loan-page-container">
-        <div className="loan-page-header">
-          <h1>Professional Loans</h1>
-          <p>A professional loan is a type of funding meant for professionals, such as accountants and attorneys.</p>
+        <div className="loan-page-container">
+          <div className="loan-page-header">
+            <h1>Professional Loans</h1>
+            <p>A professional loan is a type of funding meant for professionals, such as accountants and attorneys.</p>
+          </div>
+
+          <LoanCalculator
+            loanType="Professional Loan"
+            defaultInterestRate={11.0}
+            minAmount={100000}
+            maxAmount={5000000}
+          />
         </div>
-        <LoanTypeSwitcher />
-        <LoanCalculator
-          loanType="Professional Loan"
-          defaultInterestRate={11.0}
-          minAmount={100000}
-          maxAmount={5000000}
-        />
-      </div>
-    </main>
-    <Footer />
+      </main>
+      <Footer />
     </>
   )
 }

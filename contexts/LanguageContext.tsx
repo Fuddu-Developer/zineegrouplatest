@@ -18,20 +18,36 @@ const translations = {
     'nav.home': 'Home',
     'nav.about': 'About us',
     'nav.emi': 'EMI Calculator',
-    'nav.apply': 'Apply now',
+    'nav.apply': 'Apply Now',
     'nav.cibil': 'Cibil Score',
     'nav.contact': 'Talk to an Expert',
-    'nav.instantApproval': 'Instant approval',
+    'nav.instantApproval': 'Instant Loan',
     'nav.talkToExpert': 'Talk to Expert',
-    
+    'nav.partner': 'Become Partner',
+
+    // Partner Page
+    'partner.title': 'Become a Partner',
+    'partner.subtitle': 'Join our network of loan providers and grow your business.',
+    'partner.name': 'Your Name',
+    'partner.companyName': 'Company Name',
+    'partner.email': 'Email Address',
+    'partner.phone': 'Phone Number',
+    'partner.city': 'City',
+    'partner.message': 'Message',
+    'partner.submit': 'Submit Application',
+    'partner.submitting': 'Submitting...',
+    'partner.success': 'Application submitted successfully! We will contact you soon.',
+    'partner.error': 'Something went wrong. Please try again.',
+
+
     // Language switcher
     'lang.english': 'English',
     'lang.hindi': 'हिंदी',
-    
+
     // Hero
     'hero.title': 'Providing the best future for your best living.',
     'hero.highlight': 'best',
-    
+
     // Features
     'features.personalPrivacy': 'Personal Privacy',
     'features.personalPrivacyDesc': 'Other forms of secured loans include loans against securities',
@@ -39,7 +55,7 @@ const translations = {
     'features.noPaymentDesc': 'These may be available from financial institutions under many different guises',
     'features.easyAccess': 'Easy Access',
     'features.easyAccessDesc': 'obtain a money judgment for breach of contract',
-    
+
     // Carousel
     'carousel.instantLoan': 'Instant Loan',
     'carousel.instantLoanDesc': 'A convenient and speedy way to get the funds you require for unanticipated expenses.',
@@ -55,10 +71,10 @@ const translations = {
     'carousel.balanceTransfer': 'Balance Transfer',
     'carousel.balanceTransferDesc': 'Transfer your existing loan to us and save on interest rates with better terms and conditions.',
     'carousel.applyNow': 'Apply Now',
-    
+
     // Loan Tiles Section
     'loanTiles.title': 'Our Loan Products',
-    
+
     // Trust Section
     'trust.title': 'Trust with',
     'trust.titleHighlight': 'Confidence',
@@ -70,16 +86,16 @@ const translations = {
     'trust.panIndiaDesc': 'Serving you, wherever you are',
     'trust.iso27001': 'ISO 27001',
     'trust.iso27001Desc': 'Certified Data Security Excellence',
-    
+
     // Testimonials
     'testimonials.happyClients': '12K + Happy Clients',
     'testimonials.title': 'Client Experiences',
     'testimonials.readAll': 'Read All Review →',
     'testimonials.rating': 'Rating',
-    
+
     // Partners
-    'partners.title': 'Our Partners',
-    
+    'partners.title': 'Our Authorized Partners',
+
     // Footer
     'footer.tagline': 'Fastest Way To Get Money',
     'footer.description': 'Our team of experienced professionals is dedicated to providing competitive interest rates, flexible repayment options, and a hassle-free application process.',
@@ -87,7 +103,7 @@ const translations = {
     'footer.getInTouch': 'Get in touch',
     'footer.socialMedia': 'Social Media Links',
     'footer.copyright': '© Copyright 2026 | HELLOANS ZINEE SERVICES PVT LTD (Formerly a part of ZINEE GROUP)',
-    
+
     // Contact Page
     'contact.getInTouch': 'Get in Touch',
     'contact.socialMedia': 'Social Media Links',
@@ -99,7 +115,7 @@ const translations = {
     'contact.submitting': 'Submitting...',
     'contact.success': 'Success! Your message has been sent. We will contact you soon.',
     'contact.error': 'There was an error sending your message. Please try again.',
-    
+
     // About Page
     'about.title': 'About Us',
     'about.subtitle': 'We specialize in customized Loan for people and businesses.',
@@ -125,7 +141,7 @@ const translations = {
     'about.ctaTitle': 'Looking For Loan ?',
     'about.ctaText': 'Our Team Will Help For Providing Instant Loan In Low Intrest Rate ! Apply Here.',
     'about.ctaDescription': 'Our team of experienced professionals is dedicated to providing competitive interest rates, flexible repayment options, and a hassle-free application process.',
-    
+
     // CIBIL Score Page
     'cibil.heroTitle': 'Check Your Free Credit Score Today!',
     'cibil.heroSubtitle': 'Check Your Free Credit Score Today!',
@@ -200,17 +216,33 @@ const translations = {
     'nav.apply': 'अभी आवेदन करें',
     'nav.cibil': 'सिबिल स्कोर',
     'nav.contact': 'विशेषज्ञ से बात करें',
-    'nav.instantApproval': 'तत्काल अनुमोदन',
+    'nav.instantApproval': 'तत्काल ऋण',
     'nav.talkToExpert': 'विशेषज्ञ से बात करें',
-    
+    'nav.partner': 'भागीदार बनें',
+
+    // Partner Page
+    'partner.title': 'भागीदार बनें',
+    'partner.subtitle': 'हमारे ऋण प्रदाताओं के नेटवर्क में शामिल हों और अपना व्यवसाय बढ़ाएं।',
+    'partner.name': 'आपका नाम',
+    'partner.companyName': 'कंपनी का नाम',
+    'partner.email': 'ईमेल पता',
+    'partner.phone': 'फोन नंबर',
+    'partner.city': 'शहर',
+    'partner.message': 'संदेश',
+    'partner.submit': 'आवेदन जमा करें',
+    'partner.submitting': 'जमा हो रहा है...',
+    'partner.success': 'आवेदन सफलतापूर्वक जमा किया गया! हम जल्द ही आपसे संपर्क करेंगे।',
+    'partner.error': 'कुछ गलत हो गया। कृपया पुनः प्रयास करें।',
+
+
     // Language switcher
     'lang.english': 'English',
     'lang.hindi': 'हिंदी',
-    
+
     // Hero
     'hero.title': 'आपके सर्वोत्तम जीवन के लिए सर्वोत्तम भविष्य प्रदान करना।',
     'hero.highlight': 'सर्वोत्तम',
-    
+
     // Features
     'features.personalPrivacy': 'व्यक्तिगत गोपनीयता',
     'features.personalPrivacyDesc': 'सुरक्षित ऋण के अन्य रूपों में प्रतिभूतियों के खिलाफ ऋण शामिल हैं',
@@ -218,7 +250,7 @@ const translations = {
     'features.noPaymentDesc': 'ये वित्तीय संस्थानों से कई अलग-अलग रूपों में उपलब्ध हो सकते हैं',
     'features.easyAccess': 'आसान पहुंच',
     'features.easyAccessDesc': 'अनुबंध के उल्लंघन के लिए धन निर्णय प्राप्त करें',
-    
+
     // Carousel
     'carousel.instantLoan': 'तत्काल ऋण',
     'carousel.instantLoanDesc': 'अप्रत्याशित खर्चों के लिए आवश्यक धन प्राप्त करने का एक सुविधाजनक और तेज़ तरीका।',
@@ -234,10 +266,10 @@ const translations = {
     'carousel.balanceTransfer': 'बैलेंस ट्रांसफर',
     'carousel.balanceTransferDesc': 'अपने मौजूदा ऋण को हमारे पास स्थानांतरित करें और बेहतर शर्तों और शर्तों के साथ ब्याज दरों पर बचत करें।',
     'carousel.applyNow': 'अभी आवेदन करें',
-    
+
     // Loan Tiles Section
     'loanTiles.title': 'हमारे ऋण उत्पाद',
-    
+
     // Trust Section
     'trust.title': 'विश्वास के साथ',
     'trust.titleHighlight': 'आत्मविश्वास',
@@ -249,16 +281,16 @@ const translations = {
     'trust.panIndiaDesc': 'आपकी सेवा, जहाँ भी आप हों',
     'trust.iso27001': 'ISO 27001',
     'trust.iso27001Desc': 'प्रमाणित डेटा सुरक्षा उत्कृष्टता',
-    
+
     // Testimonials
     'testimonials.happyClients': '12K + खुश ग्राहक',
     'testimonials.title': 'ग्राहक अनुभव',
     'testimonials.readAll': 'सभी समीक्षा पढ़ें →',
     'testimonials.rating': 'रेटिंग',
-    
+
     // Partners
-    'partners.title': 'हमारे साझेदार',
-    
+    'partners.title': 'हमारे अधिकृत साझेदार',
+
     // Footer
     'footer.tagline': 'पैसा पाने का सबसे तेज़ तरीका',
     'footer.description': 'हमारी अनुभवी पेशेवरों की टीम प्रतिस्पर्धी ब्याज दरें, लचीले पुनर्भुगतान विकल्प और परेशानी मुक्त आवेदन प्रक्रिया प्रदान करने के लिए समर्पित है।',
@@ -266,7 +298,7 @@ const translations = {
     'footer.getInTouch': 'संपर्क में रहें',
     'footer.socialMedia': 'सोशल मीडिया लिंक',
     'footer.copyright': '© कॉपीराइट 2026 | हेलोअन्स ज़िनी सर्विसेज प्राइवेट लिमिटेड (पूर्व में ज़िनी ग्रुप का हिस्सा)',
-    
+
     // Contact Page
     'contact.getInTouch': 'संपर्क करें',
     'contact.socialMedia': 'सोशल मीडिया लिंक',
@@ -278,7 +310,7 @@ const translations = {
     'contact.submitting': 'जमा हो रहा है...',
     'contact.success': 'सफलता! आपका संदेश भेज दिया गया है। हम जल्द ही आपसे संपर्क करेंगे।',
     'contact.error': 'आपका संदेश भेजने में एक त्रुटि हुई। कृपया पुनः प्रयास करें।',
-    
+
     // About Page
     'about.title': 'हमारे बारे में',
     'about.subtitle': 'हम लोगों और व्यवसायों के लिए अनुकूलित ऋण में विशेषज्ञता रखते हैं।',
@@ -304,7 +336,7 @@ const translations = {
     'about.ctaTitle': 'ऋण की तलाश है?',
     'about.ctaText': 'हमारी टीम कम ब्याज दर पर तत्काल ऋण प्रदान करने में मदद करेगी! यहाँ आवेदन करें।',
     'about.ctaDescription': 'हमारी अनुभवी पेशेवरों की टीम प्रतिस्पर्धी ब्याज दरें, लचीले पुनर्भुगतान विकल्प और परेशानी मुक्त आवेदन प्रक्रिया प्रदान करने के लिए समर्पित है।',
-    
+
     // CIBIL Score Page
     'cibil.heroTitle': 'आज ही अपना मुफ्त क्रेडिट स्कोर जांचें!',
     'cibil.heroSubtitle': 'आज ही अपना मुफ्त क्रेडिट स्कोर जांचें!',

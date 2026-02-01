@@ -1,5 +1,8 @@
 import LoanCalculator from '@/components/LoanCalculator'
-import LoanTypeSwitcher from '@/components/LoanTypeSwitcher'
+import { businessLoanPartners } from '@/data/loanPartners'
+import BankList from '@/components/BankList'
+import { bankOffers } from '@/data/bankOffers'
+
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import type { Metadata } from 'next'
@@ -14,21 +17,24 @@ export default function BusinessLoansPage() {
     <>
       <Header />
       <main className="loan-page-main">
-      <div className="loan-page-container">
-        <div className="loan-page-header">
-          <h1>Business Loans</h1>
-          <p>Business loan enables you to expand your business and network. It provides financial stability in your business.</p>
+        <div className="loan-page-container">
+          <div className="loan-page-header">
+            <h1>Business Loans</h1>
+            <p>Business loan enables you to expand your business and network. It provides financial stability in your business.</p>
+          </div>
+
+          <BankList offers={bankOffers['business-loans']} categoryTitle="Top Business Loan Offers" />
+
+          <LoanCalculator
+            loanType="Business Loan"
+            defaultInterestRate={12.5}
+            minAmount={100000}
+            maxAmount={10000000}
+            defaultBanks={[]}
+          />
         </div>
-        <LoanTypeSwitcher />
-        <LoanCalculator
-          loanType="Business Loan"
-          defaultInterestRate={12.5}
-          minAmount={100000}
-          maxAmount={10000000}
-        />
-      </div>
-    </main>
-    <Footer />
+      </main>
+      <Footer />
     </>
   )
 }

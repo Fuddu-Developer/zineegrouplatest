@@ -3,7 +3,6 @@ import Hero from '@/components/Hero'
 import LoanTiles from '@/components/LoanTiles'
 import Carousel from '@/components/Carousel'
 import Features from '@/components/Features'
-import TrustSection from '@/components/TrustSection'
 import Testimonials from '@/components/Testimonials'
 import Partners from '@/components/Partners'
 import Footer from '@/components/Footer'
@@ -11,43 +10,41 @@ import ScrollRevealSection from '@/components/ScrollRevealSection'
 
 export default function Home() {
   return (
-    <>
+    <div className="page-container">
       <Header />
-      <main className="main-body">
-        <aside className="sidebar left-sidebar"></aside>
-        <section className="main-content">
-          <div className="content-wrapper">
-            <ScrollRevealSection delay={0}>
-              <div className="hero-carousel-container">
-                <Hero />
-                <Carousel />
-              </div>
-            </ScrollRevealSection>
+      <div className="scrollable-content">
+        <main className="main-body">
+          <aside className="sidebar left-sidebar"></aside>
+          <section className="main-content">
+            <div className="content-wrapper">
+              <ScrollRevealSection delay={0}>
+                <div className="hero-carousel-container">
+                  <Hero />
+                  <Carousel />
+                </div>
+              </ScrollRevealSection>
 
-            <ScrollRevealSection delay={40}>
-              <LoanTiles />
-            </ScrollRevealSection>
+              <ScrollRevealSection delay={40}>
+                <LoanTiles />
+              </ScrollRevealSection>
 
-            <ScrollRevealSection delay={80}>
-              <Features />
-            </ScrollRevealSection>
+              <ScrollRevealSection delay={80}>
+                <Features />
+              </ScrollRevealSection>
 
-            <ScrollRevealSection delay={160}>
-              <TrustSection />
-            </ScrollRevealSection>
+              <ScrollRevealSection delay={120}>
+                <Testimonials />
+              </ScrollRevealSection>
 
-            <ScrollRevealSection delay={120}>
-              <Testimonials />
-            </ScrollRevealSection>
-
-            <ScrollRevealSection delay={120}>
-              <Partners />
-            </ScrollRevealSection>
-          </div>
-        </section>
-        <aside className="sidebar right-sidebar"></aside>
-      </main>
-      <Footer />
-    </>
+              <ScrollRevealSection delay={120}>
+                <Partners />
+              </ScrollRevealSection>
+            </div>
+          </section>
+          <aside className="sidebar right-sidebar"></aside>
+        </main>
+        <Footer />
+      </div>
+    </div>
   )
 }

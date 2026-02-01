@@ -11,28 +11,30 @@ export const metadata: Metadata = {
 
 export default function EmiCalculatorPage() {
   return (
-    <>
+    <div className="page-container">
       <Header />
-      <main className="loan-page-main">
-        <div className="loan-page-container">
-          <div className="loan-page-header">
-            <h1>EMI Calculator</h1>
-            <p>
-              Enter your loan amount, interest rate, and tenure to instantly see your monthly EMI, total interest, and
-              total repayment.
-            </p>
+      <div className="scrollable-content">
+        <main className="loan-page-main">
+          <div className="loan-page-container">
+            <div className="loan-page-header">
+              <h1>EMI Calculator</h1>
+              <p>
+                Enter your loan amount, interest rate, and tenure to instantly see your monthly EMI, total interest, and
+                total repayment.
+              </p>
+            </div>
+            <LoanCalculator
+              loanType="EMI"
+              defaultBanks={[]}
+              defaultInterestRate={10.5}
+              minAmount={50000}
+              maxAmount={5000000}
+            />
           </div>
-          <LoanCalculator
-            loanType="EMI"
-            defaultBanks={[]}
-            defaultInterestRate={10.5}
-            minAmount={50000}
-            maxAmount={5000000}
-          />
-        </div>
-      </main>
-      <Footer />
-    </>
+        </main>
+        <Footer />
+      </div>
+    </div>
   )
 }
 

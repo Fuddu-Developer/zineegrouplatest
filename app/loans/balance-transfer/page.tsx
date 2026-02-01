@@ -1,5 +1,5 @@
 import LoanCalculator from '@/components/LoanCalculator'
-import LoanTypeSwitcher from '@/components/LoanTypeSwitcher'
+
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import type { Metadata } from 'next'
@@ -14,21 +14,21 @@ export default function BalanceTransferPage() {
     <>
       <Header />
       <main className="loan-page-main">
-      <div className="loan-page-container">
-        <div className="loan-page-header">
-          <h1>Balance Transfer</h1>
-          <p>Transfer your existing loan to us and save on interest rates with better terms and conditions.</p>
+        <div className="loan-page-container">
+          <div className="loan-page-header">
+            <h1>Balance Transfer</h1>
+            <p>Transfer your existing loan to us and save on interest rates with better terms and conditions.</p>
+          </div>
+
+          <LoanCalculator
+            loanType="Balance Transfer Loan"
+            defaultInterestRate={9.5}
+            minAmount={100000}
+            maxAmount={5000000}
+          />
         </div>
-        <LoanTypeSwitcher />
-        <LoanCalculator
-          loanType="Balance Transfer Loan"
-          defaultInterestRate={9.5}
-          minAmount={100000}
-          maxAmount={5000000}
-        />
-      </div>
-    </main>
-    <Footer />
+      </main>
+      <Footer />
     </>
   )
 }

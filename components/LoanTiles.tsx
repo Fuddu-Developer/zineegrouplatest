@@ -26,7 +26,7 @@ const loanTypes = [
     backgroundColor: '#fef3c7',
     borderColor: '#f59e0b',
   },
-  
+
   {
     name: 'Secure Loans',
     slug: 'secure-loans',
@@ -48,7 +48,41 @@ const loanTypes = [
     backgroundColor: '#ccfbf1',
     borderColor: '#14b8a6',
   },
-  
+  {
+    name: 'Credit Cards',
+    slug: 'credit-cards',
+    image: '/assets/images/instantloan.svg',
+    backgroundColor: '#ffe4e6',
+    borderColor: '#f43f5e',
+  },
+  {
+    name: 'Home Loans',
+    slug: 'home-loans',
+    image: '/assets/images/secureloan.svg',
+    backgroundColor: '#ffedd5',
+    borderColor: '#f97316',
+  },
+  {
+    name: 'Gold Loans',
+    slug: 'gold-loans',
+    image: '/assets/images/secureloan.svg',
+    backgroundColor: '#fef9c3',
+    borderColor: '#eab308',
+  },
+  {
+    name: 'Education Loans',
+    slug: 'education-loans',
+    image: '/assets/images/professionalloans.svg',
+    backgroundColor: '#dbeafe',
+    borderColor: '#3b82f6',
+  },
+  {
+    name: 'Insurance',
+    slug: 'insurance',
+    image: '/assets/images/secureloan.svg',
+    backgroundColor: '#fce7f3',
+    borderColor: '#ec4899',
+  },
 ]
 
 const translationKeyMap: Record<string, string> = {
@@ -77,24 +111,20 @@ export default function LoanTiles() {
               key={loan.slug}
               href={`/loans/${loan.slug}`}
               className="loan-tile"
-              style={{ 
-                backgroundColor: loan.backgroundColor,
-                borderColor: loan.borderColor
-              }}
             >
               <div className="loan-tile-icon-wrapper">
                 <div className="loan-tile-icon-circle">
                   <Image
                     src={loan.image}
                     alt={loan.name}
-                    width={120}
-                    height={120}
+                    width={60}
+                    height={60}
                     className="loan-tile-icon-img"
                   />
                 </div>
               </div>
               <div className="loan-tile-label">
-                {t(`carousel.${translationKeyMap[loan.slug] ?? loan.slug}`) || loan.name}
+                {translationKeyMap[loan.slug] ? t(`carousel.${translationKeyMap[loan.slug]}`) : loan.name}
               </div>
             </Link>
           ))}

@@ -9,8 +9,10 @@ body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     line-height: 1.6;
     color: #1e293b;
-    background-color: #f0f9ff; /* Very light neon blue background */
-    padding-top: 85px; /* Space for fixed main-header */
+    background-color: #f0f9ff;
+    /* Very light neon blue background */
+    padding-top: 85px;
+    /* Space for fixed main-header */
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     position: relative;
@@ -128,7 +130,7 @@ body {
     position: absolute;
     width: 100%;
     height: 100%;
-    background-image: 
+    background-image:
         radial-gradient(circle at 20% 30%, rgba(59, 130, 246, 0.5) 0%, rgba(59, 130, 246, 0.2) 40%, transparent 70%),
         radial-gradient(circle at 80% 70%, rgba(139, 92, 246, 0.5) 0%, rgba(139, 92, 246, 0.2) 40%, transparent 70%),
         radial-gradient(circle at 50% 50%, rgba(16, 185, 129, 0.4) 0%, rgba(16, 185, 129, 0.15) 40%, transparent 70%),
@@ -144,7 +146,7 @@ body {
     position: absolute;
     width: 100%;
     height: 100%;
-    background-image: 
+    background-image:
         polygon(50% 0%, 0% 100%, 100% 100%),
         polygon(50% 0%, 0% 100%, 100% 100%),
         polygon(50% 0%, 0% 100%, 100% 100%);
@@ -166,7 +168,7 @@ body {
     position: absolute;
     width: 100%;
     height: 100%;
-    background-image: 
+    background-image:
         linear-gradient(45deg, transparent 20%, rgba(59, 130, 246, 0.4) 45%, rgba(59, 130, 246, 0.6) 50%, rgba(59, 130, 246, 0.4) 55%, transparent 80%),
         linear-gradient(-45deg, transparent 20%, rgba(139, 92, 246, 0.4) 45%, rgba(139, 92, 246, 0.6) 50%, rgba(139, 92, 246, 0.4) 55%, transparent 80%),
         linear-gradient(135deg, transparent 20%, rgba(16, 185, 129, 0.35) 45%, rgba(16, 185, 129, 0.5) 50%, rgba(16, 185, 129, 0.35) 55%, transparent 80%);
@@ -180,21 +182,17 @@ body {
     position: absolute;
     width: 100%;
     height: 100%;
-    background: 
-        repeating-linear-gradient(
-            0deg,
+    background:
+        repeating-linear-gradient(0deg,
             transparent,
             transparent 2px,
             rgba(59, 130, 246, 0.25) 2px,
-            rgba(59, 130, 246, 0.25) 4px
-        ),
-        repeating-linear-gradient(
-            90deg,
+            rgba(59, 130, 246, 0.25) 4px),
+        repeating-linear-gradient(90deg,
             transparent,
             transparent 2px,
             rgba(139, 92, 246, 0.25) 2px,
-            rgba(139, 92, 246, 0.25) 4px
-        );
+            rgba(139, 92, 246, 0.25) 4px);
     opacity: 0.8;
     animation: shift 15s linear infinite;
 }
@@ -209,7 +207,7 @@ body {
     position: absolute;
     width: 100%;
     height: 100%;
-    background-image: 
+    background-image:
         radial-gradient(circle, rgba(59, 130, 246, 0.6) 1px, rgba(59, 130, 246, 0.2) 1.5px, transparent 2px),
         radial-gradient(circle, rgba(139, 92, 246, 0.5) 1px, rgba(139, 92, 246, 0.2) 1.5px, transparent 2px),
         radial-gradient(circle, rgba(16, 185, 129, 0.4) 1px, rgba(16, 185, 129, 0.15) 1.5px, transparent 2px),
@@ -224,7 +222,7 @@ body {
     position: absolute;
     width: 100%;
     height: 100%;
-    background: 
+    background:
         linear-gradient(90deg, transparent 0%, rgba(59, 130, 246, 0.3) 50%, transparent 100%),
         linear-gradient(0deg, transparent 0%, rgba(139, 92, 246, 0.3) 50%, transparent 100%);
     background-size: 200px 200px;
@@ -241,7 +239,7 @@ body {
     position: absolute;
     width: 100%;
     height: 100%;
-    background-image: 
+    background-image:
         url("data:image/svg+xml,%3Csvg width='100' height='100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0,50 Q25,30 50,50 T100,50 L100,100 L0,100 Z' fill='rgba(59, 130, 246, 0.5)'/%3E%3C/svg%3E"),
         url("data:image/svg+xml,%3Csvg width='100' height='100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0,50 Q25,70 50,50 T100,50 L100,100 L0,100 Z' fill='rgba(139, 92, 246, 0.4)'/%3E%3C/svg%3E"),
         url("data:image/svg+xml,%3Csvg width='100' height='100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0,50 Q25,40 50,50 T100,50 L100,100 L0,100 Z' fill='rgba(16, 185, 129, 0.35)'/%3E%3C/svg%3E");
@@ -255,14 +253,12 @@ body {
     position: absolute;
     width: 100%;
     height: 100%;
-    background: 
-        repeating-linear-gradient(
-            45deg,
+    background:
+        repeating-linear-gradient(45deg,
             transparent,
             transparent 10px,
             rgba(59, 130, 246, 0.2) 10px,
-            rgba(59, 130, 246, 0.2) 20px
-        );
+            rgba(59, 130, 246, 0.2) 20px);
     animation: diagonalMove 25s linear infinite;
 }
 
@@ -276,7 +272,7 @@ body {
     position: absolute;
     width: 100%;
     height: 100%;
-    background-image: 
+    background-image:
         url("data:image/svg+xml,%3Csvg width='400' height='400' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M200,100 Q250,50 300,100 T400,100 Q350,150 300,200 T200,200 Q150,150 100,200 T0,200 Q50,150 100,100 T200,100 Z' fill='rgba(59, 130, 246, 0.5)'/%3E%3C/svg%3E"),
         url("data:image/svg+xml,%3Csvg width='400' height='400' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M200,100 Q250,50 300,100 T400,100 Q350,150 300,200 T200,200 Q150,150 100,200 T0,200 Q50,150 100,100 T200,100 Z' fill='rgba(139, 92, 246, 0.4)'/%3E%3C/svg%3E"),
         url("data:image/svg+xml,%3Csvg width='400' height='400' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M200,100 Q250,50 300,100 T400,100 Q350,150 300,200 T200,200 Q150,150 100,200 T0,200 Q50,150 100,100 T200,100 Z' fill='rgba(16, 185, 129, 0.35)'/%3E%3C/svg%3E");
@@ -290,7 +286,7 @@ body {
     position: absolute;
     width: 100%;
     height: 100%;
-    background-image: 
+    background-image:
         radial-gradient(ellipse at 20% 30%, rgba(59, 130, 246, 0.5) 0%, rgba(59, 130, 246, 0.2) 50%, transparent 70%),
         radial-gradient(ellipse at 80% 70%, rgba(139, 92, 246, 0.4) 0%, rgba(139, 92, 246, 0.15) 50%, transparent 70%),
         radial-gradient(ellipse at 50% 50%, rgba(16, 185, 129, 0.35) 0%, rgba(16, 185, 129, 0.12) 50%, transparent 70%);
@@ -299,12 +295,16 @@ body {
 
 /* Animations */
 @keyframes float {
-    0%, 100% {
+
+    0%,
+    100% {
         transform: translate(0, 0) scale(1);
     }
+
     33% {
         transform: translate(30px, -30px) scale(1.1);
     }
+
     66% {
         transform: translate(-20px, 20px) scale(0.9);
     }
@@ -314,15 +314,19 @@ body {
     from {
         transform: rotate(0deg);
     }
+
     to {
         transform: rotate(360deg);
     }
 }
 
 @keyframes flow {
-    0%, 100% {
+
+    0%,
+    100% {
         background-position: 0% 0%, 50% 50%, 100% 100%;
     }
+
     50% {
         background-position: 100% 100%, 0% 0%, 50% 50%;
     }
@@ -332,6 +336,7 @@ body {
     0% {
         transform: translate(0, 0);
     }
+
     100% {
         transform: translate(50px, 50px);
     }
@@ -341,24 +346,31 @@ body {
     0% {
         background-position: 0 0, 15px 15px, 8px 8px, 20px 20px;
     }
+
     100% {
         background-position: 30px 30px, 45px 45px, 38px 38px, 50px 50px;
     }
 }
 
 @keyframes pulse {
-    0%, 100% {
+
+    0%,
+    100% {
         opacity: 0.3;
     }
+
     50% {
         opacity: 0.6;
     }
 }
 
 @keyframes wave {
-    0%, 100% {
+
+    0%,
+    100% {
         background-position: 0% 0%, 50% 50%, 100% 100%;
     }
+
     50% {
         background-position: 100% 100%, 0% 0%, 50% 50%;
     }
@@ -368,28 +380,36 @@ body {
     0% {
         transform: translate(0, 0);
     }
+
     100% {
         transform: translate(100px, 100px);
     }
 }
 
 @keyframes blobFloat {
-    0%, 100% {
+
+    0%,
+    100% {
         transform: translate(0, 0) rotate(0deg);
     }
+
     33% {
         transform: translate(50px, -50px) rotate(5deg);
     }
+
     66% {
         transform: translate(-30px, 30px) rotate(-5deg);
     }
 }
 
 @keyframes blobPulse {
-    0%, 100% {
+
+    0%,
+    100% {
         transform: scale(1);
         opacity: 0.8;
     }
+
     50% {
         transform: scale(1.2);
         opacity: 1;
@@ -402,7 +422,8 @@ body {
     top: 0;
     left: 0;
     right: 0;
-    background-color: #1e40af; /* Blue */
+    background-color: #1e40af;
+    /* Blue */
     color: #ffffff;
     padding: 5px 0;
     text-align: center;
@@ -420,14 +441,21 @@ body {
 /* Main Header - Second Fixed Header */
 .main-header {
     position: fixed;
-    top: 0; /* At the top after removing top-header */
+    top: 0;
+    /* At the top after removing top-header */
     left: 0;
     right: 0;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.85) 0%, rgba(240, 249, 255, 0.9) 50%, rgba(255, 255, 255, 0.85) 100%);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
+    /* Glassmorphism Effect */
+    background: rgba(255, 255, 255, 0.1);
+    /* Low opacity for transparency */
+    backdrop-filter: blur(15px);
+    /* Stronger blur */
+    -webkit-backdrop-filter: blur(15px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    /* Subtle glass edge */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    /* Softer shadow */
     padding: 15px 0;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     z-index: 1000;
     overflow: visible;
 }
@@ -440,7 +468,7 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
-    background-image: 
+    background-image:
         radial-gradient(circle at 10% 50%, rgba(59, 130, 246, 0.25) 0%, transparent 50%),
         radial-gradient(circle at 90% 50%, rgba(139, 92, 246, 0.2) 0%, transparent 50%),
         radial-gradient(circle at 50% 50%, rgba(16, 185, 129, 0.15) 0%, transparent 50%);
@@ -457,12 +485,12 @@ body {
     left: 0;
     right: 0;
     height: 3px;
-    background: linear-gradient(90deg, 
-        rgba(59, 130, 246, 0.6) 0%, 
-        rgba(139, 92, 246, 0.5) 25%,
-        rgba(16, 185, 129, 0.4) 50%,
-        rgba(139, 92, 246, 0.5) 75%,
-        rgba(59, 130, 246, 0.6) 100%);
+    background: linear-gradient(90deg,
+            rgba(59, 130, 246, 0.6) 0%,
+            rgba(139, 92, 246, 0.5) 25%,
+            rgba(16, 185, 129, 0.4) 50%,
+            rgba(139, 92, 246, 0.5) 75%,
+            rgba(59, 130, 246, 0.6) 100%);
     pointer-events: none;
     z-index: 1;
 }
@@ -475,7 +503,7 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
-    background-image: 
+    background-image:
         linear-gradient(45deg, transparent 30%, rgba(59, 130, 246, 0.2) 50%, transparent 70%),
         linear-gradient(-45deg, transparent 30%, rgba(139, 92, 246, 0.18) 50%, transparent 70%);
     background-size: 400px 400px, 400px 400px;
@@ -491,10 +519,10 @@ body {
     left: 0;
     right: 0;
     height: 3px;
-    background: linear-gradient(90deg, 
-        rgba(59, 130, 246, 0.6) 0%, 
-        rgba(139, 92, 246, 0.5) 50%,
-        rgba(59, 130, 246, 0.6) 100%);
+    background: linear-gradient(90deg,
+            rgba(59, 130, 246, 0.6) 0%,
+            rgba(139, 92, 246, 0.5) 50%,
+            rgba(59, 130, 246, 0.6) 100%);
     pointer-events: none;
     z-index: 1;
 }
@@ -507,7 +535,7 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
-    background-image: 
+    background-image:
         radial-gradient(circle, rgba(59, 130, 246, 0.3) 1px, transparent 1.5px),
         radial-gradient(circle, rgba(139, 92, 246, 0.25) 1px, transparent 1.5px),
         radial-gradient(circle, rgba(16, 185, 129, 0.2) 1px, transparent 1.5px);
@@ -524,10 +552,10 @@ body {
     left: 0;
     right: 0;
     height: 3px;
-    background: linear-gradient(90deg, 
-        rgba(59, 130, 246, 0.6) 0%, 
-        rgba(139, 92, 246, 0.5) 50%,
-        rgba(59, 130, 246, 0.6) 100%);
+    background: linear-gradient(90deg,
+            rgba(59, 130, 246, 0.6) 0%,
+            rgba(139, 92, 246, 0.5) 50%,
+            rgba(59, 130, 246, 0.6) 100%);
     pointer-events: none;
     z-index: 1;
 }
@@ -540,7 +568,7 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
-    background-image: 
+    background-image:
         url("data:image/svg+xml,%3Csvg width='200' height='100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0,50 Q50,30 100,50 T200,50 L200,100 L0,100 Z' fill='rgba(59, 130, 246, 0.25)'/%3E%3C/svg%3E"),
         url("data:image/svg+xml,%3Csvg width='200' height='100' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0,50 Q50,70 100,50 T200,50 L200,100 L0,100 Z' fill='rgba(139, 92, 246, 0.2)'/%3E%3C/svg%3E");
     background-size: 200px 100px, 200px 100px;
@@ -557,10 +585,10 @@ body {
     left: 0;
     right: 0;
     height: 3px;
-    background: linear-gradient(90deg, 
-        rgba(59, 130, 246, 0.6) 0%, 
-        rgba(139, 92, 246, 0.5) 50%,
-        rgba(59, 130, 246, 0.6) 100%);
+    background: linear-gradient(90deg,
+            rgba(59, 130, 246, 0.6) 0%,
+            rgba(139, 92, 246, 0.5) 50%,
+            rgba(59, 130, 246, 0.6) 100%);
     pointer-events: none;
     z-index: 1;
 }
@@ -573,7 +601,7 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
-    background-image: 
+    background-image:
         radial-gradient(ellipse at 10% 50%, rgba(59, 130, 246, 0.3) 0%, transparent 60%),
         radial-gradient(ellipse at 90% 50%, rgba(139, 92, 246, 0.25) 0%, transparent 60%),
         radial-gradient(ellipse at 50% 50%, rgba(16, 185, 129, 0.2) 0%, transparent 60%);
@@ -588,12 +616,12 @@ body {
     left: 0;
     right: 0;
     height: 3px;
-    background: linear-gradient(90deg, 
-        rgba(59, 130, 246, 0.6) 0%, 
-        rgba(139, 92, 246, 0.5) 25%,
-        rgba(16, 185, 129, 0.4) 50%,
-        rgba(139, 92, 246, 0.5) 75%,
-        rgba(59, 130, 246, 0.6) 100%);
+    background: linear-gradient(90deg,
+            rgba(59, 130, 246, 0.6) 0%,
+            rgba(139, 92, 246, 0.5) 25%,
+            rgba(16, 185, 129, 0.4) 50%,
+            rgba(139, 92, 246, 0.5) 75%,
+            rgba(59, 130, 246, 0.6) 100%);
     pointer-events: none;
     z-index: 1;
 }
@@ -685,7 +713,8 @@ body {
 /* Sidebars (10% each) - Blank neon light blue bars */
 .sidebar {
     width: 5%;
-    background-color: rgba(240, 249, 255, 0.2); /* More transparent to show vector background */
+    background-color: rgba(240, 249, 255, 0.2);
+    /* More transparent to show vector background */
     position: relative;
     z-index: 1;
 }
@@ -693,9 +722,12 @@ body {
 /* Main Content (80%) */
 .main-content {
     width: 90%;
-    background-color: rgba(240, 249, 255, 0.3); /* More transparent to show vector background */
-    padding: 40px 0; /* Remove horizontal padding to use full width when needed */
-    overflow: visible; /* Allow expanded cards to overflow into sidebar area */
+    background-color: rgba(240, 249, 255, 0.3);
+    /* More transparent to show vector background */
+    padding: 40px 0;
+    /* Remove horizontal padding to use full width when needed */
+    overflow: visible;
+    /* Allow expanded cards to overflow into sidebar area */
     position: relative;
     z-index: 1;
 }
@@ -993,6 +1025,7 @@ body {
         transform: translate(0, 100px);
         filter: blur(33px);
     }
+
     to {
         opacity: 1;
         transform: translate(0);
@@ -1184,7 +1217,8 @@ body {
     border-radius: 16px;
     border: 3px solid;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    background-color: #ffffff; /* Default white, will be overridden */
+    background-color: #ffffff;
+    /* Default white, will be overridden */
 }
 
 .feature-box:hover {
@@ -1194,27 +1228,34 @@ body {
 
 /* Blue card - Personal Privacy */
 .feature-box-blue {
-    background-color: #dbeafe; /* Light blue */
-    border-color: #2563eb; /* Darker blue border */
+    background-color: #dbeafe;
+    /* Light blue */
+    border-color: #2563eb;
+    /* Darker blue border */
 }
 
 /* Light blue card - No Payment Required */
 .feature-box-light-blue {
-    background-color: #e0f2fe; /* Light blue */
-    border-color: #0ea5e9; /* Light blue border */
+    background-color: #e0f2fe;
+    /* Light blue */
+    border-color: #0ea5e9;
+    /* Light blue border */
 }
 
 /* Green card - Easy Access */
 .feature-box-green {
-    background-color: #d1fae5; /* Light green */
-    border-color: #059669; /* Green border */
+    background-color: #d1fae5;
+    /* Light green */
+    border-color: #059669;
+    /* Green border */
 }
 
 .feature-icon-wrapper {
     width: 80px;
     height: 80px;
     border-radius: 50%;
-    background-color: rgba(255, 255, 255, 0.5); /* Semi-transparent white */
+    background-color: rgba(255, 255, 255, 0.5);
+    /* Semi-transparent white */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1396,33 +1437,45 @@ body {
 
 /* Colored partner cards - Lighter shades */
 .partner-card-1 {
-    background-color: #eff6ff; /* Very light blue */
-    border-color: #3b82f6; /* Blue border */
+    background-color: #eff6ff;
+    /* Very light blue */
+    border-color: #3b82f6;
+    /* Blue border */
 }
 
 .partner-card-2 {
-    background-color: #fef2f2; /* Very light red/pink */
-    border-color: #ef4444; /* Red border */
+    background-color: #fef2f2;
+    /* Very light red/pink */
+    border-color: #ef4444;
+    /* Red border */
 }
 
 .partner-card-3 {
-    background-color: #eff6ff; /* Very light blue */
-    border-color: #3b82f6; /* Blue border */
+    background-color: #eff6ff;
+    /* Very light blue */
+    border-color: #3b82f6;
+    /* Blue border */
 }
 
 .partner-card-4 {
-    background-color: #f0f9ff; /* Very light cyan */
-    border-color: #0ea5e9; /* Cyan border */
+    background-color: #f0f9ff;
+    /* Very light cyan */
+    border-color: #0ea5e9;
+    /* Cyan border */
 }
 
 .partner-card-5 {
-    background-color: #fffbeb; /* Very light yellow */
-    border-color: #f59e0b; /* Orange border */
+    background-color: #fffbeb;
+    /* Very light yellow */
+    border-color: #f59e0b;
+    /* Orange border */
 }
 
 .partner-card-6 {
-    background-color: #fff7ed; /* Very light orange */
-    border-color: #f97316; /* Orange border */
+    background-color: #fff7ed;
+    /* Very light orange */
+    border-color: #f97316;
+    /* Orange border */
 }
 
 .partner-logo img {
@@ -1701,11 +1754,11 @@ body {
         grid-template-columns: 1.5fr 1fr 1fr 1fr;
         gap: 40px;
     }
-    
+
     .dropdown-menu {
         min-width: 180px;
     }
-    
+
     .style-btn {
         font-size: 11px;
         padding: 8px 10px;
@@ -1716,13 +1769,13 @@ body {
     body {
         padding-top: 140px;
     }
-    
+
     .dropdown-menu {
         left: auto;
         right: 0;
         min-width: 200px;
     }
-    
+
     .style-btn {
         font-size: 12px;
         padding: 8px 12px;
@@ -1768,7 +1821,7 @@ body {
         width: 70px;
         height: 70px;
     }
-    
+
     .feature-icon {
         width: 35px;
         height: 35px;

@@ -1,83 +1,106 @@
-# Email Setup Instructions
+# Email Setup with Resend
 
-## Quick Setup to Send Emails to yamraj26yam@gmail.com
+This project uses [Resend](https://resend.com) to send emails from all form submissions.
 
-The form data will be sent to **yamraj26yam@gmail.com** when applications are submitted.
+## Setup Instructions
 
-### Option 1: Using Resend (Recommended - Free Tier Available)
+### 1. Create a Resend Account
 
-1. **Sign up for Resend** (free tier available):
-   - Go to https://resend.com
-   - Sign up for a free account
-   - Get your API key from https://resend.com/api-keys
+1. Go to [https://resend.com](https://resend.com)
+2. Sign up for a free account
+3. Verify your email address
 
-2. **Create `.env` file** in the root directory:
+### 2. Get Your API Key
+
+1. Log in to your Resend dashboard
+2. Navigate to **API Keys** in the sidebar
+3. Click **Create API Key**
+4. Give it a name (e.g., "Zineegroup Production")
+5. Copy the API key (you'll only see it once!)
+
+### 3. Configure Environment Variables
+
+1. Create a `.env.local` file in the root of your project (if it doesn't exist)
+2. Add the following variables:
+
+```env
+# Resend API Key
+RESEND_API_KEY=re_your_actual_api_key_here
+
+# Email addresses for different forms
+PARTNER_EMAIL=info@zineegroup.com
+CONTACT_EMAIL=info@zineegroup.com
+LOAN_EMAIL=info@zineegroup.com
+CIBIL_EMAIL=info@zineegroup.com
+
+# From email address
+# For development: use onboarding@resend.dev
+# For production: use your verified domain email
+FROM_EMAIL=onboarding@resend.dev
+```
+
+### 4. Verify Your Domain (For Production)
+
+For production use, you should verify your own domain:
+
+1. In the Resend dashboard, go to **Domains**
+2. Click **Add Domain**
+3. Enter your domain (e.g., `zineegroup.com`)
+4. Add the DNS records provided by Resend to your domain's DNS settings
+5. Wait for verification (usually takes a few minutes)
+6. Once verified, update `FROM_EMAIL` in `.env.local` to use your domain:
    ```env
-   LOAN_EMAIL=yamraj26yam@gmail.com
-   RESEND_API_KEY=re_your_api_key_here
-   RESEND_FROM_EMAIL=onboarding@resend.dev
+   FROM_EMAIL=noreply@zineegroup.com
    ```
 
-3. **Verify your domain** (optional but recommended):
-   - In Resend dashboard, add and verify your domain
-   - Update `RESEND_FROM_EMAIL` to use your verified domain
+### 5. Test the Setup
 
-4. **Restart your dev server**:
+1. Restart your development server:
    ```bash
    npm run dev
    ```
 
-### Option 2: Using Gmail SMTP (Alternative)
+2. Submit a test form on your website
+3. Check the Resend dashboard under **Emails** to see if the email was sent
+4. Check your inbox at `info@zineegroup.com`
 
-1. **Enable 2-Factor Authentication** on your Gmail account
+## Free Tier Limits
 
-2. **Generate App Password**:
-   - Go to Google Account → Security → 2-Step Verification → App passwords
-   - Generate a new app password for "Mail"
+Resend's free tier includes:
+- **100 emails per day**
+- **3,000 emails per month**
+- Full API access
+- Email logs and analytics
 
-3. **Create `.env` file**:
-   ```env
-   LOAN_EMAIL=yamraj26yam@gmail.com
-   SMTP_HOST=smtp.gmail.com
-   SMTP_PORT=587
-   SMTP_USER=your-email@gmail.com
-   SMTP_PASS=your-app-password
-   SMTP_FROM=noreply@zineegroup.com
-   ```
+This should be sufficient for most small to medium websites. If you need more, check their pricing page.
 
-4. **Install nodemailer**:
-   ```bash
-   npm install nodemailer
-   npm install --save-dev @types/nodemailer
-   ```
+## Forms Using Email
 
-5. **Update the API route** to use nodemailer instead of Resend
+The following forms now send emails to `info@zineegroup.com`:
 
-### Current Status
+1. **Partner Application** (`/become-partner`)
+2. **Contact Form** (`/contact`)
+3. **CIBIL Score Application** (`/cibil-score`)
+4. **Loan Application** (`/apply-for-loan`)
 
-✅ **Email recipient configured**: yamraj26yam@gmail.com  
-✅ **Resend package installed**  
-⚠️ **API key needed**: Set `RESEND_API_KEY` in `.env` file to enable sending
+## Troubleshooting
 
-### Testing
+### Emails not sending?
 
-1. Fill out the bank application form
-2. Submit the form
-3. Check your email at **yamraj26yam@gmail.com**
-4. Also check the server console for logged email details
+1. **Check your API key**: Make sure `RESEND_API_KEY` is set correctly in `.env.local`
+2. **Restart the server**: After adding environment variables, restart your dev server
+3. **Check Resend dashboard**: Look for error logs in the Resend dashboard
+4. **Verify domain**: For production, make sure your domain is verified
+5. **Check spam folder**: Emails might end up in spam initially
 
-### Email Content
+### Common Errors
 
-The email will include:
-- Bank Information (Bank name, Bank ID)
-- Personal Information (Mobile, DOB, Income source)
-- Loan Details (Amount, Tenure)
-- Consent information
-- Submission timestamp
+- **"API key is invalid"**: Double-check your API key in `.env.local`
+- **"Domain not verified"**: Use `onboarding@resend.dev` for testing, or verify your domain
+- **"Rate limit exceeded"**: You've hit the free tier limit (100/day or 3,000/month)
 
-### Troubleshooting
+## Support
 
-- **Emails not sending?** Check that `RESEND_API_KEY` is set in `.env`
-- **Check console logs** - email details are logged even if sending fails
-- **Verify API key** is correct in Resend dashboard
-- **Check spam folder** if emails don't arrive
+For more help, visit:
+- [Resend Documentation](https://resend.com/docs)
+- [Resend Support](https://resend.com/support)

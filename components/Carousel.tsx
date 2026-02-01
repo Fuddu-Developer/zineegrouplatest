@@ -7,49 +7,106 @@ import { useLanguage } from '@/contexts/LanguageContext'
 
 export default function Carousel() {
   const { t } = useLanguage()
-  
+
+  /* 14 Specific Bank Loan Options */
   const services = [
     {
       id: 1,
       image: '/assets/images/instantloan.png',
-      name: t('carousel.instantLoan'),
-      slug: 'instant-loan',
-      description: t('carousel.instantLoanDesc'),
+      name: 'Instant Loan',
+      description: 'Personal Loan from IndusInd Bank',
+      link: 'https://induseasycredit.indusind.com/customer/personal-loan/new-lead?utm_source=assisted&utm_medium=IBLV899&utm_campaign=Personal-Loan&utm_content=1',
     },
     {
       id: 2,
       image: '/assets/images/personalloan.png',
-      name: t('carousel.personalLoans'),
-      slug: 'personal-loans',
-      description: t('carousel.personalLoansDesc'),
+      name: 'Instant Loan',
+      description: 'Personal Loan from Bajaj Finserv',
+      link: 'https://www.bajajfinservmarkets.in/apply-for-personal-loan-finservmarkets/?utm_source=B2B&utm_medium=E-referral&utm_campaign=OA&utm_content=MYMONEYMANTRA_FINTECH_PRIVATE_LIMITED',
     },
     {
       id: 3,
       image: '/assets/images/businesslonas.png',
-      name: t('carousel.businessLoans'),
-      slug: 'business-loans',
-      description: t('carousel.businessLoansDesc'),
+      name: 'Instant Loan',
+      description: 'Personal Loan from Unity Bank',
+      link: 'https://loans.theunitybank.com/unity-pl-ui/page/exclusion/login/logindetails?utm_source=partnership&utm_medium=mymoneymantra&utm_campaign=ENT-941530',
     },
     {
       id: 4,
       image: '/assets/images/professionalloans.png',
-      name: t('carousel.professionalLoans'),
-      slug: 'professional-loans',
-      description: t('carousel.professionalLoansDesc'),
+      name: 'Instant Loan',
+      description: 'Personal Loan from Hero FinCorp',
+      link: 'https://hipl.onelink.me/1OrE?af_ios_url=https%3A%2F%2Floans.apps.herofincorp.com%2Fen%2Fpersonal-loan&af_android_url=https%3A%2F%2Floans.apps.herofincorp.com%2Fen%2Fpersonal-loan&af_web_dp=https%3A%2F%2Floans.apps.herofincorp.com%2Fen%2Fpersonal-loan&af_xp=custom&pid=Mymoneymantra&is_retargeting=true&af_reengagement_window=30d&c=Mymoneymantra&utm_source=partnership&utm_campaign=mymoneymantra&utm_content=ENT&utm_medium=MMMENT941530',
     },
     {
       id: 5,
       image: '/assets/images/secureloan.png',
-      name: t('carousel.secureLoans'),
-      slug: 'secure-loans',
-      description: t('carousel.secureLoansDesc'),
+      name: 'Instant Loan',
+      description: 'Personal Loan from Prefer (CreditVidya)',
+      link: 'https://marketplace.creditvidya.com/mymoneymantra?utm_source=EARNTRA_941530',
     },
     {
       id: 6,
       image: '/assets/images/balancetransfer.png',
-      name: t('carousel.balanceTransfer'),
-      slug: 'balance-transfer',
-      description: t('carousel.balanceTransferDesc'),
+      name: 'Instant Loan',
+      description: 'Personal Loan from Poonawalla Fincorp',
+      link: 'https://poonawalla.mymoneymantra.com/?sms=false&btb=true&utm_source=pnwpl&utm_medium=mmm&utm_campaign=pnwpl-mmm-941530&pid=Y2VjZmM3MjAtZjk5OS0xMWVlLTgyYjktMDdlOGJkMWUzOTA5',
+    },
+    {
+      id: 7,
+      image: '/assets/images/instantloan.png',
+      name: 'Instant Loan',
+      description: 'Personal Loan from Incred',
+      link: 'https://incredpl.mymoneymantra.com?btb=true&utm_source=incred&utm_medium=mmm&utm_campaign=incred-mmm-941530&pid=Y2VjZmM3MjAtZjk5OS0xMWVlLTgyYjktMDdlOGJkMWUzOTA5',
+    },
+    {
+      id: 8,
+      image: '/assets/images/personalloan.png',
+      name: 'Instant Loan',
+      description: 'Personal Loan from DMI Finance',
+      link: 'https://dmi.mymoneymantra.com/?sms=false&btb=true&utm_source=dmipl&utm_medium=mmm&utm_campaign=dmipl-mmm-941530&pid=Y2VjZmM3MjAtZjk5OS0xMWVlLTgyYjktMDdlOGJkMWUzOTA5',
+    },
+    {
+      id: 9,
+      image: '/assets/images/businesslonas.png',
+      name: 'Instant Loan',
+      description: 'Personal Loan from Fi Money',
+      link: 'https://fimoney.mymoneymantra.com/?sms=false&btb=true&utm_source=fimnpl&utm_medium=mmm&utm_campaign=fimnpl-mmm-941530&pid=Y2VjZmM3MjAtZjk5OS0xMWVlLTgyYjktMDdlOGJkMWUzOTA5',
+    },
+    {
+      id: 10,
+      image: '/assets/images/professionalloans.png',
+      name: 'Instant Loan',
+      description: 'Personal Loan from IDFC First Bank',
+      link: 'https://idfcfirstpl.mymoneymantra.com?sms=false&btb=true&utm_source=idfcpl&utm_medium=mmm&utm_campaign=idfcpl-mmm-941530&pid=Y2VjZmM3MjAtZjk5OS0xMWVlLTgyYjktMDdlOGJkMWUzOTA5',
+    },
+    {
+      id: 11,
+      image: '/assets/images/secureloan.png',
+      name: 'Instant Loan',
+      description: 'Personal Loan from Protium',
+      link: 'https://protium.mymoneymantra.com/?sms=false&btb=true&utm_source=protium&utm_medium=mmm&utm_campaign=protium-mmm-941530&pid=Y2VjZmM3MjAtZjk5OS0xMWVlLTgyYjktMDdlOGJkMWUzOTA5',
+    },
+    {
+      id: 12,
+      image: '/assets/images/balancetransfer.png',
+      name: 'Instant Loan',
+      description: 'Personal Loan from Muthoot',
+      link: 'https://muthoot.mymoneymantra.com/?sms=false&btb=true&v1=EDI&utm_source=medi&utm_medium=mmm&utm_campaign=medi-mmm-941530&pid=Y2VjZmM3MjAtZjk5OS0xMWVlLTgyYjktMDdlOGJkMWUzOTA5',
+    },
+    {
+      id: 13,
+      image: '/assets/images/instantloan.png',
+      name: 'Instant Loan',
+      description: 'Personal Loan from ABFL',
+      link: 'https://abflbl.mymoneymantra.com/?btb=true&utm_source=abfl&utm_medium=mmm&utm_campaign=abfl-mmm-941530&pid=Y2VjZmM3MjAtZjk5OS0xMWVlLTgyYjktMDdlOGJkMWUzOTA5',
+    },
+    {
+      id: 14,
+      image: '/assets/images/personalloan.png',
+      name: 'Instant Loan',
+      description: 'Personal Loan from Tata Capital',
+      link: 'https://tatacapitalbl.mymoneymantra.com/?sms=false&btb=true&utm_source=tatabl&utm_medium=mmm&utm_campaign=tatabl-mmm-941530&pid=Y2VjZmM3MjAtZjk5OS0xMWVlLTgyYjktMDdlOGJkMWUzOTA5',
     },
   ]
   const slideRef = useRef<HTMLDivElement>(null)
@@ -74,22 +131,22 @@ export default function Carousel() {
   // Function to update content visibility and reset animations
   const updateContentVisibility = () => {
     if (!slideRef.current) return
-    
+
     const items = slideRef.current.querySelectorAll('.item')
     const contents = slideRef.current.querySelectorAll('.content')
     const buttons = slideRef.current.querySelectorAll('.carousel-apply-button')
-    
+
     // Hide all content first to prevent overlap
     contents.forEach((content) => {
       const contentEl = content as HTMLElement
       contentEl.style.display = 'none'
       contentEl.style.opacity = '0'
       contentEl.style.visibility = 'hidden'
-      
+
       // Reset animation by removing and re-adding the animation class
       const nameEl = contentEl.querySelector('.name') as HTMLElement
       const desEl = contentEl.querySelector('.des') as HTMLElement
-      
+
       if (nameEl) {
         nameEl.style.animation = 'none'
         nameEl.style.opacity = '0'
@@ -101,14 +158,14 @@ export default function Carousel() {
         void desEl.offsetWidth
       }
     })
-    
+
     // Hide all buttons
     buttons.forEach((button) => {
       const buttonEl = button as HTMLElement
       buttonEl.style.display = 'none'
       buttonEl.style.opacity = '0'
       buttonEl.style.visibility = 'hidden'
-      
+
       const buttonInner = buttonEl.querySelector('button') as HTMLElement
       if (buttonInner) {
         buttonInner.style.animation = 'none'
@@ -116,23 +173,23 @@ export default function Carousel() {
         void buttonInner.offsetWidth
       }
     })
-    
+
     // Show content and button only on the 2nd item (main visible card)
     if (items.length > 1) {
       const secondItem = items[1] as HTMLElement
       const secondContent = secondItem.querySelector('.content') as HTMLElement
       const secondButton = secondItem.querySelector('.carousel-apply-button') as HTMLElement
-      
+
       if (secondContent) {
         secondContent.style.display = 'flex'
         secondContent.style.opacity = '1'
         secondContent.style.visibility = 'visible'
-        
+
         // Trigger animation reset
         setTimeout(() => {
           const nameEl = secondContent.querySelector('.name') as HTMLElement
           const desEl = secondContent.querySelector('.des') as HTMLElement
-          
+
           if (nameEl) {
             nameEl.style.animation = 'animate 1s ease-in-out 1 forwards'
           }
@@ -141,12 +198,12 @@ export default function Carousel() {
           }
         }, 50)
       }
-      
+
       if (secondButton) {
         secondButton.style.display = 'flex'
         secondButton.style.opacity = '1'
         secondButton.style.visibility = 'visible'
-        
+
         setTimeout(() => {
           const buttonInner = secondButton.querySelector('button') as HTMLElement
           if (buttonInner) {
@@ -164,18 +221,18 @@ export default function Carousel() {
         // Get current slide (2nd item) and next slide (1st item)
         const currentSlide = items[1] as HTMLElement
         const nextSlide = items[0] as HTMLElement
-        
+
         if (currentSlide && nextSlide) {
           // Position next slide off-screen to the right before animation
           nextSlide.style.transform = 'translate3d(100%, 0, 0)'
           nextSlide.style.opacity = '0.8'
           // Force reflow to apply the transform
           void nextSlide.offsetWidth
-          
+
           // Add animation classes
           currentSlide.classList.add('slide-out-left')
           nextSlide.classList.add('slide-in-from-right')
-          
+
           // Wait for animation to complete, then move items
           setTimeout(() => {
             slideRef.current?.appendChild(items[0])
@@ -211,18 +268,18 @@ export default function Carousel() {
         // Get current slide (2nd item) and previous slide (3rd item)
         const currentSlide = items[1] as HTMLElement
         const prevSlide = items[2] as HTMLElement
-        
+
         if (currentSlide && prevSlide) {
           // Position previous slide off-screen to the right before animation
           prevSlide.style.transform = 'translate3d(100%, 0, 0)'
           prevSlide.style.opacity = '0.8'
           // Force reflow to apply the transform
           void prevSlide.offsetWidth
-          
+
           // Add animation classes
           currentSlide.classList.add('slide-out-left')
           prevSlide.classList.add('slide-in-from-right')
-          
+
           // Wait for animation to complete, then move items
           setTimeout(() => {
             slideRef.current?.prepend(items[items.length - 1])
@@ -273,18 +330,18 @@ export default function Carousel() {
             // Get current slide (2nd item) and next slide (1st item)
             const currentSlide = items[1] as HTMLElement
             const nextSlide = items[0] as HTMLElement
-            
+
             if (currentSlide && nextSlide) {
               // Position next slide off-screen to the right before animation
               nextSlide.style.transform = 'translate3d(100%, 0, 0)'
               nextSlide.style.opacity = '0.8'
               // Force reflow to apply the transform
               void nextSlide.offsetWidth
-              
+
               // Add animation classes
               currentSlide.classList.add('slide-out-left')
               nextSlide.classList.add('slide-in-from-right')
-              
+
               // Wait for animation to complete, then move items
               setTimeout(() => {
                 slideRef.current?.appendChild(items[0])
@@ -335,18 +392,18 @@ export default function Carousel() {
             // Get current slide (2nd item) and next slide (1st item)
             const currentSlide = items[1] as HTMLElement
             const nextSlide = items[0] as HTMLElement
-            
+
             if (currentSlide && nextSlide) {
               // Position next slide off-screen to the right before animation
               nextSlide.style.transform = 'translate3d(100%, 0, 0)'
               nextSlide.style.opacity = '0.8'
               // Force reflow to apply the transform
               void nextSlide.offsetWidth
-              
+
               // Add animation classes
               currentSlide.classList.add('slide-out-left')
               nextSlide.classList.add('slide-in-from-right')
-              
+
               // Wait for animation to complete, then move items
               setTimeout(() => {
                 slideRef.current?.appendChild(items[0])
@@ -429,23 +486,23 @@ export default function Carousel() {
   // Function to jump to a specific slide index
   const goToSlide = (targetIndex: number) => {
     if (targetIndex === currentIndex) return
-    
+
     const diff = (targetIndex - currentIndex + services.length) % services.length
     const isForward = diff <= services.length / 2
-    
+
     // Calculate how many steps to move
     const steps = isForward ? diff : services.length - diff
-    
+
     // Animate to the target slide step by step
     const animateToTarget = (remainingSteps: number) => {
       if (remainingSteps === 0) return
-      
+
       if (isForward) {
         handleNext()
       } else {
         handlePrev()
       }
-      
+
       // Continue animating if more steps needed
       if (remainingSteps > 1) {
         setTimeout(() => {
@@ -453,19 +510,19 @@ export default function Carousel() {
         }, 650) // Slightly longer than animation duration to ensure smooth transitions
       }
     }
-    
+
     animateToTarget(steps)
   }
 
   return (
     <section className="flip-carousel-section" id="apply">
-      <div 
-        className="carousel-container" 
+      <div
+        className="carousel-container"
         ref={containerRef}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       >
-        <div 
+        <div
           className="carousel-wrapper"
           onTouchStart={handleTouchStart}
           onTouchMove={handleTouchMove}
@@ -486,7 +543,7 @@ export default function Carousel() {
                   <div className="name">{service.name}</div>
                   <div className="des">{service.description}</div>
                 </div>
-                <Link className="carousel-apply-button" href={`/loans/${service.slug}`}>
+                <Link className="carousel-apply-button" href={service.link || '#'} target="_blank" rel="noopener noreferrer">
                   <button>{t('carousel.applyNow')}</button>
                 </Link>
               </div>
@@ -502,10 +559,10 @@ export default function Carousel() {
             aria-label="Previous slide"
           >
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M15 18L9 12L15 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              <path d="M15 18L9 12L15 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
           </button>
-          
+
           <div className="carousel-dots">
             {services.map((_, index) => (
               <button
@@ -516,7 +573,7 @@ export default function Carousel() {
               />
             ))}
           </div>
-          
+
           {/* Next Button */}
           <button
             className="carousel-nav-button carousel-nav-button-next"
@@ -524,7 +581,7 @@ export default function Carousel() {
             aria-label="Next slide"
           >
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M9 18L15 12L9 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              <path d="M9 18L15 12L9 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
           </button>
         </div>
