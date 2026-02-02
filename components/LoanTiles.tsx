@@ -4,85 +4,29 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { useLanguage } from '@/contexts/LanguageContext'
 
-const loanTypes = [
-  {
-    name: 'Personal Loans',
-    slug: 'personal-loans',
-    image: '/assets/images/personalloan.svg',
-    backgroundColor: '#dbeafe',
-    borderColor: '#2563eb',
-  },
-  {
-    name: 'Business Loans',
-    slug: 'business-loans',
-    image: '/assets/images/businesslonas.svg',
-    backgroundColor: '#e9d5ff',
-    borderColor: '#9333ea',
-  },
-  {
-    name: 'Overdraft',
-    slug: 'overdraft',
-    image: '/assets/images/instantloan.svg',
-    backgroundColor: '#fef3c7',
-    borderColor: '#f59e0b',
-  },
+/* Sprite: loan-tiles-icons.png is a 4×3 grid (left→right, top→bottom) */
+const SPRITE_COLS = 4
+const SPRITE_ROWS = 3
+const SPRITE_URL = '/assets/images/loan-tiles-icons.png'
 
-  {
-    name: 'Secure Loans',
-    slug: 'secure-loans',
-    image: '/assets/images/secureloan.svg',
-    backgroundColor: '#d1fae5',
-    borderColor: '#059669',
-  },
-  {
-    name: 'Balance Transfer',
-    slug: 'balance-transfer',
-    image: '/assets/images/balancetransfer.svg',
-    backgroundColor: '#e0e7ff',
-    borderColor: '#6366f1',
-  },
-  {
-    name: 'Professional Loans',
-    slug: 'professional-loans',
-    image: '/assets/images/professionalloans.svg',
-    backgroundColor: '#ccfbf1',
-    borderColor: '#14b8a6',
-  },
-  {
-    name: 'Credit Cards',
-    slug: 'credit-cards',
-    image: '/assets/images/instantloan.svg',
-    backgroundColor: '#ffe4e6',
-    borderColor: '#f43f5e',
-  },
-  {
-    name: 'Home Loans',
-    slug: 'home-loans',
-    image: '/assets/images/secureloan.svg',
-    backgroundColor: '#ffedd5',
-    borderColor: '#f97316',
-  },
-  {
-    name: 'Gold Loans',
-    slug: 'gold-loans',
-    image: '/assets/images/secureloan.svg',
-    backgroundColor: '#fef9c3',
-    borderColor: '#eab308',
-  },
-  {
-    name: 'Education Loans',
-    slug: 'education-loans',
-    image: '/assets/images/professionalloans.svg',
-    backgroundColor: '#dbeafe',
-    borderColor: '#3b82f6',
-  },
-  {
-    name: 'Insurance',
-    slug: 'insurance',
-    image: '/assets/images/secureloan.svg',
-    backgroundColor: '#fce7f3',
-    borderColor: '#ec4899',
-  },
+const loanTypes: Array<{
+  name: string
+  slug: string
+  image?: string
+  spriteCol: number
+  spriteRow: number
+}> = [
+  { name: 'Personal Loans', slug: 'personal-loans', image: '/assets/images/personal-loans-pl.png', spriteCol: 0, spriteRow: 0 },
+  { name: 'Business Loans', slug: 'business-loans', image: '/assets/images/business-loans-icon.png', spriteCol: 1, spriteRow: 0 },
+  { name: 'Overdraft', slug: 'overdraft', image: '/assets/images/overdraft-icon.png', spriteCol: 2, spriteRow: 0 },
+  { name: 'Secure Loans', slug: 'secure-loans', image: '/assets/images/secure-loans-icon.png', spriteCol: 3, spriteRow: 0 },
+  { name: 'Balance Transfer', slug: 'balance-transfer', image: '/assets/images/balance-transfer-icon.png', spriteCol: 0, spriteRow: 1 },
+  { name: 'Professional Loans', slug: 'professional-loans', image: '/assets/images/professional-loans-icon.png', spriteCol: 1, spriteRow: 1 },
+  { name: 'Credit Cards', slug: 'credit-cards', image: '/assets/images/credit-cards-icon.png', spriteCol: 2, spriteRow: 1 },
+  { name: 'Home Loans', slug: 'home-loans', image: '/assets/images/home-loans-icon.png', spriteCol: 3, spriteRow: 1 },
+  { name: 'Gold Loans', slug: 'gold-loans', image: '/assets/images/gold-loans-icon.png', spriteCol: 0, spriteRow: 2 },
+  { name: 'Education Loans', slug: 'education-loans', image: '/assets/images/education-loans-icon.png', spriteCol: 1, spriteRow: 2 },
+  { name: 'Insurance', slug: 'insurance', image: '/assets/images/insurance-icon.png', spriteCol: 3, spriteRow: 2 },
 ]
 
 const translationKeyMap: Record<string, string> = {
@@ -113,14 +57,25 @@ export default function LoanTiles() {
               className="loan-tile"
             >
               <div className="loan-tile-icon-wrapper">
-                <div className="loan-tile-icon-circle">
-                  <Image
-                    src={loan.image}
-                    alt={loan.name}
-                    width={60}
-                    height={60}
-                    className="loan-tile-icon-img"
-                  />
+                <div className="loan-tile-icon-circle loan-tile-icon-sprite" role="img" aria-label={loan.name}>
+                  {loan.image ? (
+                    <Image
+                      src={loan.image}
+                      alt={loan.name}
+                      width={80}
+                      height={80}
+                      className="loan-tile-icon-img"
+                    />
+                  ) : (
+                    <span
+                      className="loan-tile-sprite-cell"
+                      style={{
+                        backgroundImage: `url(${SPRITE_URL})`,
+                        backgroundSize: `${SPRITE_COLS * 100}% ${SPRITE_ROWS * 100}%`,
+                        backgroundPosition: `${(loan.spriteCol / (SPRITE_COLS - 1)) * 100}% ${(loan.spriteRow / (SPRITE_ROWS - 1)) * 100}%`,
+                      }}
+                    />
+                  )}
                 </div>
               </div>
               <div className="loan-tile-label">
