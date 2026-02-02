@@ -126,6 +126,31 @@ html {
     min-width: fit-content;
 }
 
+/* One ticker block per bank: bank name + its loans grouped together */
+.stock-ticker-group {
+    border-right: 1px solid rgba(148, 163, 184, 0.35);
+    padding-right: 24px;
+    margin-right: 8px;
+}
+
+.stock-ticker-group:last-of-type {
+    border-right: none;
+    margin-right: 0;
+}
+
+.stock-ticker-loan {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.stock-ticker-loan:not(:last-child)::after {
+    content: '•';
+    margin-left: 4px;
+    color: rgba(148, 163, 184, 0.7);
+    font-weight: 700;
+}
+
 .stock-symbol {
     font-weight: 700;
     color: #60a5fa;
@@ -1429,6 +1454,17 @@ html[lang="hi"] .btn-call-label {
     filter: blur(0);
 }
 
+/* Hero/carousel section: no blur so Apply Now button is never overlapped by scroll-reveal blur */
+.scroll-reveal-section.no-blur {
+    filter: none;
+}
+.scroll-reveal-section.no-blur.is-visible {
+    filter: none;
+}
+.scroll-reveal-section.no-blur.no-reveal-transition {
+    filter: none !important;
+}
+
 /* When scrolling UP, we want sections to appear instantly (no pop/blur transition). */
 .scroll-reveal-section.no-reveal-transition {
     transition: none !important;
@@ -1792,15 +1828,17 @@ html[lang="hi"] .btn-call-label {
     visibility: hidden !important;
 }
 
-/* Blur overlay for image area behind text - now on the right side */
+/* Blur overlay for image area behind text - now on the right side.
+   Stops above the Apply Now button (bottom 80px) so the button is never overlapped by blur. */
 .slide .item:nth-child(1)::before,
 .slide .item:nth-child(2)::before {
     content: '';
     position: absolute;
     top: 0;
     right: 0;
+    bottom: 80px;
     width: 52%;
-    height: 100%;
+    height: auto;
     background: rgba(238, 242, 255, 0.3);
     backdrop-filter: blur(15px);
     -webkit-backdrop-filter: blur(15px);
@@ -1917,7 +1955,7 @@ html[lang="hi"] .btn-call-label {
     max-width: 100%;
 }
 
-/* Carousel Apply Button - positioned below image */
+/* Carousel Apply Button - positioned below image; high z-index so it stays above any blur overlay */
 .carousel-apply-button {
     position: absolute;
     bottom: 20px;
@@ -1926,7 +1964,8 @@ html[lang="hi"] .btn-call-label {
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 25;
+    z-index: 30;
+    isolation: isolate;
     text-decoration: none;
 }
 
@@ -3168,6 +3207,14 @@ html[lang="hi"] .btn-call-label {
     /* Very light orange */
     border-color: #f97316;
     /* Orange border */
+}
+
+/* HDFC logo: match Axis size and bold/clear appearance */
+.partner-card-3.partner-logo img {
+    min-width: 165px;
+    max-height: 80px;
+    object-fit: contain;
+    filter: contrast(1.08);
 }
 
 .partner-logo img {

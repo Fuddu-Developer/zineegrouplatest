@@ -8,12 +8,15 @@ interface BankLoan {
   roi: number
 }
 
-interface TickerItem {
-  type: 'bank' | 'loan'
-  bank?: string
-  loanType?: string
-  roi?: number
-}
+// Fallback data when API fails so the ticker stays visible
+const FALLBACK_BANK_LOANS: BankLoan[] = [
+  { bank: 'HDFC Bank', loanType: 'Personal Loan', roi: 10.5 },
+  { bank: 'HDFC Bank', loanType: 'Home Loan', roi: 8.75 },
+  { bank: 'Axis Bank', loanType: 'Personal Loan', roi: 10.75 },
+  { bank: 'Kotak Bank', loanType: 'Personal Loan', roi: 11.0 },
+  { bank: 'Bank of Baroda', loanType: 'Personal Loan', roi: 10.4 },
+  { bank: 'PNB', loanType: 'Personal Loan', roi: 10.35 },
+]
 
 export default function StockTicker() {
   const [bankLoans, setBankLoans] = useState<BankLoan[]>([])
@@ -59,35 +62,14 @@ export default function StockTicker() {
     return `${roi.toFixed(2)}%`
   }
 
-  // Group loans by bank and create ticker items
-  const createTickerItems = (): TickerItem[] => {
-    const items: TickerItem[] = []
-    const groupedByBank: { [key: string]: BankLoan[] } = {}
-
-    // Group loans by bank
-    bankLoans.forEach((loan) => {
-      if (!groupedByBank[loan.bank]) {
-        groupedByBank[loan.bank] = []
-      }
-      groupedByBank[loan.bank].push(loan)
+  // Group loans by bank — each bank appears once with all its loans under it
+  const groupedByBank = (data: BankLoan[] = bankLoans): { bank: string; loans: BankLoan[] }[] => {
+    const map: { [key: string]: BankLoan[] } = {}
+    data.forEach((loan) => {
+      if (!map[loan.bank]) map[loan.bank] = []
+      map[loan.bank].push(loan)
     })
-
-    // Create ticker items: bank name first, then all its loans
-    Object.entries(groupedByBank).forEach(([bank, loans]) => {
-      // Add bank name item
-      items.push({ type: 'bank', bank })
-      // Add all loan items for this bank
-      loans.forEach((loan) => {
-        items.push({
-          type: 'loan',
-          bank: loan.bank,
-          loanType: loan.loanType,
-          roi: loan.roi,
-        })
-      })
-    })
-
-    return items
+    return Object.entries(map).map(([bank, loans]) => ({ bank, loans }))
   }
 
   // Don't render if there's an error and no bank loans
@@ -103,56 +85,36 @@ export default function StockTicker() {
     )
   }
 
-  if (error && bankLoans.length === 0) {
-    return null // Don't show ticker if there's an error and no data
-  }
-
-  const tickerItems = createTickerItems()
+  // Use fallback data when API fails and no cached data — keep ticker visible
+  const dataToShow = error && bankLoans.length === 0 ? FALLBACK_BANK_LOANS : bankLoans
+  const bankGroups = groupedByBank(dataToShow)
 
   return (
     <div className="stock-ticker">
       <div className="stock-ticker-content">
-        {tickerItems.map((item, index) => {
-          if (item.type === 'bank') {
-            return (
-              <div key={`bank-${item.bank}-${index}`} className="stock-ticker-item">
-                <span className="stock-symbol" style={{ fontSize: '14px', fontWeight: '700' }}>
-                  {item.bank}
-                </span>
-              </div>
-            )
-          } else {
-            return (
-              <div key={`loan-${item.bank}-${item.loanType}-${index}`} className="stock-ticker-item">
-                <span className="stock-price">{item.loanType}</span>
-                <span className="stock-change positive">
-                  ROI: {formatROI(item.roi)}
-                </span>
-              </div>
-            )
-          }
-        })}
-        {/* Duplicate items for seamless scrolling effect */}
-        {tickerItems.map((item, index) => {
-          if (item.type === 'bank') {
-            return (
-              <div key={`bank-${item.bank}-${index}-dup`} className="stock-ticker-item">
-                <span className="stock-symbol" style={{ fontSize: '14px', fontWeight: '700' }}>
-                  {item.bank}
-                </span>
-              </div>
-            )
-          } else {
-            return (
-              <div key={`loan-${item.bank}-${item.loanType}-${index}-dup`} className="stock-ticker-item">
-                <span className="stock-price">{item.loanType}</span>
-                <span className="stock-change positive">
-                  ROI: {formatROI(item.roi)}
-                </span>
-              </div>
-            )
-          }
-        })}
+        {bankGroups.map((group, groupIndex) => (
+          <div key={`group-${group.bank}-${groupIndex}`} className="stock-ticker-item stock-ticker-group">
+            <span className="stock-symbol">{group.bank}</span>
+            {group.loans.map((loan, loanIndex) => (
+              <span key={`${group.bank}-${loan.loanType}-${loanIndex}`} className="stock-ticker-loan">
+                <span className="stock-price">{loan.loanType}</span>
+                <span className="stock-change positive">ROI: {formatROI(loan.roi)}</span>
+              </span>
+            ))}
+          </div>
+        ))}
+        {/* Duplicate for seamless scrolling */}
+        {bankGroups.map((group, groupIndex) => (
+          <div key={`group-${group.bank}-${groupIndex}-dup`} className="stock-ticker-item stock-ticker-group">
+            <span className="stock-symbol">{group.bank}</span>
+            {group.loans.map((loan, loanIndex) => (
+              <span key={`${group.bank}-${loan.loanType}-${loanIndex}-dup`} className="stock-ticker-loan">
+                <span className="stock-price">{loan.loanType}</span>
+                <span className="stock-change positive">ROI: {formatROI(loan.roi)}</span>
+              </span>
+            ))}
+          </div>
+        ))}
       </div>
     </div>
   )

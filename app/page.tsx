@@ -17,7 +17,7 @@ export default function Home() {
           <aside className="sidebar left-sidebar"></aside>
           <section className="main-content">
             <div className="content-wrapper">
-              <ScrollRevealSection delay={0}>
+              <ScrollRevealSection delay={0} className="no-blur">
                 <div className="hero-carousel-container">
                   <Hero />
                   <Carousel />
