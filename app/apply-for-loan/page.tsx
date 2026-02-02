@@ -3,8 +3,10 @@
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import { useState } from 'react'
+import { useLanguage } from '@/contexts/LanguageContext'
 
 export default function ApplyForLoanPage() {
+  const { t } = useLanguage()
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -44,7 +46,7 @@ export default function ApplyForLoanPage() {
       const data = await response.json()
 
       if (response.ok) {
-        setSubmitMessage('Success! Your loan application has been submitted. Our team will contact you within 24 hours.')
+        setSubmitMessage(t('apply.successMessage'))
         // Reset form on success
         setFormData({
           name: '',
@@ -55,11 +57,11 @@ export default function ApplyForLoanPage() {
           message: ''
         })
       } else {
-        setSubmitMessage(data.error || 'There was an error submitting your application. Please try again.')
+        setSubmitMessage(data.error || t('apply.errorMessage'))
       }
     } catch (error) {
       console.error('Error submitting loan application:', error)
-      setSubmitMessage('There was an error submitting your application. Please try again.')
+      setSubmitMessage(t('apply.errorMessage'))
     } finally {
       setIsSubmitting(false)
     }
@@ -75,33 +77,32 @@ export default function ApplyForLoanPage() {
             <div className="contact-page-container">
               {/* Header Section */}
               <div className="contact-header">
-                <h1 className="contact-title">Apply Now</h1>
-                <p className="contact-intro">Get instant loan approval with competitive interest rates! Fill out the form below and our team will contact you within 24 hours.</p>
+                <h1 className="contact-title">{t('apply.title')}</h1>
+                <p className="contact-intro">{t('apply.intro')}</p>
                 <div className="loan-benefits">
-                  {/* Benefit items omitted for brevity in target content matching, but they are here */}
                   <div className="benefit-item">
                     <svg className="benefit-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path d="M9 12L11 14L15 10M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                     </svg>
-                    <span>Quick Approval</span>
+                    <span>{t('apply.quickApproval')}</span>
                   </div>
                   <div className="benefit-item">
                     <svg className="benefit-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path d="M9 12L11 14L15 10M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                     </svg>
-                    <span>Low Interest Rates</span>
+                    <span>{t('apply.lowInterestRates')}</span>
                   </div>
                   <div className="benefit-item">
                     <svg className="benefit-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path d="M9 12L11 14L15 10M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                     </svg>
-                    <span>Minimal Documentation</span>
+                    <span>{t('apply.minimalDoc')}</span>
                   </div>
                   <div className="benefit-item">
                     <svg className="benefit-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                       <path d="M9 12L11 14L15 10M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                     </svg>
-                    <span>Flexible Repayment</span>
+                    <span>{t('apply.flexibleRepayment')}</span>
                   </div>
                 </div>
               </div>
@@ -116,7 +117,7 @@ export default function ApplyForLoanPage() {
                       <svg className="contact-box-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M3 5C3 3.89543 3.89543 3 5 3H8.27924C8.70967 3 9.09181 3.27543 9.22792 3.68377L10.7257 8.17721C10.8831 8.64932 10.6694 9.16531 10.2243 9.38787L7.96701 10.5165C9.06925 12.9612 11.0388 14.9308 13.4835 16.033L14.6121 13.7757C14.8347 13.3306 15.3507 13.1169 15.8228 13.2743L20.3162 14.7721C20.7246 14.9082 21 15.2903 21 15.7208V19C21 20.1046 20.1046 21 19 21H18C9.71573 21 3 14.2843 3 6V5Z" stroke="#ffffff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                       </svg>
-                      <span className="contact-box-label">Call Us Directly At</span>
+                      <span className="contact-box-label">{t('apply.callUsDirectly')}</span>
                     </div>
                     <div className="contact-box-value">+91 9540 185 185</div>
                     <a
@@ -124,7 +125,7 @@ export default function ApplyForLoanPage() {
                       className="contact-box-button phone-button"
                       style={{ textDecoration: 'none', display: 'inline-block' }}
                     >
-                      Talk to an Expert
+                      {t('apply.talkToExpert')}
                     </a>
                   </div>
 
@@ -134,7 +135,7 @@ export default function ApplyForLoanPage() {
                       <svg className="contact-box-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <path d="M21 15C21 15.5304 20.7893 16.0391 20.4142 16.4142C20.0391 16.7893 19.5304 17 19 17H7C6.46957 17 5.96086 16.7893 5.58579 16.4142C5.21071 16.0391 5 15.5304 5 15M21 15V19C21 19.5304 20.7893 20.0391 20.4142 20.4142C20.0391 20.7893 19.5304 21 19 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V15M21 15L13.5 9.75C13.1022 9.41667 12.5511 9.41667 12.1533 9.75L4.5 15" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
                       </svg>
-                      <span className="contact-box-label">Chat With Our Team</span>
+                      <span className="contact-box-label">{t('apply.chatWithTeam')}</span>
                     </div>
                     <div className="contact-box-value email-value">info@zineegroup.com</div>
                     <a
@@ -142,7 +143,7 @@ export default function ApplyForLoanPage() {
                       className="contact-box-button email-button"
                       style={{ textDecoration: 'none', display: 'inline-block' }}
                     >
-                      Talk to an Expert
+                      {t('apply.talkToExpert')}
                     </a>
                   </div>
                 </div>
@@ -152,12 +153,12 @@ export default function ApplyForLoanPage() {
                   <form className="contact-form" onSubmit={handleSubmit}>
                     {/* Personal Information Section */}
                     <div className="form-section-header">
-                      <h3 className="form-section-title">Personal Information</h3>
+                      <h3 className="form-section-title">{t('apply.personalInfo')}</h3>
                     </div>
 
                     {/* Name Field */}
                     <div className="form-group">
-                      <label className="form-label">Full Name *</label>
+                      <label className="form-label">{t('apply.fullName')} *</label>
                       <div className="form-input-wrapper">
                         <svg className="form-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                           <path d="M20 21V19C20 17.9391 19.5786 16.9217 18.8284 16.1716C18.0783 15.4214 17.0609 15 16 15H8C6.93913 15 5.92172 15.4214 5.17157 16.1716C4.42143 16.9217 4 17.9391 4 19V21M16 7C16 9.20914 14.2091 11 12 11C9.79086 11 8 9.20914 8 7C8 4.79086 9.79086 3 12 3C14.2091 3 16 4.79086 16 7Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
@@ -165,7 +166,7 @@ export default function ApplyForLoanPage() {
                         <input
                           type="text"
                           name="name"
-                          placeholder="Enter your full name"
+                          placeholder={t('apply.enterFullName')}
                           className="form-input"
                           value={formData.name}
                           onChange={handleChange}
@@ -197,7 +198,7 @@ export default function ApplyForLoanPage() {
 
                       {/* Phone Field */}
                       <div className="form-group">
-                        <label className="form-label">Phone Number *</label>
+                        <label className="form-label">{t('apply.phoneNumber')} *</label>
                         <div className="form-input-wrapper">
                           <svg className="form-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M3 5C3 3.89543 3.89543 3 5 3H8.27924C8.70967 3 9.09181 3.27543 9.22792 3.68377L10.7257 8.17721C10.8831 8.64932 10.6694 9.16531 10.2243 9.38787L7.96701 10.5165C9.06925 12.9612 11.0388 14.9308 13.4835 16.033L14.6121 13.7757C14.8347 13.3306 15.3507 13.1169 15.8228 13.2743L20.3162 14.7721C20.7246 14.9082 21 15.2903 21 15.7208V19C21 20.1046 20.1046 21 19 21H18C9.71573 21 3 14.2843 3 6V5Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
@@ -205,7 +206,7 @@ export default function ApplyForLoanPage() {
                           <input
                             type="tel"
                             name="phone"
-                            placeholder="10-digit mobile number"
+                            placeholder={t('apply.enterPhone')}
                             className="form-input"
                             value={formData.phone}
                             onChange={handleChange}
@@ -219,7 +220,7 @@ export default function ApplyForLoanPage() {
                     {/* City and Pincode Row */}
                     <div className="form-row">
                       <div className="form-group">
-                        <label className="form-label">City *</label>
+                        <label className="form-label">{t('apply.city')} *</label>
                         <div className="form-input-wrapper">
                           <svg className="form-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M21 10C21 17 12 23 12 23C12 23 3 17 3 10C3 7.61305 3.94821 5.32387 5.63604 3.63604C7.32387 1.94821 9.61305 1 12 1C14.3869 1 16.6761 1.94821 18.364 3.63604C20.0518 5.32387 21 7.61305 21 10Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
@@ -228,7 +229,7 @@ export default function ApplyForLoanPage() {
                           <input
                             type="text"
                             name="city"
-                            placeholder="Enter your city"
+                            placeholder={t('apply.enterCity')}
                             className="form-input"
                             value={formData.city}
                             onChange={handleChange}
@@ -238,7 +239,7 @@ export default function ApplyForLoanPage() {
                       </div>
 
                       <div className="form-group">
-                        <label className="form-label">Pincode *</label>
+                        <label className="form-label">{t('apply.pincode')} *</label>
                         <div className="form-input-wrapper">
                           <svg className="form-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
@@ -248,7 +249,7 @@ export default function ApplyForLoanPage() {
                           <input
                             type="text"
                             name="pincode"
-                            placeholder="6-digit pincode"
+                            placeholder={t('apply.pincodePlaceholder')}
                             className="form-input"
                             value={formData.pincode}
                             onChange={handleChange}
@@ -262,10 +263,10 @@ export default function ApplyForLoanPage() {
 
                     {/* Message Field */}
                     <div className="form-group">
-                      <label className="form-label">Tell us about your loan requirements *</label>
+                      <label className="form-label">{t('apply.tellUsAbout')} *</label>
                       <textarea
                         name="message"
-                        placeholder="Please provide details about your loan purpose, preferred tenure, or any specific requirements..."
+                        placeholder={t('apply.messagePlaceholder')}
                         className="form-textarea"
                         rows={5}
                         value={formData.message}
@@ -287,7 +288,7 @@ export default function ApplyForLoanPage() {
                       className="form-submit-button"
                       disabled={isSubmitting}
                     >
-                      {isSubmitting ? 'Submitting...' : 'Apply Now'}
+                      {isSubmitting ? t('apply.submitting') : t('apply.applyNow')}
                     </button>
                   </form>
                 </div>

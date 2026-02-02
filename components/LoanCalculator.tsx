@@ -1,15 +1,19 @@
 'use client'
 
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
+import { useLanguage } from '@/contexts/LanguageContext'
+
+export type LoanCalculatorParams = { amount: number; tenure: number; tenureUnit: 'Yr' | 'Mo' }
 
 interface LoanCalculatorProps {
   loanType: string
   minAmount?: number
   maxAmount?: number
   defaultInterestRate?: number
-  // Keeping these for compatibility but not using them in the new UI for now
   defaultBanks?: any[]
+  /** Called when loan amount, tenure or tenure unit changes (e.g. for comparison section). */
+  onParamsChange?: (params: LoanCalculatorParams) => void
 }
 
 const formatCurrency = (amount: number) => {
@@ -25,12 +29,17 @@ export default function LoanCalculator({
   minAmount = 100000,
   maxAmount = 10000000,
   defaultInterestRate = 10.5,
+  onParamsChange,
 }: LoanCalculatorProps) {
-  // State
+  const { t } = useLanguage()
   const [amount, setAmount] = useState(500000)
   const [interestRate, setInterestRate] = useState(defaultInterestRate)
   const [tenure, setTenure] = useState(3)
   const [tenureUnit, setTenureUnit] = useState<'Yr' | 'Mo'>('Yr')
+
+  useEffect(() => {
+    onParamsChange?.({ amount, tenure, tenureUnit })
+  }, [amount, tenure, tenureUnit, onParamsChange])
 
   // Constants for Ranges
   const MIN_RATE = 1
@@ -87,7 +96,7 @@ export default function LoanCalculator({
 
   return (
     <div className="loan-calculator-container">
-      <h2 className="calculator-title">Calculate Your {loanType}</h2>
+      <h2 className="calculator-title">{t('emi.calculateYour')} {loanType}</h2>
 
       <div className="emi-calc-wrapper">
         <div className="emi-calc-grid">
@@ -98,7 +107,7 @@ export default function LoanCalculator({
             {/* Amount Input */}
             <div className="emi-input-group">
               <div className="emi-input-header">
-                <label className="emi-label">Loan Amount</label>
+                <label className="emi-label">{t('emi.loanAmount')}</label>
                 <div className="emi-input-control">
                   <span className="emi-currency-symbol">₹</span>
                   <input
@@ -139,7 +148,7 @@ export default function LoanCalculator({
             {/* Interest Rate Input */}
             <div className="emi-input-group">
               <div className="emi-input-header">
-                <label className="emi-label">Rate of Interest (p.a)</label>
+                <label className="emi-label">{t('emi.rateOfInterest')}</label>
                 <div className="emi-input-control">
                   <input
                     type="number"
@@ -173,7 +182,7 @@ export default function LoanCalculator({
             {/* Tenure Input */}
             <div className="emi-input-group">
               <div className="emi-input-header">
-                <label className="emi-label">Loan Tenure</label>
+                <label className="emi-label">{t('emi.loanTenure')}</label>
                 <div className="flex gap-4 items-center">
                   <div className="emi-input-control" style={{ maxWidth: '100px' }}>
                     <input
@@ -191,7 +200,7 @@ export default function LoanCalculator({
                         setTenureUnit('Yr')
                       }}
                     >
-                      Yr
+                      {t('emi.yr')}
                     </button>
                     <button
                       className={`tenure-toggle-btn ${tenureUnit === 'Mo' ? 'active' : ''}`}
@@ -200,7 +209,7 @@ export default function LoanCalculator({
                         setTenureUnit('Mo')
                       }}
                     >
-                      Mo
+                      {t('emi.mo')}
                     </button>
                   </div>
                 </div>
@@ -231,17 +240,17 @@ export default function LoanCalculator({
           <div className="emi-results-column">
 
             <div className="emi-stat-item">
-              <div className="emi-stat-label">Loan EMI</div>
+              <div className="emi-stat-label">{t('emi.loanEmi')}</div>
               <div className="emi-stat-value highlight">{formatCurrency(emi)}</div>
             </div>
 
             <div className="emi-stat-item">
-              <div className="emi-stat-label">Total Interest Payable</div>
+              <div className="emi-stat-label">{t('emi.totalInterestPayable')}</div>
               <div className="emi-stat-value">{formatCurrency(totalInterest)}</div>
             </div>
 
             <div className="emi-stat-item">
-              <div className="emi-stat-label">Total Payment (Principal + Interest)</div>
+              <div className="emi-stat-label">{t('emi.totalPayment')}</div>
               <div className="emi-stat-value">{formatCurrency(totalPayment)}</div>
             </div>
 
@@ -275,11 +284,11 @@ export default function LoanCalculator({
             <div className="chart-legend">
               <div className="legend-item">
                 <div className="legend-color" style={{ background: PRINCIPAL_COLOR }}></div>
-                <span>Principal Amount</span>
+                <span>{t('emi.principalAmount')}</span>
               </div>
               <div className="legend-item">
                 <div className="legend-color" style={{ background: INTEREST_COLOR }}></div>
-                <span>Total Interest</span>
+                <span>{t('emi.totalInterest')}</span>
               </div>
             </div>
 

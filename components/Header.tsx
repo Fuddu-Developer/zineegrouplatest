@@ -6,7 +6,7 @@ import Image from 'next/image'
 import { usePathname } from 'next/navigation'
 import StockTicker from './StockTicker'
 import ChatBot from './ChatBot'
-import { useLanguage } from '@/contexts/LanguageContext'
+import { useLanguage, getLangLabelKey } from '@/contexts/LanguageContext'
 import { useDarkMode } from '@/contexts/DarkModeContext'
 
 type NavLink = {
@@ -31,7 +31,7 @@ export default function Header() {
   const [isLanguageDropdownOpen, setIsLanguageDropdownOpen] = useState(false)
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
   const pathname = usePathname()
-  const { language, setLanguage, t } = useLanguage()
+  const { language, setLanguage, t, supportedLanguages } = useLanguage()
   const { toggleTheme, isDark } = useDarkMode()
 
   useEffect(() => {
@@ -251,7 +251,7 @@ export default function Header() {
                   </svg>
                 </div>
                 <span className="language-switcher-text">
-                  {language === 'en' ? t('lang.english') : t('lang.hindi')}
+                  {t(getLangLabelKey(language))}
                 </span>
                 <svg
                   className={`language-switcher-chevron ${isLanguageDropdownOpen ? 'open' : ''}`}
@@ -265,34 +265,23 @@ export default function Header() {
 
               {isLanguageDropdownOpen && (
                 <div className="language-switcher-dropdown">
-                  <button
-                    className={`language-option ${language === 'en' ? 'active' : ''}`}
-                    onClick={() => {
-                      setLanguage('en')
-                      setIsLanguageDropdownOpen(false)
-                    }}
-                  >
-                    <span className="language-option-text">{t('lang.english')}</span>
-                    {language === 'en' && (
-                      <svg className="language-option-check" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M20 6L9 17l-5-5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                      </svg>
-                    )}
-                  </button>
-                  <button
-                    className={`language-option ${language === 'hi' ? 'active' : ''}`}
-                    onClick={() => {
-                      setLanguage('hi')
-                      setIsLanguageDropdownOpen(false)
-                    }}
-                  >
-                    <span className="language-option-text">{t('lang.hindi')}</span>
-                    {language === 'hi' && (
-                      <svg className="language-option-check" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M20 6L9 17l-5-5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                      </svg>
-                    )}
-                  </button>
+                  {supportedLanguages.map((lang) => (
+                    <button
+                      key={lang}
+                      className={`language-option ${language === lang ? 'active' : ''}`}
+                      onClick={() => {
+                        setLanguage(lang)
+                        setIsLanguageDropdownOpen(false)
+                      }}
+                    >
+                      <span className="language-option-text">{t(getLangLabelKey(lang))}</span>
+                      {language === lang && (
+                        <svg className="language-option-check" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                          <path d="M20 6L9 17l-5-5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
+                      )}
+                    </button>
+                  ))}
                 </div>
               )}
             </div>

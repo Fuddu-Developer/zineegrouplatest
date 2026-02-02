@@ -2,9 +2,15 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    unoptimized: true, // For static image optimization
+    unoptimized: true,
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'upload.wikimedia.org',
+        pathname: '/**',
+      },
+    ],
   },
-  // Copy assets from assets folder to public during build if needed
 }
 
 module.exports = nextConfig

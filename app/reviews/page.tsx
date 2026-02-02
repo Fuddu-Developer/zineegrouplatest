@@ -4,8 +4,10 @@ import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import { testimonials } from '@/components/Testimonials'
 import { useState, ChangeEvent, FormEvent } from 'react'
+import { useLanguage } from '@/contexts/LanguageContext'
 
 export default function ReviewsPage() {
+  const { t } = useLanguage()
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -37,7 +39,7 @@ export default function ReviewsPage() {
       })
 
       if (response.ok) {
-        setSubmitMessage('Thank you! Your review has been submitted successfully.')
+        setSubmitMessage(t('reviews.thankYou'))
         setFormData({
           name: '',
           email: '',
@@ -45,10 +47,10 @@ export default function ReviewsPage() {
           rating: 5
         })
       } else {
-        setSubmitMessage('There was an error submitting your review. Please try again.')
+        setSubmitMessage(t('reviews.errorMessage'))
       }
     } catch (error) {
-      setSubmitMessage('There was an error submitting your review. Please try again.')
+      setSubmitMessage(t('reviews.errorMessage'))
     } finally {
       setIsSubmitting(false)
     }
@@ -64,16 +66,16 @@ export default function ReviewsPage() {
             <div className="reviews-page-container">
               {/* Header Section */}
               <div className="reviews-header">
-                <h1 className="reviews-title">All Reviews</h1>
-                <p className="reviews-intro">Read what our clients have to say about us</p>
+                <h1 className="reviews-title">{t('reviews.title')}</h1>
+                <p className="reviews-intro">{t('reviews.intro')}</p>
               </div>
 
               {/* All Reviews - static grid, no transition */}
               <section className="testimonials-section">
                 <div className="testimonials-header">
                   <div className="testimonials-header-left">
-                    <p className="happy-clients">12K + Happy Clients</p>
-                    <h2 className="testimonials-title">All Client Reviews</h2>
+                    <p className="happy-clients">{t('reviews.happyClients')}</p>
+                    <h2 className="testimonials-title">{t('reviews.allReviews')}</h2>
                   </div>
                 </div>
                 <div className="testimonials-grid reviews-static-grid">
@@ -87,7 +89,7 @@ export default function ReviewsPage() {
                           ★★★★★
                         </span>
                         <span className="testimonial-rating">
-                          (Rating: {testimonial.rating})
+                          ({t('testimonials.rating')}: {testimonial.rating})
                         </span>
                       </div>
 
@@ -106,17 +108,17 @@ export default function ReviewsPage() {
 
               {/* Write Review Section */}
               <div className="write-review-section">
-                <h2 className="write-review-title">Write a Review</h2>
-                <p className="write-review-intro">Share your experience with us</p>
+                <h2 className="write-review-title">{t('reviews.writeReview')}</h2>
+                <p className="write-review-intro">{t('reviews.shareExperience')}</p>
                 
                 <form className="review-form" onSubmit={handleSubmit}>
                   <div className="form-group">
-                    <label htmlFor="name" className="form-label">Name</label>
+                    <label htmlFor="name" className="form-label">{t('contact.name')}</label>
                     <input
                       type="text"
                       id="name"
                       name="name"
-                      placeholder="Your name"
+                      placeholder={t('reviews.yourName')}
                       className="form-input"
                       value={formData.name}
                       onChange={handleChange}
@@ -125,12 +127,12 @@ export default function ReviewsPage() {
                   </div>
 
                   <div className="form-group">
-                    <label htmlFor="email" className="form-label">Email</label>
+                    <label htmlFor="email" className="form-label">{t('contact.email')}</label>
                     <input
                       type="email"
                       id="email"
                       name="email"
-                      placeholder="Your email address"
+                      placeholder={t('reviews.yourEmail')}
                       className="form-input"
                       value={formData.email}
                       onChange={handleChange}
@@ -139,7 +141,7 @@ export default function ReviewsPage() {
                   </div>
 
                   <div className="form-group">
-                    <label htmlFor="rating" className="form-label">Rating</label>
+                    <label htmlFor="rating" className="form-label">{t('reviews.ratingOption')}</label>
                     <select
                       id="rating"
                       name="rating"
@@ -148,20 +150,20 @@ export default function ReviewsPage() {
                       onChange={handleChange}
                       required
                     >
-                      <option value="5">5 Stars - Excellent</option>
-                      <option value="4">4 Stars - Very Good</option>
-                      <option value="3">3 Stars - Good</option>
-                      <option value="2">2 Stars - Fair</option>
-                      <option value="1">1 Star - Poor</option>
+                      <option value="5">{t('reviews.starsExcellent')}</option>
+                      <option value="4">{t('reviews.starsVeryGood')}</option>
+                      <option value="3">{t('reviews.starsGood')}</option>
+                      <option value="2">{t('reviews.starsFair')}</option>
+                      <option value="1">{t('reviews.starsPoor')}</option>
                     </select>
                   </div>
 
                   <div className="form-group">
-                    <label htmlFor="review" className="form-label">Your Review</label>
+                    <label htmlFor="review" className="form-label">{t('contact.message')}</label>
                     <textarea
                       id="review"
                       name="review"
-                      placeholder="Write your review here..."
+                      placeholder={t('reviews.yourReview')}
                       className="form-textarea"
                       rows={6}
                       value={formData.review}
@@ -181,7 +183,7 @@ export default function ReviewsPage() {
                     className="form-submit-button"
                     disabled={isSubmitting}
                   >
-                    {isSubmitting ? 'Submitting...' : 'Submit Review'}
+                    {isSubmitting ? t('contact.submitting') : t('reviews.submitReview')}
                   </button>
                 </form>
               </div>
