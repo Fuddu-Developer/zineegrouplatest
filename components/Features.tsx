@@ -4,39 +4,40 @@ import { useLanguage } from '@/contexts/LanguageContext'
 
 export default function Features() {
   const { t } = useLanguage()
-  
+
   const features = [
     {
       className: 'feature-box-blue',
       icon: (
         <svg className="feature-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M12 2L4 7V12C4 16.55 6.16 20.74 9.5 22.29C10.18 22.63 10.94 22.63 11.62 22.29C14.86 20.74 17 16.55 17 12V7L12 2Z" fill="#3b82f6"/>
-          <path d="M9 12L11 14L15 10" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+          <path d="M12 2L4 7V12C4 16.55 6.16 20.74 9.5 22.29C10.18 22.63 10.94 22.63 11.62 22.29C14.86 20.74 17 16.55 17 12V7L12 2Z" fill="#3b82f6" />
+          <path d="M12 11V15M9 13H15" stroke="white" strokeWidth="2" strokeLinecap="round" />
         </svg>
       ),
-      title: t('features.personalPrivacy'),
-      description: t('features.personalPrivacyDesc'),
+      title: t('features.offer1Title'),
+      description: t('features.offer1Desc'),
     },
     {
       className: 'feature-box-light-blue',
       icon: (
         <svg className="feature-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <rect x="2" y="6" width="20" height="12" rx="2" fill="#60a5fa"/>
-          <rect x="6" y="10" width="12" height="2" fill="white"/>
+          <rect x="2" y="6" width="20" height="12" rx="2" fill="#60a5fa" />
+          <path d="M7 12H17M12 7V17" stroke="white" strokeWidth="2" strokeLinecap="round" />
         </svg>
       ),
-      title: t('features.noPayment'),
-      description: t('features.noPaymentDesc'),
+      title: t('features.offer2Title'),
+      description: t('features.offer2Desc'),
     },
     {
       className: 'feature-box-green',
       icon: (
         <svg className="feature-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="#10b981" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+          <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" stroke="#10b981" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+          <path d="M22 4L12 14.01l-3-3" stroke="#10b981" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
         </svg>
       ),
-      title: t('features.easyAccess'),
-      description: t('features.easyAccessDesc'),
+      title: t('features.promiseTitle'),
+      description: t('features.promiseDesc'),
     },
   ]
 

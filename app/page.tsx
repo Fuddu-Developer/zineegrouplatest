@@ -1,7 +1,7 @@
 import Header from '@/components/Header'
 import Hero from '@/components/Hero'
 import LoanTiles from '@/components/LoanTiles'
-import Carousel from '@/components/Carousel'
+import NewCarousel from '@/components/NewCarousel'
 import Features from '@/components/Features'
 import Testimonials from '@/components/Testimonials'
 import Partners from '@/components/Partners'
@@ -18,9 +18,9 @@ export default function Home() {
           <section className="main-content">
             <div className="content-wrapper">
               <ScrollRevealSection delay={0} className="no-blur">
-                <div className="hero-carousel-container">
+                <div className="hero-carousel-wrapper">
+                  <NewCarousel />
                   <Hero />
-                  <Carousel />
                 </div>
               </ScrollRevealSection>
 

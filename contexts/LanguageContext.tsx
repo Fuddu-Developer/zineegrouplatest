@@ -58,12 +58,12 @@ const translations = {
     'hero.titleLine2': 'for your best living.',
 
     // Features
-    'features.personalPrivacy': 'Personal Privacy',
-    'features.personalPrivacyDesc': 'Other forms of secured loans include loans against securities',
-    'features.noPayment': 'No Payment Required',
-    'features.noPaymentDesc': 'These may be available from financial institutions under many different guises',
-    'features.easyAccess': 'Easy Access',
-    'features.easyAccessDesc': 'obtain a money judgment for breach of contract',
+    'features.offer1Title': '₹1100 Cashback',
+    'features.offer1Desc': 'Get Cashback of ₹1100 Above 10 lac loan Amount on Processing Fee T&C*',
+    'features.offer2Title': '₹3100 Cashback',
+    'features.offer2Desc': 'Get Cashback of ₹3100 on Above 25 lac loan Amount on Processing Fee T&C*',
+    'features.promiseTitle': 'Helloans Promise',
+    'features.promiseDesc': '(To Provide the Cashback on time) Quick disbursal & Low Roi',
 
     // Carousel
     'carousel.instantLoan': 'Instant Loan',
@@ -85,6 +85,7 @@ const translations = {
     'carousel.insurance': 'Insurance',
     'carousel.creditCards': 'Credit Cards',
     'carousel.applyNow': 'Apply Now',
+    'carousel.viewAll': 'View All',
 
     // Loan Tiles Section
     'loanTiles.title': 'Our Loan Products',
@@ -342,12 +343,12 @@ const translations = {
     'hero.titleLine2': 'सर्वोत्तम जीवन प्रदान करना।',
 
     // Features
-    'features.personalPrivacy': 'व्यक्तिगत गोपनीयता',
-    'features.personalPrivacyDesc': 'सुरक्षित ऋण के अन्य रूपों में प्रतिभूतियों के खिलाफ ऋण शामिल हैं',
-    'features.noPayment': 'कोई भुगतान आवश्यक नहीं',
-    'features.noPaymentDesc': 'ये वित्तीय संस्थानों से कई अलग-अलग रूपों में उपलब्ध हो सकते हैं',
-    'features.easyAccess': 'आसान पहुंच',
-    'features.easyAccessDesc': 'अनुबंध के उल्लंघन के लिए धन निर्णय प्राप्त करें',
+    'features.offer1Title': '₹1100 कैशबैक',
+    'features.offer1Desc': '10 लाख से अधिक के ऋण पर प्रोसेसिंग फीस पर ₹1100 कैशबैक प्राप्त करें नियम और शर्तें लागू*',
+    'features.offer2Title': '₹3100 कैशबैक',
+    'features.offer2Desc': '25 लाख से अधिक के ऋण पर प्रोसेसिंग फीस पर ₹3100 कैशबैक प्राप्त करें नियम और शर्तें लागू*',
+    'features.promiseTitle': 'हेलोअन्स प्रॉमिस',
+    'features.promiseDesc': '(समय पर कैशबैक प्रदान करने का वादा) त्वरित संवितरण और कम ब्याज दर',
 
     // Carousel
     'carousel.instantLoan': 'तत्काल ऋण',
@@ -369,6 +370,7 @@ const translations = {
     'carousel.insurance': 'बीमा',
     'carousel.creditCards': 'क्रेडिट कार्ड',
     'carousel.applyNow': 'अभी आवेदन करें',
+    'carousel.viewAll': 'सभी देखें',
 
     // Loan Tiles Section
     'loanTiles.title': 'हमारे ऋण उत्पाद',
@@ -602,13 +604,14 @@ const translations = {
     'hero.highlight': 'சிறந்த',
     'hero.titleLine1': 'சிறந்த எதிர்காலத்தை',
     'hero.titleLine2': 'உங்கள் சிறந்த வாழ்க்கைக்கு வழங்குகிறோம்.',
-    'features.personalPrivacy': 'தனிப்பட்ட தனியுரிமை',
-    'features.personalPrivacyDesc': 'பாதுகாப்பான கடன் பிற வடிவங்கள் பத்திரங்களுக்கெதிரான கடன்களை உள்ளடக்கும்',
-    'features.noPayment': 'பணம் தேவையில்லை',
-    'features.noPaymentDesc': 'பல வெவ்வேறு வடிவங்களில் நிதி நிறுவனங்களிடமிருந்து கிடைக்கலாம்',
-    'features.easyAccess': 'எளிதான அணுகல்',
-    'features.easyAccessDesc': 'ஒப்பந்த மீறலுக்கான பண தீர்ப்பைப் பெறுங்கள்',
+    'features.offer1Title': '₹1100 கேஷ்பேக்',
+    'features.offer1Desc': '10 லட்சத்திற்கு மேலான கடன் தொகையில் செயலாக்கக் கட்டணத்தில் ₹1100 கேஷ்பேக் பெறுங்கள் T&C*',
+    'features.offer2Title': '₹3100 கேஷ்பேக்',
+    'features.offer2Desc': '25 லட்சத்திற்கு மேலான கடன் தொகையில் செயலாக்கக் கட்டணத்தில் ₹3100 கேஷ்பேக் பெறுங்கள் T&C*',
+    'features.promiseTitle': 'ஹலோன்ஸ் வாக்குறுதி',
+    'features.promiseDesc': '(கேஷ்பேக்கை சரியான நேரத்தில் வழங்க) விரைவான விநியோகம் மற்றும் குறைந்த வட்டி',
     'carousel.applyNow': 'இப்போது விண்ணப்பிக்கவும்',
+    'carousel.viewAll': 'அனைத்தையும் பார்',
     'loanTiles.title': 'எங்கள் கடன் தயாரிப்புகள்',
     'trust.title': 'நம்பிக்கையுடன்',
     'trust.titleHighlight': 'விடாமுயற்சி',
@@ -747,9 +750,12 @@ const translations = {
     'hero.highlight': 'ఉత్తమ',
     'hero.titleLine1': 'ఉత్తమ భవిష్యత్తును',
     'hero.titleLine2': 'మీ ఉత్తమ జీవనానికి అందించడం.',
-    'features.personalPrivacy': 'వ్యక్తిగత గోప్యత',
-    'features.noPayment': 'చెల్లింపు అవసరం లేదు',
-    'features.easyAccess': 'సులభ ప్రవేశం',
+    'features.offer1Title': '₹1100 క్యాష్‌బ్యాక్',
+    'features.offer1Desc': '10 లక్షల కంటే ఎక్కువ లోన్ మొత్తానికి ప్రాసెసింగ్ ఫీజుపై ₹1100 క్యాష్‌బ్యాక్ పొందండి T&C*',
+    'features.offer2Title': '₹3100 క్యాష్‌బ్యాక్',
+    'features.offer2Desc': '25 లక్షల కంటే ఎక్కువ లోన్ మొత్తానికి ప్రాసెసింగ్ ఫీజుపై ₹3100 క్యాష్‌బ్యాక్ పొందండి T&C*',
+    'features.promiseTitle': 'హలోన్స్ ప్రామిస్',
+    'features.promiseDesc': '(సమయానికి క్యాష్‌బ్యాక్ అందించడానికి) వేగవంతమైన పంపిణీ & తక్కువ వడ్డీ',
     'carousel.applyNow': 'ఇప్పుడు అప్లై చేయండి',
     'loanTiles.title': 'మా లోన్ ఉత్పత్తులు',
     'trust.title': 'విశ్వాసంతో',
