@@ -16,18 +16,19 @@ const loanTypes: Array<{
   spriteCol: number
   spriteRow: number
 }> = [
-  { name: 'Personal Loans', slug: 'personal-loans', image: '/assets/images/personal-loans-pl.png', spriteCol: 0, spriteRow: 0 },
-  { name: 'Business Loans', slug: 'business-loans', image: '/assets/images/business-loans-icon.png', spriteCol: 1, spriteRow: 0 },
-  { name: 'Overdraft', slug: 'overdraft', image: '/assets/images/overdraft-icon.png', spriteCol: 2, spriteRow: 0 },
-  { name: 'Secure Loans', slug: 'secure-loans', image: '/assets/images/secure-loans-icon.png', spriteCol: 3, spriteRow: 0 },
-  { name: 'Balance Transfer', slug: 'balance-transfer', image: '/assets/images/balance-transfer-icon.png', spriteCol: 0, spriteRow: 1 },
-  { name: 'Professional Loans', slug: 'professional-loans', image: '/assets/images/professional-loans-icon.png', spriteCol: 1, spriteRow: 1 },
-  { name: 'Credit Cards', slug: 'credit-cards', image: '/assets/images/credit-cards-icon.png', spriteCol: 2, spriteRow: 1 },
-  { name: 'Home Loans', slug: 'home-loans', image: '/assets/images/home-loans-icon.png', spriteCol: 3, spriteRow: 1 },
-  { name: 'Gold Loans', slug: 'gold-loans', image: '/assets/images/gold-loans-icon.png', spriteCol: 0, spriteRow: 2 },
-  { name: 'Education Loans', slug: 'education-loans', image: '/assets/images/education-loans-icon.png', spriteCol: 1, spriteRow: 2 },
-  { name: 'Insurance', slug: 'insurance', image: '/assets/images/insurance-icon.png', spriteCol: 3, spriteRow: 2 },
-]
+    { name: 'Personal Loans', slug: 'personal-loans', image: '/assets/icons/personal-loan.png', spriteCol: 0, spriteRow: 0 },
+    { name: 'Business Loans', slug: 'business-loans', image: '/assets/icons/business-loan.png', spriteCol: 1, spriteRow: 0 },
+    { name: 'Overdraft', slug: 'overdraft', image: '/assets/icons/overdraft.png', spriteCol: 2, spriteRow: 0 },
+    { name: 'Secure Loans', slug: 'secure-loans', image: '/assets/icons/secured-loans.png', spriteCol: 3, spriteRow: 0 },
+    { name: 'Instant Loan', slug: 'instant-loan', image: '/assets/icons/instant-loan.png', spriteCol: 2, spriteRow: 2 },
+    { name: 'Balance Transfer', slug: 'balance-transfer', image: '/assets/icons/balance-transfer.png', spriteCol: 0, spriteRow: 1 },
+    { name: 'Professional Loans', slug: 'professional-loans', image: '/assets/icons/professional-loans.png', spriteCol: 1, spriteRow: 1 },
+    { name: 'Credit Cards', slug: 'credit-cards', image: '/assets/icons/credit-card.png', spriteCol: 2, spriteRow: 1 },
+    { name: 'Home Loans', slug: 'home-loans', image: '/assets/icons/home-loans.png', spriteCol: 3, spriteRow: 1 },
+    { name: 'Gold Loans', slug: 'gold-loans', image: '/assets/icons/gold-loans.png', spriteCol: 0, spriteRow: 2 },
+    { name: 'Education Loans', slug: 'education-loans', image: '/assets/icons/education-loans.png', spriteCol: 1, spriteRow: 2 },
+    { name: 'Insurance', slug: 'insurance', image: '/assets/icons/insurance.png', spriteCol: 3, spriteRow: 2 },
+  ]
 
 const translationKeyMap: Record<string, string> = {
   'overdraft': 'overdraft',
@@ -36,6 +37,12 @@ const translationKeyMap: Record<string, string> = {
   'professional-loans': 'professionalLoans',
   'secure-loans': 'secureLoans',
   'balance-transfer': 'balanceTransfer',
+  'instant-loan': 'instantLoan',
+  'home-loans': 'homeLoans',
+  'gold-loans': 'goldLoans',
+  'education-loans': 'educationLoans',
+  'insurance': 'insurance',
+  'credit-cards': 'creditCards',
 }
 
 export default function LoanTiles() {

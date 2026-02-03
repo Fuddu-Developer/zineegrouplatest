@@ -79,6 +79,11 @@ const translations = {
     'carousel.secureLoansDesc': 'With a secured loan, you\'re eligible for low interest rates since property is pledged as security.',
     'carousel.balanceTransfer': 'Balance Transfer',
     'carousel.balanceTransferDesc': 'Transfer your existing loan to us and save on interest rates with better terms and conditions.',
+    'carousel.homeLoans': 'Home Loans',
+    'carousel.goldLoans': 'Gold Loans',
+    'carousel.educationLoans': 'Education Loans',
+    'carousel.insurance': 'Insurance',
+    'carousel.creditCards': 'Credit Cards',
     'carousel.applyNow': 'Apply Now',
 
     // Loan Tiles Section
@@ -358,6 +363,11 @@ const translations = {
     'carousel.secureLoansDesc': 'सुरक्षित ऋण के साथ, आप कम ब्याज दरों के लिए पात्र हैं क्योंकि संपत्ति को सुरक्षा के रूप में गिरवी रखा जाता है।',
     'carousel.balanceTransfer': 'बैलेंस ट्रांसफर',
     'carousel.balanceTransferDesc': 'अपने मौजूदा ऋण को हमारे पास स्थानांतरित करें और बेहतर शर्तों और शर्तों के साथ ब्याज दरों पर बचत करें।',
+    'carousel.homeLoans': 'होम लोन',
+    'carousel.goldLoans': 'गोल्ड लोन',
+    'carousel.educationLoans': 'शिक्षा ऋण',
+    'carousel.insurance': 'बीमा',
+    'carousel.creditCards': 'क्रेडिट कार्ड',
     'carousel.applyNow': 'अभी आवेदन करें',
 
     // Loan Tiles Section
