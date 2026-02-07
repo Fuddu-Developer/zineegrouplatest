@@ -72,10 +72,8 @@ h4,
 h5,
 h6 {
     text-shadow:
-        0 1px 1px rgba(0, 0, 0, 0.06),
-        0 2px 2px rgba(0, 0, 0, 0.05),
-        0 3px 4px rgba(0, 0, 0, 0.04),
-        0 4px 8px rgba(30, 64, 175, 0.12);
+        0 1px 1px rgba(0, 0, 0, 0.05),
+        0 2px 4px rgba(30, 64, 175, 0.08);
 }
 
 html {
@@ -1175,9 +1173,6 @@ html[lang="hi"] .btn-call-label {
         transform: translateX(-50%) translateY(0);
     }
 
-    .hero-section h1 {
-        font-size: 36px;
-    }
 
     .hero-features {
         flex-direction: column;
@@ -1327,46 +1322,8 @@ html[lang="hi"] .btn-call-label {
 }
 
 /* Hero Section */
-.hero-section {
-    position: relative;
-    overflow: hidden;
-    background: transparent;
-    color: #475569;
-    padding: 20px 30px 50px;
-    border-radius: 24px;
-    text-align: left;
-    height: 280px;
-    width: 100%;
-    max-width: 500px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    flex-shrink: 0;
-}
 
-.hero-section h1 {
-    padding-bottom: 0;
-    font-family: var(--font-poppins), sans-serif;
-    font-size: 42px;
-    font-weight: 400;
-    margin-bottom: 0;
-    line-height: 1.3;
-    color: #475569;
-    letter-spacing: -0.5px;
-    width: 100%;
-    max-width: 500px;
-}
 
-.hero-section h1 .highlight {
-    background: linear-gradient(90deg, #1e40af 0%, #1e40af 25%, #3b82f6 50%, #93c5fd 85%, #1e40af 100%);
-    background-size: 300% 100%;
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    color: transparent;
-    font-weight: 700;
-    animation: gradientRun 5s linear infinite;
-}
 
 @keyframes gradientRun {
     0% {
@@ -3664,9 +3621,6 @@ body {
         gap: 20px;
     }
 
-    .hero-section {
-        max-width: 45%;
-    }
 
     .flip-carousel-section {
         flex: 1;
@@ -3952,21 +3906,7 @@ body {
         gap: 20px;
     }
 
-    .hero-section {
-        padding: 60px 30px 50px;
-        margin-bottom: 0;
-        border-radius: 16px;
-        max-width: 100%;
-        width: 100%;
-    }
 
-    .hero-section h1 {
-        font-size: 28px;
-        line-height: 1.3;
-        margin-bottom: 24px;
-        padding: 0 10px;
-        max-width: 100%;
-    }
 
     .btn-learn-more {
         padding: 14px 28px;
@@ -4354,17 +4294,7 @@ body {
         height: 35px;
     }
 
-    .hero-section {
-        padding: 40px 20px 35px;
-        margin-bottom: 30px;
-        border-radius: 12px;
-    }
 
-    .hero-section h1 {
-        font-size: 24px;
-        line-height: 1.3;
-        margin-bottom: 20px;
-    }
 
     .btn-learn-more {
         padding: 12px 24px;
@@ -7063,15 +6993,6 @@ body {
 }
 
 /* Hero Section */
-.cibil-hero-section {
-    text-align: center;
-    margin-bottom: 60px;
-    padding: 60px 50px;
-    background: #4989FE;
-    border-radius: 30px;
-    color: #FFFFFF;
-    box-shadow: 0 10px 40px rgba(73, 137, 254, 0.3);
-}
 
 .cibil-hero-title {
     font-family: var(--font-poppins), sans-serif;
@@ -7517,9 +7438,6 @@ body {
         padding: 40px 15px;
     }
 
-    .cibil-hero-section {
-        padding: 40px 25px;
-    }
 
     .cibil-hero-title {
         font-size: 36px;
@@ -9013,24 +8931,8 @@ body {
 }
 
 /* Hero Section */
-.dark .hero-section {
-    background: transparent;
-}
 
-.dark .hero-section h1 {
-    color: #cbd5e1;
-}
 
-.dark .hero-section h1 .highlight {
-    background: linear-gradient(90deg, #1e3a8a 0%, #1e3a8a 25%, #60a5fa 50%, #93c5fd 85%, #1e3a8a 100%);
-    background-size: 300% 100%;
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    color: transparent;
-    font-weight: 700;
-    animation: gradientRun 5s linear infinite;
-}
 
 .dark .btn-learn-more {
     background: linear-gradient(135deg, #1e293b, #334155);
@@ -9134,14 +9036,6 @@ body {
 }
 
 /* Sections */
-.dark .hero-section,
-.dark .features-section,
-.dark .trust-section,
-.dark .testimonials-section,
-.dark .partners-section,
-.dark .flip-carousel-section {
-    background-color: transparent;
-}
 
 /* Typography */
 .dark h1,
@@ -9354,13 +9248,6 @@ body {
     background: transparent;
 }
 
-.dark .cibil-hero-section {
-    background: linear-gradient(135deg,
-            rgba(59, 130, 246, 0.2),
-            rgba(37, 99, 235, 0.3));
-    border: 1px solid rgba(59, 130, 246, 0.2);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-}
 
 .dark .cibil-hero-title {
     color: #f1f5f9;
@@ -10565,16 +10452,6 @@ body {
 
 .custom-scrollbar::-webkit-scrollbar-thumb:hover {
     background: rgba(255, 255, 255, 0.3);
-}
-
-.fintech-slide-overlay {
-    background: radial-gradient(circle at top right, rgba(30, 41, 59, 0.98), rgba(15, 23, 42, 0.99));
-}
-
-.bank-tile-unit .bank-tile-logo {
-    filter: brightness(1.2) saturate(0.85);
-    max-width: 80%;
-    max-height: 70%;
 }
 
 .dark .benefit-item {
@@ -12137,6 +12014,8 @@ body:has(.bank-app-page-wrapper) {
     line-height: 1.2;
 }
 
+/* Modern Carousel CSS Moved to End */
+
 /* Form Container */
 .bank-app-form-container {
     max-width: 1200px;
@@ -13266,13 +13145,7 @@ body:has(.bank-app-page-wrapper) {
         height: 18px;
     }
 
-    .dark .hero-section {
-        padding: 0;
-    }
 
-    .dark .hero-section h1 {
-        font-size: 36px;
-    }
 
     .dark .card,
     .dark .feature-card,
@@ -14385,694 +14258,742 @@ body:has(.bank-app-page-wrapper) {
     padding-bottom: 24px;
 }
 
-/* --- Fintech Modern Slide Styles (Light Theme) --- */
-.fintech-slide {
-    width: 100% !important;
-    height: 480px !important;
-    background: linear-gradient(90deg, #EEF2FF 0%, #EEF2FF 45%, #C7D2FE 45%, #C7D2FE 100%) !important;
-    border-radius: 40px !important;
-    overflow: hidden !important;
-    position: relative !important;
-    display: flex !important;
-    align-items: stretch !important;
-    justify-content: space-between !important;
-    padding: 0 !important;
-    color: #1e293b !important;
-    box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.08) !important;
-    border: none !important;
-}
 
-/* Left Section */
-.fintech-slide-left {
-    flex: 0 0 45%;
-    background-color: #EEF2FF;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    padding: 60px;
-    z-index: 10;
-}
-
-.fintech-slide-title {
-    font-size: clamp(32px, 4vw, 48px);
-    font-weight: 900;
-    line-height: 1.1;
-    letter-spacing: -0.02em;
-    text-transform: uppercase;
-    margin: 0 0 16px 0;
-    color: #0f172a;
-}
-
-.fintech-slide-subtitle {
-    font-size: 18px;
-    color: #475569;
-    font-weight: 500;
-    margin: 0;
-    line-height: 1.5;
-}
-
-/* Right Section */
-.fintech-slide-right {
-    flex: 1;
-    background-color: #C7D2FE;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 50px;
-    position: relative;
-}
-
-/* 3x3 Grid Layout */
-.bank-grid-3x3 {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 16px;
+/* Vertical Loan Carousel Styles */
+.vertical-loan-carousel {
+    height: 380px;
     width: 100%;
-    max-width: 450px;
-    margin-bottom: 24px;
-}
-
-/* Bank Tiles - White Background */
-.bank-tile-unit {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    padding: 16px 12px;
-    border-radius: 16px;
-    background: #ffffff;
-    border: none;
-    transition: all 0.2s ease;
-    text-decoration: none;
-    position: relative;
+    max-width: 500px;
     overflow: hidden;
-    height: 90px;
+    position: relative;
+    border-radius: 24px;
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: 0 12px 40px rgba(31, 38, 135, 0.08);
+}
+
+.dark .vertical-loan-carousel {
+    background: rgba(30, 41, 59, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.carousel-track {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    transition: transform 0.8s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.loan-slide {
+    flex: 0 0 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    padding: 30px;
+}
+
+.loan-slide-content {
+    display: flex;
     width: 100%;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
+    height: 100%;
+    align-items: center;
+    gap: 20px;
 }
 
-.bank-tile-unit:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
-    background: #ffffff;
+.loan-slide-left {
+    flex: 1;
+    display: flex;
+    align-items: center;
 }
 
-.bank-tile-logo {
-    max-width: 85%;
-    max-height: 65%;
-    object-fit: contain;
-    filter: none;
+.loan-category-name {
+    font-size: 32px;
+    font-weight: 800;
+    line-height: 1.2;
+    margin: 0;
+    background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: none !important;
 }
 
-.bank-tile-name-text {
-    font-size: 12px;
-    font-weight: 700;
-    color: #334155;
-    text-align: center;
-    line-height: 1.3;
+.dark .loan-category-name {
+    background: linear-gradient(135deg, #60a5fa 0%, #93c5fd 100%);
+    -webkit-background-clip: text;
 }
 
-/* View All Button */
-.view-all-btn {
-    padding: 14px 48px;
-    background: #4338CA;
-    color: #ffffff;
+.loan-slide-right {
+    flex: 1.2;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 20px;
+}
+
+.bank-logos-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    width: 100%;
+}
+
+.bank-logo-item {
+    background: white;
+    padding: 10px;
     border-radius: 12px;
-    font-weight: 700;
-    font-size: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease;
+}
+
+.dark .bank-logo-item {
+    background: rgba(255, 255, 255, 0.9);
+}
+
+.bank-logo-item:hover {
+    transform: translateY(-5px);
+}
+
+.view-all-btn {
+    padding: 10px 24px;
+    background: #1e40af;
+    color: white;
+    border-radius: 999px;
+    font-weight: 600;
     text-decoration: none;
     transition: all 0.3s ease;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
-    box-shadow: 0 8px 16px rgba(67, 56, 202, 0.25);
-    border: none;
-    cursor: pointer;
+    font-size: 14px;
+    box-shadow: 0 4px 12px rgba(30, 64, 175, 0.2);
 }
 
 .view-all-btn:hover {
-    transform: translateY(-2px);
-    background: #3730A3;
-    box-shadow: 0 12px 20px rgba(67, 56, 202, 0.35);
-}
-
-/* Overlay for "View All" expanded state */
-.fintech-slide-overlay-content {
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    padding: 30px;
-    overflow-y: auto;
-}
-
-.overlay-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 24px;
-    padding-bottom: 16px;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-}
-
-.overlay-title {
-    font-size: 20px;
-    font-weight: 700;
-    color: #0f172a;
-    margin: 0;
-}
-
-.overlay-close {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    background: rgba(255, 255, 255, 0.5);
-    border: none;
-    color: #0f172a;
-    font-size: 24px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: all 0.2s;
-}
-
-.overlay-close:hover {
-    background: rgba(255, 255, 255, 0.8);
-    transform: scale(1.1);
-}
-
-.bank-grid-all {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 16px;
-    width: 100%;
-}
-
-/* Carousel Item Wrapper */
-.carousel-modern-item {
-    width: 100% !important;
-    height: 100% !important;
-    position: absolute !important;
-    top: 0 !important;
-    left: 0 !important;
-    transform: none !important;
-    border-radius: 40px !important;
-    background: transparent !important;
-    overflow: hidden !important;
-    opacity: 0;
-    transition: opacity 0.6s ease-in-out !important;
-    pointer-events: none;
-    display: block !important;
-}
-
-.carousel-modern-item.active {
-    opacity: 1;
-    pointer-events: auto;
-    z-index: 10;
-}
-
-/* Responsive Design */
-@media (max-width: 1024px) {
-    .fintech-slide {
-        height: 450px;
-    }
-
-    .fintech-slide-left {
-        padding: 40px;
-    }
-
-    .fintech-slide-right {
-        padding: 40px 30px;
-    }
-
-    .bank-grid-3x3 {
-        max-width: 380px;
-        gap: 12px;
-    }
-
-    .bank-tile-unit {
-        height: 80px;
-    }
+    background: #1d4ed8;
+    transform: scale(1.05);
+    box-shadow: 0 6px 16px rgba(30, 64, 175, 0.3);
 }
 
 @media (max-width: 768px) {
-    .fintech-slide {
-        flex-direction: column;
-        height: auto;
-        background: #EEF2FF;
-    }
-
-    .fintech-slide-left {
-        flex: none;
+    .vertical-loan-carousel {
         width: 100%;
-        padding: 40px 30px 20px 30px;
-        background: #EEF2FF;
-        text-align: center;
+        height: 300px;
     }
 
-    .fintech-slide-right {
-        flex: none;
-        width: 100%;
-        background: #C7D2FE;
-        padding: 30px 20px 40px 20px;
+    .loan-category-name {
+        font-size: 28px;
     }
 
-    .fintech-slide-title {
-        font-size: 32px;
-        margin-bottom: 12px;
-    }
-
-    .fintech-slide-subtitle {
-        font-size: 16px;
-    }
-
-    .bank-grid-3x3 {
-        grid-template-columns: repeat(3, 1fr);
-        gap: 10px;
-        max-width: 100%;
-    }
-
-    .bank-tile-unit {
-        height: 75px;
-        padding: 10px 8px;
-    }
-
-    .bank-grid-all {
-        grid-template-columns: repeat(3, 1fr);
+    .bank-logo-item {
+        padding: 5px;
     }
 }
 
-@media (max-width: 480px) {
-    .bank-grid-3x3 {
-        grid-template-columns: repeat(2, 1fr);
-    }
+/* Hero Section Layout - Final High Specificity Fix */
 
-    .bank-grid-all {
-        grid-template-columns: repeat(2, 1fr);
-    }
+
+.hero-text-content {
+    flex: 1 !important;
+    min-width: 0 !important;
+    text-align: left !important;
 }
 
-/* ========== NEW CAROUSEL STYLES ========== */
-.new-carousel-section {
+.hero-text-content h1 {
+    font-size: 52px !important;
+    line-height: 1.1 !important;
+    margin: 0 !important;
+    font-weight: 800 !important;
+    color: #0f172a !important;
+}
+
+.hero-carousel-content {
+    flex: 0 0 550px !important;
+    /* Fixed width to prevent overlap */
+    display: flex !important;
+    justify-content: flex-end !important;
+}
+
+/* Vertical Loan Carousel Enhancements */
+.vertical-loan-carousel {
+    height: 380px;
     width: 100%;
-    padding: 60px 0;
+    overflow: hidden;
+    position: relative;
+    border-radius: 28px;
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.05);
+}
+
+@media (max-width: 1200px) {
+    .hero-text-content h1 {
+        font-size: 40px;
+    }
+
+}
+
+@media (max-width: 1024px) {
+
+    .hero-carousel-content {
+        margin: 0 auto;
+        justify-content: center;
+    }
+
+    .hero-text-content h1 {
+        font-size: 36px;
+    }
+}
+
+/* Premium Vertical Carousel Design */
+/* Carousel Styles Removed */
+/* Carousel Modal Styles Removed */
+
+.carousel-indicators {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.indicator-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.3);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.indicator-dot.active {
+    background: #3b82f6;
+    height: 20px;
+    border-radius: 10px;
+}
+
+/* Fix Hero Background for Premium Feel */
+
+/* ==========================================================================
+   MASTER HERO & PREMIUM CAROUSEL LAYOUT (SPECIFIC & CONSOLIDATED)
+   ========================================================================== */
+
+.hero-section {
+    padding: 100px 0 !important;
+    min-height: 350px !important;
+    display: flex !important;
+    align-items: center !important;
+    position: relative;
+    overflow: hidden;
+    background: radial-gradient(circle at 10% 20%, rgba(59, 130, 246, 0.05) 0%, transparent 50%),
+        radial-gradient(circle at 90% 80%, rgba(168, 85, 247, 0.05) 0%, transparent 50%);
+}
+
+.hero-container {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 30px !important;
+    width: 100% !important;
+    max-width: 1600px !important;
+    /* Increased from 1400px */
+    margin: 0 auto !important;
+    padding: 0 !important;
+}
+
+.hero-text-content {
+    flex: 0 0 40% !important;
+    min-width: 0 !important;
+    animation: fadeInSlideLeft 1s ease-out;
+}
+
+.hero-carousel-content {
+    flex: 0 0 60% !important;
+    max-width: none !important;
+    display: flex !important;
+    justify-content: flex-start !important;
+}
+
+.hero-text-content h1 {
+    font-size: 64px !important;
+    line-height: 1.1 !important;
+    font-weight: 800 !important;
+    color: #0f172a !important;
+    margin: 0 !important;
+}
+
+@keyframes glassShimmer {
+    0% {
+        background-position: -200% center;
+    }
+
+    100% {
+        background-position: 200% center;
+    }
+}
+
+.hero-text-content h1 .highlight,
+.highlight,
+.nav-link-highlight .nav-link-label {
+    background: linear-gradient(120deg,
+            #1e40af 0%,
+            #3b82f6 40%,
+            rgba(255, 255, 255, 0.8) 50%,
+            #3b82f6 60%,
+            #1e40af 100%);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    position: relative;
+    display: inline-block;
+    animation: glassShimmer 3s linear infinite;
+}
+
+
+
+.carousel-track-premium {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    transition: transform 1.2s cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+.loan-slide-premium {
+    flex: 0 0 100%;
+    height: 100%;
+    padding: 50px;
+    display: flex;
     align-items: center;
 }
 
-.new-carousel-container {
+.loan-slide-inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
     width: 100%;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
+    align-items: center;
+}
+
+/* Final Cleanup */
+
+/* Animations */
+@keyframes fadeInSlideLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-50px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes fadeInSlideRight {
+    from {
+        opacity: 0;
+        transform: translateX(50px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Responsive Fixes */
+@media (max-width: 1200px) {
+    .hero-text-content h1 {
+        font-size: 52px !important;
+    }
+
+    .hero-container {
+        gap: 40px !important;
+        padding: 0 40px !important;
+    }
+}
+
+@media (max-width: 1024px) {
+    .hero-container {
+        flex-direction: column !important;
+        text-align: center !important;
+        padding-top: 60px !important;
+    }
+
+    .hero-text-content {
+        text-align: center !important;
+    }
+
+    .hero-carousel-content {
+        margin: 0 auto !important;
+        justify-content: center !important;
+        flex: 0 0 auto !important;
+        width: 100% !important;
+    }
+
+    .vertical-loan-carousel-premium {
+        max-width: 500px;
+    }
+}
+
+/* ==========================================================================
+   LOGO STYLES (Clean & Color)
+   ========================================================================== */
+
+.bank-logo-item-premium img {
+    filter: none !important;
+    /* Restore Color */
+    transform: scale(1.1);
+}
+
+/* Float Effect: No Background, No Border */
+.bank-logo-item-premium {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+/* Modern Carousel Design (Fresh - Moved to End) */
+.modern-carousel {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    max-width: 900px;
+    height: 380px;
+    background: linear-gradient(135deg, #f0f9ff 0%, #e0e7ff 100%);
+    border-radius: 32px;
+    padding: 30px;
+    gap: 40px;
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    box-shadow: 0 20px 40px -5px rgba(59, 130, 246, 0.15);
+    position: relative;
+    overflow: hidden;
+    align-items: center;
+}
+
+.modern-carousel-left {
+    flex: 0 0 35%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.modern-title {
+    font-size: 42px;
+    font-weight: 800;
+    line-height: 1;
+    color: #172554;
+    margin: 0;
+    font-family: var(--font-inter), sans-serif;
+}
+
+.modern-title span {
+    color: #1d4ed8;
+}
+
+.modern-subtitle {
+    margin-top: 12px;
+    font-size: 15px;
+    color: #64748b;
+    font-weight: 500;
+}
+
+.modern-carousel-right {
+    flex: 1;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modern-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: 12px;
+    width: 100%;
+    height: 100%;
+}
+
+.modern-card {
+    background: transparent;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: none;
+    border: none;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
     position: relative;
 }
 
-.new-carousel-slide {
-    width: 100%;
-    height: 480px;
-    background: linear-gradient(90deg, #EEF2FF 0%, #EEF2FF 45%, #C7D2FE 45%, #C7D2FE 100%);
-    border-radius: 40px;
-    display: flex;
-    overflow: hidden;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+.modern-card:hover {
+    transform: scale(1.1);
+    box-shadow: none;
 }
 
-.new-carousel-left {
-    flex: 0 0 45%;
-    background: #EEF2FF;
-    padding: 60px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-}
-
-.new-carousel-title {
-    font-size: 48px;
-    font-weight: 900;
-    color: #0f172a;
-    margin: 0 0 16px 0;
-    text-transform: uppercase;
-    letter-spacing: -0.02em;
-    line-height: 1.1;
-}
-
-.new-carousel-subtitle {
-    font-size: 18px;
-    color: #475569;
-    font-weight: 500;
-    margin: 0;
-    line-height: 1.5;
-}
-
-.new-carousel-right {
-    flex: 1;
-    background: #C7D2FE;
-    padding: 50px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 24px;
-}
-
-.new-bank-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 16px;
-    width: 100%;
-    max-width: 450px;
-}
-
-.new-bank-tile {
-    background: #ffffff;
-    border-radius: 16px;
-    padding: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 90px;
-    text-decoration: none;
-    transition: all 0.2s ease;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
-    overflow: hidden;
-}
-
-.new-bank-tile:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.12);
-}
-
-.new-bank-logo {
-    width: 100% !important;
-    height: 100% !important;
-    max-width: 100% !important;
-    max-height: 100% !important;
-    object-fit: cover !important;
-}
-
-.new-bank-name {
-    font-size: 13px;
+.modern-card-text {
+    font-size: 10px;
     font-weight: 700;
     color: #334155;
     text-align: center;
-    line-height: 1.3;
+    line-height: 1.2;
+    padding: 2px;
 }
 
-.new-view-all-btn {
-    background: #4338CA;
-    color: #ffffff;
-    border: none;
+.view-all-card {
+    background: #1e40af;
+    color: white;
+    font-weight: 600;
+    font-size: 13px;
+    text-transform: capitalize;
+    box-shadow: 0 4px 12px rgba(30, 64, 175, 0.2);
     border-radius: 12px;
-    padding: 14px 48px;
-    font-size: 15px;
-    font-weight: 700;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    box-shadow: 0 8px 16px rgba(67, 56, 202, 0.25);
 }
 
-.new-view-all-btn:hover {
-    background: #3730A3;
+.view-all-card:hover {
+    background: #1e3a8a;
+    color: white;
     transform: translateY(-2px);
-    box-shadow: 0 12px 20px rgba(67, 56, 202, 0.35);
+    box-shadow: 0 8px 16px rgba(30, 64, 175, 0.3);
 }
 
-.new-carousel-nav {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 24px;
-    margin-top: 32px;
-}
-
-.new-nav-btn {
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-    border: 2px solid #C7D2FE;
-    background: #ffffff;
-    color: #4338CA;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: all 0.2s ease;
-}
-
-.new-nav-btn:hover {
-    background: #4338CA;
-    color: #ffffff;
-    border-color: #4338CA;
-}
-
-.new-carousel-dots {
-    display: flex;
-    gap: 8px;
-}
-
-.new-dot {
-    width: 40px;
-    height: 6px;
-    border-radius: 3px;
-    background: #C7D2FE;
-    border: none;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.new-dot.active {
-    background: #4338CA;
-    width: 60px;
-}
-
-/* Modal Styles */
-.new-modal-overlay {
-    position: fixed;
+/* Modern Modal */
+.modern-modal-overlay {
+    position: absolute;
     inset: 0;
-    background: rgba(0, 0, 0, 0.6);
-    backdrop-filter: blur(4px);
-    z-index: 1000;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(8px);
+    z-index: 50;
     display: flex;
     align-items: center;
     justify-content: center;
+    animation: fadeIn 0.2s ease;
+}
+
+.modern-modal-content {
+    width: 95%;
+    height: 95%;
+    background: white;
+    border-radius: 20px;
     padding: 20px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e2e8f0;
 }
 
-.new-modal-content {
-    background: #ffffff;
-    border-radius: 24px;
-    padding: 40px;
-    max-width: 800px;
-    width: 100%;
-    max-height: 80vh;
-    overflow-y: auto;
-}
-
-.new-modal-header {
+.modern-modal-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 32px;
-    padding-bottom: 16px;
-    border-bottom: 2px solid #EEF2FF;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #f1f5f9;
+    margin-bottom: 15px;
 }
 
-.new-modal-header h3 {
-    font-size: 24px;
-    font-weight: 700;
-    color: #0f172a;
+.modern-modal-header h3 {
     margin: 0;
+    font-size: 18px;
+    color: #0f172a;
 }
 
-.new-modal-close {
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    background: #EEF2FF;
+.modern-close-btn {
+    background: #f1f5f9;
     border: none;
-    color: #0f172a;
-    font-size: 28px;
-    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: all 0.2s;
-    line-height: 1;
-}
-
-.new-modal-close:hover {
-    background: #C7D2FE;
-    transform: scale(1.1);
-}
-
-.new-modal-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 16px;
-}
-
-/* Responsive */
-@media (max-width: 1024px) {
-    .new-carousel-slide {
-        height: 450px;
-    }
-
-    .new-carousel-left {
-        padding: 40px;
-    }
-
-    .new-carousel-right {
-        padding: 40px 30px;
-    }
-
-    .new-bank-grid {
-        max-width: 380px;
-        gap: 12px;
-    }
-
-    .new-bank-tile {
-        height: 80px;
-    }
-}
-
-@media (max-width: 768px) {
-    .new-carousel-slide {
-        flex-direction: column;
-        height: auto;
-    }
-
-    .new-carousel-left {
-        flex: none;
-        padding: 40px 30px 20px;
-        text-align: center;
-    }
-
-    .new-carousel-title {
-        font-size: 36px;
-    }
-
-    .new-carousel-subtitle {
-        font-size: 16px;
-    }
-
-    .new-carousel-right {
-        flex: none;
-        padding: 30px 20px 40px;
-    }
-
-    .new-bank-grid {
-        grid-template-columns: repeat(3, 1fr);
-        gap: 10px;
-        max-width: 100%;
-    }
-
-    .new-bank-tile {
-        height: 75px;
-        padding: 12px 10px;
-    }
-
-    .new-modal-grid {
-        grid-template-columns: repeat(3, 1fr);
-    }
-}
-
-@media (max-width: 480px) {
-    .new-bank-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    .new-modal-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-}
-
-/* Hero and Carousel Side by Side Layout */
-.hero-carousel-wrapper {
-    display: flex;
-    align-items: center;
-    gap: 40px;
-    width: 100%;
-    margin-bottom: 60px;
-}
-
-.hero-carousel-wrapper .hero-section {
-    flex: 0 0 35%;
-    min-width: 0;
-}
-
-.hero-carousel-wrapper .new-carousel-section {
-    flex: 1;
-    padding: 0;
-}
-
-.hero-carousel-wrapper .new-carousel-container {
-    padding: 0;
-}
-
-.hero-carousel-wrapper .new-carousel-slide {
-    height: 360px;
-}
-
-.hero-carousel-wrapper .new-carousel-left {
-    padding: 40px;
-}
-
-.hero-carousel-wrapper .new-carousel-title {
-    font-size: 36px;
-}
-
-.hero-carousel-wrapper .new-carousel-subtitle {
+    cursor: pointer;
+    color: #64748b;
     font-size: 16px;
 }
 
-.hero-carousel-wrapper .new-carousel-right {
-    padding: 35px 30px;
+.modern-close-btn:hover {
+    background: #e2e8f0;
+    color: #0f172a;
 }
 
-.hero-carousel-wrapper .new-bank-grid {
-    max-width: 380px;
+.modern-modal-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
     gap: 12px;
+    overflow-y: auto;
+    padding-right: 5px;
 }
 
-.hero-carousel-wrapper .new-bank-tile {
-    height: 75px;
-    padding: 14px 12px;
+/* Glass Shimmer Animation for Logos */
+@keyframes logoShimmer {
+    0% {
+        transform: translateX(-150%) skewX(-25deg);
+    }
+
+    100% {
+        transform: translateX(150%) skewX(-25deg);
+    }
 }
 
-.hero-carousel-wrapper .new-view-all-btn {
-    padding: 12px 40px;
+.modern-card {
+    background: white;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+    border: 1px solid #f1f5f9;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    text-decoration: none;
+    color: inherit;
+    position: relative;
+    overflow: hidden;
+    /* Ensure shimmer stays inside */
+}
+
+.modern-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.04);
+}
+
+.modern-card-text {
+    font-size: 10px;
+    font-weight: 700;
+    color: #334155;
+    text-align: center;
+    line-height: 1.2;
+    padding: 2px;
+}
+
+/* View All Link Style */
+.view-all-card {
+    background: transparent;
+    color: #0f172a;
+    font-weight: 700;
     font-size: 14px;
+    text-transform: capitalize;
+    box-shadow: none;
+    border: none;
+    justify-content: flex-end;
+    /* Align text to right if needed, or center */
+    padding-right: 10px;
 }
 
-@media (max-width: 1024px) {
-    .hero-carousel-wrapper {
-        flex-direction: column;
-        gap: 30px;
-    }
-
-    .hero-carousel-wrapper .hero-section {
-        flex: none;
-        width: 100%;
-        text-align: center;
-    }
-
-    .hero-carousel-wrapper .new-carousel-section {
-        flex: none;
-        width: 100%;
-    }
-
-    .hero-carousel-wrapper .new-carousel-slide {
-        height: 420px;
-    }
+.view-all-card:hover {
+    background: transparent;
+    color: #2563eb;
+    transform: translateX(4px);
+    box-shadow: none;
 }
 
-@media (max-width: 768px) {
-    .hero-carousel-wrapper .new-carousel-slide {
-        height: auto;
-    }
+/* Title Card Style */
+.modern-title-card {
+    background: white;
+    padding: 20px 24px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px -5px rgba(59, 130, 246, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    display: inline-block;
+    margin-bottom: 12px;
+}
+
+/* Modern Modal */
+.modern-modal-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(8px);
+    z-index: 50;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn 0.2s ease;
+}
+
+.modern-modal-content {
+    width: 95%;
+    height: 95%;
+    background: white;
+    border-radius: 20px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e2e8f0;
+}
+
+.modern-modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #f1f5f9;
+    margin-bottom: 15px;
+}
+
+.modern-modal-header h3 {
+    margin: 0;
+    font-size: 18px;
+    color: #0f172a;
+}
+
+.modern-close-btn {
+    background: #f1f5f9;
+    border: none;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: #64748b;
+    font-size: 16px;
+}
+
+.modern-close-btn:hover {
+    background: #e2e8f0;
+    color: #0f172a;
+}
+
+.modern-modal-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    overflow-y: auto;
+    padding-right: 5px;
+}
+
+.modern-modal-grid .modern-card {
+    aspect-ratio: 3/2;
+}
+
+/* Shimmer Pseudo-element */
+.modern-card::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to right,
+            rgba(255, 255, 255, 0) 0%,
+            rgba(255, 255, 255, 0.5) 50%,
+            rgba(255, 255, 255, 0) 100%);
+    transform: skewX(-25deg);
+    animation: logoShimmer 3s infinite;
+    pointer-events: none;
+    /* Let clicks pass through */
 }

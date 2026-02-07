@@ -1,6 +1,8 @@
 'use client'
 
 import { useLanguage } from '@/contexts/LanguageContext'
+import InstantLoanSlide from './InstantLoanSlide'
+
 
 export default function Hero() {
   const { t } = useLanguage()
@@ -18,27 +20,36 @@ export default function Hero() {
 
   return (
     <div className="hero-section" id="home">
-      <h1>
-        {hasHighlight1 ? (
-          <>
-            {parts1[0]}
-            <span className="highlight">{capitalizedHighlight}</span>
-            {parts1.slice(1).join(highlight)}
-          </>
-        ) : (
-          titleLine1
-        )}
-        <br />
-        {hasHighlight2 ? (
-          <>
-            {parts2[0]}
-            <span className="highlight">{capitalizedHighlight}</span>
-            {parts2.slice(1).join(highlight)}
-          </>
-        ) : (
-          titleLine2
-        )}
-      </h1>
+      <div className="hero-container">
+        <div className="hero-text-content">
+          <h1>
+            {hasHighlight1 ? (
+              <>
+                {parts1[0]}
+                <span className="highlight">{capitalizedHighlight}</span>
+                {parts1.slice(1).join(highlight)}
+              </>
+            ) : (
+              titleLine1
+            )}
+            <br />
+            {hasHighlight2 ? (
+              <>
+                {parts2[0]}
+                <span className="highlight">{capitalizedHighlight}</span>
+                {parts2.slice(1).join(highlight)}
+              </>
+            ) : (
+              titleLine2
+            )}
+          </h1>
+        </div>
+        <div className="hero-carousel-content">
+          <InstantLoanSlide />
+        </div>
+
+      </div>
     </div>
   )
 }
+

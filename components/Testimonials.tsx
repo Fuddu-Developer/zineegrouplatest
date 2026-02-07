@@ -50,7 +50,7 @@ export default function Testimonials() {
       <div className="testimonials-header">
         <div className="testimonials-header-left">
           <p className="happy-clients">{t('testimonials.happyClients')}</p>
-          <h2 className="testimonials-title">{t('testimonials.title')}</h2>
+          <h2 className="testimonials-title"><span className="highlight">Client</span> Experiences</h2>
         </div>
         <Link href="/reviews" className="read-all-reviews">
           {t('testimonials.readAll')}

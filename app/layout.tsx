@@ -5,13 +5,13 @@ import { LanguageProvider } from '@/contexts/LanguageContext'
 import { DarkModeProvider } from '@/contexts/DarkModeContext'
 import ChatBot from '@/components/ChatBot'
 
-const inter = Inter({ 
+const inter = Inter({
   subsets: ['latin'],
   variable: '--font-inter',
   display: 'swap',
 })
 
-const poppins = Poppins({ 
+const poppins = Poppins({
   weight: ['500', '600', '700'],
   subsets: ['latin'],
   variable: '--font-poppins',

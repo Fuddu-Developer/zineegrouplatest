@@ -53,7 +53,7 @@ export default function LoanTiles() {
       <div className="loan-tiles-container">
         <div className="loan-tiles-header">
           <h2 className="loan-tiles-title">
-            {t('loanTiles.title')}
+            Our <span className="highlight">Loan</span> Products
           </h2>
         </div>
         <div className="loan-tiles-grid">

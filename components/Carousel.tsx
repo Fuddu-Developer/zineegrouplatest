@@ -14,16 +14,17 @@ export default function Carousel() {
       title: 'INSTANT LOAN',
       subtitle: 'Personal Loan from Fi Money',
       banks: [
-        { name: 'IndusInd Bank', slug: 'indusind', logo: '/assets/banks/indusind.png', link: 'https://induseasycredit.indusind.com/customer/personal-loan/new-lead?utm_source=assisted&utm_medium=IBLV899&utm_campaign=Personal-Loan&utm_content=1', color: '#003366' },
-        { name: 'Bajaj Finserv', slug: 'bajaj', logo: '/assets/banks/bajaj.png', link: 'https://www.bajajfinservmarkets.in/apply-for-personal-loan-finservmarkets/?utm_source=B2B&utm_medium=E-referral&utm_campaign=OA&utm_content=MYMONEYMANTRA_FINTECH_PRIVATE_LIMITED', color: '#005AA9' },
-        { name: 'Unity Bank', slug: 'unity', logo: '/assets/banks/unity.png', link: 'https://loans.theunitybank.com/unity-pl-ui/page/exclusion/login/logindetails?utm_source=partnership&utm_medium=mymoneymantra&utm_campaign=ENT-941530', color: '#0054A6' },
-        { name: 'Hero FinCorp', slug: 'hero', logo: '/assets/banks/hero.png', link: 'https://hipl.onelink.me/1OrE?af_ios_url=https%3A%2F%2Floans.apps.herofincorp.com%2Fen%2Fpersonal-loan&af_android_url=https%3A%2F%2Floans.apps.herofincorp.com%2Fen%2Fpersonal-loan&af_web_dp=https%3A%2F%2Floans.apps.herofincorp.com%2Fen%2Fpersonal-loan&af_xp=custom&pid=Mymoneymantra&is_retargeting=true&af_reengagement_window=30d&c=Mymoneymantra&utm_source=partnership&utm_campaign=mymoneymantra&utm_content=ENT&utm_medium=MMMENT941530', color: '#ED1C24' },
-        { name: 'Prefer', slug: 'prefer', link: 'https://marketplace.creditvidya.com/mymoneymantra?utm_source=EARNTRA_941530', color: '#6C5CE7' },
-        { name: 'Poonawalla', slug: 'poonawalla', link: 'https://poonawalla.mymoneymantra.com/?sms=false&btb=true&utm_source=pnwpl&utm_medium=mmm&utm_campaign=pnwpl-mmm-941530&pid=Y2VjZmM3MjAtZjk5OS0xMWVlLTgyYjktMDdlOGJkMWUzOTA5', color: '#004D8C' },
-        { name: 'Incred', slug: 'incred', link: 'https://incredpl.mymoneymantra.com?btb=true&utm_source=incred&utm_medium=mmm&utm_campaign=incred-mmm-941530&pid=Y2VjZmM3MjAtZjk5OS0xMWVlLTgyYjktMDdlOGJkMWUzOTA5', color: '#004B87' },
-        { name: 'DMI', slug: 'dmi', link: 'https://dmi.mymoneymantra.com/?sms=false&btb=true&utm_source=dmipl&utm_medium=mmm&utm_campaign=dmipl-mmm-941530&pid=Y2VjZmM3MjAtZjk5OS0xMWVlLTgyYjktMDdlOGJkMWUzOTA5', color: '#1B3D6D' },
-        { name: 'Fi Money', slug: 'fimoney', link: 'https://fimoney.mymoneymantra.com/?sms=false&btb=true&utm_source=fimnpl&utm_medium=mmm&utm_campaign=fimnpl-mmm-941530&pid=Y2VjZmM3MjAtZjk5OS0xMWVlLTgyYjktMDdlOGJkMWUzOTA5', color: '#00D3D3' },
-        { name: 'IDFC First', slug: 'idfcfirst', link: 'https://idfcfirstpl.mymoneymantra.com?sms=false&btb=true&utm_source=idfcpl&utm_medium=mmm&utm_campaign=idfcpl-mmm-941530&pid=Y2VjZmM3MjAtZjk5OS0xMWVlLTgyYjktMDdlOGJkMWUzOTA5', color: '#8C1D2C' },
+        { name: 'Axis Bank', slug: 'axis', logo: '/assets/banks/axis-bank-logo.png', link: 'https://axis-card.mymoneymantra.com?sms=false&btb=true&utm_source=axs&utm_medium=mmm&utm_campaign=axs-mmm-941530', color: '#A3195B' },
+        { name: 'Bajaj Finserv', slug: 'bajaj', logo: '/assets/banks/bajaj.jpg', link: 'https://www.bajajfinservmarkets.in/apply-for-personal-loan-finservmarkets/?utm_source=B2B&utm_medium=E-referral&utm_campaign=OA&utm_content=MYMONEYMANTRA_FINTECH_PRIVATE_LIMITED', color: '#0066CC' },
+        { name: 'Aditya Birla', slug: 'adityabirla', logo: '/assets/banks/adityabirla.svg', link: 'https://abflbl.mymoneymantra.com/?btb=true&utm_source=abfl&utm_medium=mmm&utm_campaign=abfl-mmm-941530', color: '#CB2035' },
+        { name: 'HDFC Bank', slug: 'hdfc', logo: '/assets/banks/hdfc-bank-logo.svg', link: 'https://hdfcbank.mymoneymantra.com?sms=false&btb=true&utm_source=hdfc&utm_medium=mmm&utm_campaign=hdfc-mmm-941530', color: '#004C8F' },
+        { name: 'ICICI Bank', slug: 'icici', logo: '/assets/banks/ICICI-logo-white.svg', link: 'https://icicibank.mymoneymantra.com?sms=false&btb=true&utm_source=icici&utm_medium=mmm&utm_campaign=icici-mmm-941530', color: '#DB620A' },
+        { name: 'IDFC First Bank', slug: 'idfcfirst', logo: '/assets/banks/IDFC-logo.svg', link: 'https://idfcfirstpl.mymoneymantra.com?sms=false&btb=true&utm_source=idfcpl&utm_medium=mmm&utm_campaign=idfcpl-mmm-941530', color: '#9D1D27' },
+        { name: 'IndusInd Bank', slug: 'indusind', logo: '/assets/banks/indusind.png', link: 'https://induseasycredit.indusind.com/customer/personal-loan/new-lead?utm_source=assisted&utm_medium=IBLV899&utm_campaign=Personal-Loan&utm_content=1', color: '#A52A2A' },
+        { name: 'Kotak Mahindra', slug: 'kotak', logo: '/assets/banks/kotak.svg', link: 'https://kotakbank.mymoneymantra.com?sms=false&btb=true&utm_source=kotak&utm_medium=mmm&utm_campaign=kotak-mmm-941530', color: '#EC1C24' },
+        { name: 'L&T Finance', slug: 'lnt', logo: '/assets/banks/l_and_t.png', link: 'https://lntfinance.mymoneymantra.com?sms=false&btb=true&utm_source=lnt&utm_medium=mmm&utm_campaign=lnt-mmm-941530', color: '#FFC20E' },
+        { name: 'Tata Capital', slug: 'tata', logo: '/assets/banks/tata.jpg', link: 'https://tatacapitalbl.mymoneymantra.com/?sms=false&btb=true&utm_source=tatabl&utm_medium=mmm&utm_campaign=tatabl-mmm-941530', color: '#1F5FA1' },
+        { name: 'Yes Bank', slug: 'yes', logo: '/assets/banks/yes-bank-logo-png.png', link: 'https://popcard.mymoneymantra.com?sms=false&btb=true&utm_source=yescc&utm_medium=mmm&utm_campaign=yescc-mmm-941530', color: '#2E5C9A' },
       ]
     },
     {
@@ -32,12 +33,12 @@ export default function Carousel() {
       title: 'CREDIT CARDS',
       subtitle: 'Best Credit Card Offers',
       banks: [
-        { name: 'YES Bank', slug: 'yes', color: '#006BB4', link: 'https://popcard.mymoneymantra.com?sms=false&btb=true&utm_source=yescc&utm_medium=mmm&utm_campaign=yescc-mmm-941530' },
+        { name: 'YES Bank', slug: 'yes', logo: '/assets/banks/yes-bank-logo-png.png', color: '#006BB4', link: 'https://popcard.mymoneymantra.com?sms=false&btb=true&utm_source=yescc&utm_medium=mmm&utm_campaign=yescc-mmm-941530' },
         { name: 'Bank of Baroda', slug: 'bob', color: '#FF6600', link: 'https://bobcard.mymoneymantra.com?sms=false&btb=true&utm_source=bobcc&utm_medium=mmm&utm_campaign=bobcc-mmm-941530' },
         { name: 'Federal Bank', slug: 'federal', color: '#0066CC', link: 'https://federalcc.mymoneymantra.com?sms=false&btb=true&utm_source=fedcc&utm_medium=mmm&utm_campaign=fedcc-mmm-941530' },
         { name: 'AU Bank', slug: 'au', color: '#FF9900', link: 'https://aucc.mymoneymantra.com/?sms=false&btb=true&utm_source=aucc&utm_medium=mmm&utm_campaign=aucc-mmm-941530' },
         { name: 'SBI Card', slug: 'sbi', color: '#288CC8', link: 'https://sbicard.mymoneymantra.com?sms=false&btb=true&utm_source=sbcc&utm_medium=mmm&utm_campaign=sbcc-mmm-941530' },
-        { name: 'Axis Bank', slug: 'axis', color: '#8C1D2C', link: 'https://axis-card.mymoneymantra.com?sms=false&btb=true&utm_source=axs&utm_medium=mmm&utm_campaign=axs-mmm-941530' },
+        { name: 'Axis Bank', slug: 'axis', logo: '/assets/banks/axis-bank-logo.png', color: '#8C1D2C', link: 'https://axis-card.mymoneymantra.com?sms=false&btb=true&utm_source=axs&utm_medium=mmm&utm_campaign=axs-mmm-941530' },
       ]
     },
     {
@@ -48,8 +49,8 @@ export default function Carousel() {
       banks: [
         { name: 'Protium', slug: 'protium', color: '#003366', link: 'https://protium.mymoneymantra.com/?sms=false&btb=true&utm_source=protium&utm_medium=mmm&utm_campaign=protium-mmm-941530' },
         { name: 'Muthoot', slug: 'muthoot', color: '#ED1C24', link: 'https://muthoot.mymoneymantra.com/?sms=false&btb=true&v1=EDI&utm_source=medi&utm_medium=mmm&utm_campaign=medi-mmm-941530' },
-        { name: 'ABFL', slug: 'abfl', color: '#FFCC00', link: 'https://abflbl.mymoneymantra.com/?btb=true&utm_source=abfl&utm_medium=mmm&utm_campaign=abfl-mmm-941530' },
-        { name: 'Tata Capital', slug: 'tata', color: '#0066CC', link: 'https://tatacapitalbl.mymoneymantra.com/?sms=false&btb=true&utm_source=tatabl&utm_medium=mmm&utm_campaign=tatabl-mmm-941530' },
+        { name: 'ABFL', slug: 'abfl', logo: '/assets/banks/adityabirla.svg', color: '#FFCC00', link: 'https://abflbl.mymoneymantra.com/?btb=true&utm_source=abfl&utm_medium=mmm&utm_campaign=abfl-mmm-941530' },
+        { name: 'Tata Capital', slug: 'tata', logo: '/assets/banks/tata.jpg', color: '#0066CC', link: 'https://tatacapitalbl.mymoneymantra.com/?sms=false&btb=true&utm_source=tatabl&utm_medium=mmm&utm_campaign=tatabl-mmm-941530' },
       ]
     }
   ]
