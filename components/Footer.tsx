@@ -86,7 +86,7 @@ export default function Footer() {
                   height={24}
                   className="social-icon"
                 />
-                <a href="https://in.linkedin.com/company/zineegroup" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                <a href="https://in.linkedin.com/company/helloans-zinee-services-pvt-ltd" target="_blank" rel="noopener noreferrer">LinkedIn</a>
               </li>
               <li className="social-item">
                 <Image

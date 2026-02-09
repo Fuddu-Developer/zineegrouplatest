@@ -48,7 +48,7 @@ export const emiBanks: EmiBank[] = [
   {
     id: 'icici',
     name: 'ICICI Bank',
-    logo: '/assets/images/CB.png',
+    logo: '/assets/images/partners/icici.jpg',
     interestRate: 10.99,
     processingFee: 'Up to 2.25% of loan amount',
     minAmount: 50000,
@@ -138,7 +138,7 @@ export const emiBanks: EmiBank[] = [
   {
     id: 'idfc',
     name: 'IDFC First Bank',
-    logo: '/assets/images/CB.png',
+    logo: '/assets/images/partners/idfc.webp',
     interestRate: 10.5,
     processingFee: 'Up to 2% of loan amount',
     minAmount: 50000,
@@ -153,6 +153,7 @@ export const emiBanks: EmiBank[] = [
   {
     id: 'bajaj',
     name: 'Bajaj Finserv',
+    logo: '/assets/images/partners/bajaj.png',
     interestRate: 11.5,
     processingFee: 'Up to 2% of loan amount',
     minAmount: 50000,

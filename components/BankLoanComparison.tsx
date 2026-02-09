@@ -40,7 +40,7 @@ function calcEmi(principal: number, annualRate: number, months: number) {
     annualRate === 0
       ? principal / months
       : (principal * monthlyRate * Math.pow(1 + monthlyRate, months)) /
-        (Math.pow(1 + monthlyRate, months) - 1)
+      (Math.pow(1 + monthlyRate, months) - 1)
   const totalPayment = emi * months
   const totalInterest = totalPayment - principal
   return { emi: Math.round(emi), totalPayment: Math.round(totalPayment), totalInterest: Math.round(totalInterest) }
@@ -52,7 +52,11 @@ const MAX_SLOTS = 3
 
 export default function BankLoanComparison({ amount, tenure, tenureUnit }: BankLoanComparisonParams) {
   const { t } = useLanguage()
-  const [selectedBanks, setSelectedBanks] = useState<(EmiBank | null)[]>([])
+  const [selectedBanks, setSelectedBanks] = useState<(EmiBank | null)[]>(() => {
+    const hdfc = emiBanks.find((b) => b.id === 'hdfc') || emiBanks[0]
+    const axis = emiBanks.find((b) => b.id === 'axis') || emiBanks[1]
+    return [hdfc || null, axis || null, null]
+  })
 
   const months = tenureUnit === 'Yr' ? tenure * 12 : tenure
 
@@ -97,7 +101,7 @@ export default function BankLoanComparison({ amount, tenure, tenureUnit }: BankL
               {bank ? (
                 <div className="compare-bank-slot-card selected">
                   <div className="compare-bank-slot-logo">
-                    <BankLogo bank={bank} size={64} />
+                    <BankLogo bank={bank} size={100} />
                   </div>
                   <div className="compare-bank-slot-name">{bank.name}</div>
                   <div className="compare-bank-slot-rate">{bank.interestRate}% p.a.</div>
@@ -158,7 +162,7 @@ export default function BankLoanComparison({ amount, tenure, tenureUnit }: BankL
                       return (
                         <th key={b.id} className="compare-bank-th compare-bank-th-bank">
                           <div className="compare-bank-th-logo">
-                            <BankLogo bank={b} size={56} />
+                            <BankLogo bank={b} size={64} />
                           </div>
                           <div className="compare-bank-th-name">{b.name}</div>
                           <div className="compare-bank-th-rate">{b.interestRate}% p.a.</div>
@@ -178,7 +182,7 @@ export default function BankLoanComparison({ amount, tenure, tenureUnit }: BankL
                           if (!b) return <td key={i} className="compare-bank-td" />
                           const { emi } = calcEmi(amount, b.interestRate, months)
                           return (
-                            <td key={b.id} className="compare-bank-td compare-bank-td-value highlight">
+                            <td key={i} className="compare-bank-td compare-bank-td-value" style={{ fontWeight: 700, color: '#1e40af' }}>
                               {formatCurrency(emi)}
                             </td>
                           )

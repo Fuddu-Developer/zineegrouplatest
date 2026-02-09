@@ -13575,7 +13575,7 @@ body:has(.bank-app-page-wrapper) {
     }
 }
 
-/* Force Centering for Titles */
+/* Force Centering for Titles - Glassmorphism Block */
 .bank-list-title,
 .calculator-title {
     text-align: center !important;
@@ -13583,6 +13583,25 @@ body:has(.bank-app-page-wrapper) {
     display: block !important;
     margin-left: auto !important;
     margin-right: auto !important;
+}
+
+/* Glassmorphism Title Effect */
+.emi-section-title,
+.compare-bank-loans-title,
+.compare-bank-table-title {
+    text-align: center;
+    width: fit-content !important;
+    margin: 0 auto 24px auto !important;
+    display: block !important;
+
+    /* Glassmorphism */
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    padding: 12px 24px;
 }
 
 /* Ensure no background on headers unless specified */
@@ -13595,12 +13614,12 @@ body:has(.bank-app-page-wrapper) {
 /* --- Professional EMI Calculator Styles --- */
 .emi-calc-wrapper {
     background: #ffffff;
-    border-radius: 20px;
-    box-shadow: 0 10px 40px -10px rgba(0, 0, 0, 0.1);
-    padding: 30px;
+    border-radius: 24px;
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+    padding: 40px;
     font-family: var(--font-poppins), sans-serif;
     color: #1e293b;
-    border: 1px solid #f1f5f9;
+    border: 1px solid #f8fafc;
 }
 
 .dark .emi-calc-wrapper {
@@ -13648,11 +13667,18 @@ body:has(.bank-app-page-wrapper) {
 .emi-input-control {
     display: flex;
     align-items: center;
-    background: #f8fafc;
-    border: 1px solid #e2e8f0;
-    border-radius: 8px;
-    padding: 8px 12px;
-    max-width: 140px;
+    background: #ffffff;
+    border: 1px solid #cbd5e1;
+    border-radius: 12px;
+    padding: 12px 16px;
+    max-width: 160px;
+    transition: all 0.2s ease;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+.emi-input-control:focus-within {
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
 }
 
 .dark .emi-input-control {
@@ -13856,6 +13882,107 @@ body:has(.bank-app-page-wrapper) {
     display: flex;
     justify-content: center;
     position: relative;
+    height: 300px;
+    width: 100%;
+    min-height: 300px;
+}
+
+.emi-bar-chart-section {
+    margin-top: 48px;
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 24px;
+    border: 1px solid #f1f5f9;
+}
+
+.dark .emi-bar-chart-section {
+    background: #0f172a;
+    border-color: #334155;
+}
+
+.emi-bar-chart-container {
+    width: 100%;
+    height: 400px;
+    min-height: 400px;
+}
+
+.emi-section-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #1e293b;
+    /* Glass styles handled globally */
+}
+
+.dark .emi-section-title {
+    color: #f8fafc;
+}
+
+/* EMI Table Styles */
+.emi-schedule-section {
+    margin-top: 48px;
+}
+
+.emi-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    width: 100%;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.dark .emi-table {
+    border-color: #334155;
+}
+
+.emi-table th {
+    background-color: #f8fafc;
+    color: #475569;
+    font-weight: 600;
+    font-size: 14px;
+    padding: 16px;
+    text-align: center;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.dark .emi-table th {
+    background-color: #0f172a;
+    color: #94a3b8;
+    border-bottom-color: #334155;
+}
+
+.emi-table td {
+    padding: 14px 16px;
+    font-size: 14px;
+    color: #1e293b;
+    border-bottom: 1px solid #e2e8f0;
+    text-align: right;
+}
+
+.dark .emi-table td {
+    color: #f8fafc;
+    border-bottom-color: #334155;
+}
+
+.emi-table tr:last-child td {
+    border-bottom: none;
+}
+
+.emi-table tr.even {
+    background-color: #f8fafc;
+}
+
+.dark .emi-table tr.even {
+    background-color: rgba(15, 23, 42, 0.4);
+}
+
+.emi-table .center-text {
+    text-align: center;
+}
+
+.emi-table .font-bold {
+    font-weight: 600;
 }
 
 .chart-legend {
@@ -13900,7 +14027,7 @@ body:has(.bank-app-page-wrapper) {
     font-size: 22px;
     font-weight: 700;
     color: #1e293b;
-    margin-bottom: 8px;
+    /* Glass styles handled globally */
 }
 
 .dark .compare-bank-loans-title {
@@ -13912,6 +14039,7 @@ body:has(.bank-app-page-wrapper) {
     color: #64748b;
     margin-bottom: 24px;
     line-height: 1.5;
+    text-align: center;
 }
 
 .dark .compare-bank-loans-subtitle {
@@ -13937,13 +14065,15 @@ body:has(.bank-app-page-wrapper) {
 
 .compare-bank-slot-card {
     height: 100%;
-    padding: 20px;
+    padding: 16px;
     border-radius: 12px;
     border: 2px solid #e2e8f0;
     background: #f8fafc;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    align-items: center;
+    text-align: center;
+    gap: 8px;
     transition: border-color 0.2s, box-shadow 0.2s;
 }
 
@@ -13972,7 +14102,7 @@ body:has(.bank-app-page-wrapper) {
     justify-content: center;
     align-items: center;
     margin-bottom: 8px;
-    min-height: 72px;
+    min-height: auto;
 }
 
 .compare-bank-logo-img-wrap,
@@ -13984,8 +14114,8 @@ body:has(.bank-app-page-wrapper) {
     overflow: hidden;
     flex-shrink: 0;
     background: #eff6ff;
-    min-width: 56px;
-    min-height: 56px;
+    min-width: 40px;
+    min-height: 40px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
 }
 
@@ -14025,8 +14155,8 @@ body:has(.bank-app-page-wrapper) {
 
 .compare-bank-th-logo .compare-bank-logo-img-wrap,
 .compare-bank-th-logo .compare-bank-logo-fallback {
-    min-width: 52px;
-    min-height: 52px;
+    min-width: 64px;
+    min-height: 64px;
 }
 
 .compare-bank-th-logo .compare-bank-logo-fallback {
@@ -14128,7 +14258,7 @@ body:has(.bank-app-page-wrapper) {
     font-size: 18px;
     font-weight: 700;
     color: #1e293b;
-    padding: 20px 28px 12px;
+    /* Glass styles handled globally */
 }
 
 .dark .compare-bank-table-title {
@@ -14137,6 +14267,7 @@ body:has(.bank-app-page-wrapper) {
 
 .compare-bank-table-scroll {
     overflow-x: auto;
+    text-align: center;
 }
 
 .compare-bank-table {
@@ -14149,7 +14280,8 @@ body:has(.bank-app-page-wrapper) {
 .compare-bank-td {
     padding: 16px 24px;
     border-bottom: 1px solid #e2e8f0;
-    vertical-align: top;
+    vertical-align: middle;
+    text-align: center;
 }
 
 .dark .compare-bank-th,
@@ -14204,6 +14336,15 @@ body:has(.bank-app-page-wrapper) {
 
 .dark .compare-bank-th-rate {
     color: #60a5fa;
+}
+
+.compare-bank-th .compare-bank-th-logo {
+    justify-content: center;
+}
+
+.compare-bank-th .compare-bank-th-name,
+.compare-bank-th .compare-bank-th-rate {
+    text-align: center;
 }
 
 .compare-bank-td-label {
@@ -14394,11 +14535,7 @@ body:has(.bank-app-page-wrapper) {
 /* Hero Section Layout - Final High Specificity Fix */
 
 
-.hero-text-content {
-    flex: 1 !important;
-    min-width: 0 !important;
-    text-align: left !important;
-}
+
 
 .hero-text-content h1 {
     font-size: 52px !important;
@@ -14508,15 +14645,29 @@ body:has(.bank-app-page-wrapper) {
 }
 
 .hero-text-content {
-    flex: 0 0 40% !important;
+    flex: 0 0 35% !important;
     min-width: 0 !important;
+    padding-left: 1% !important;
+    /* Slide text right */
     animation: fadeInSlideLeft 1s ease-out;
 }
 
+.hero-text-wrapper {
+    background: rgba(255, 155, 255, 0.4);
+    backdrop-filter: blur(12px);
+    border-radius: 30px;
+    padding: 40px;
+    box-shadow: 0 8px 32px rgba(31, 38, 135, 0.1);
+    display: inline-block;
+    /* Hug the content */
+}
+
 .hero-carousel-content {
-    flex: 0 0 60% !important;
+    flex: 0 0 65% !important;
+
     max-width: none !important;
     display: flex !important;
+    padding-right: 3% !important;
     justify-content: flex-start !important;
 }
 
@@ -14526,6 +14677,20 @@ body:has(.bank-app-page-wrapper) {
     font-weight: 800 !important;
     color: #0f172a !important;
     margin: 0 !important;
+    border: none !important;
+    background: transparent !important;
+    box-shadow: none !important;
+}
+
+/* Ensure no pseudo-elements create borders */
+.hero-text-content::before,
+.hero-text-content::after,
+.hero-text-content h1::before,
+.hero-text-content h1::after {
+    display: none !important;
+    content: none !important;
+    border: none !important;
+    background: transparent !important;
 }
 
 @keyframes glassShimmer {
@@ -14770,11 +14935,13 @@ body:has(.bank-app-page-wrapper) {
 
 /* Modern Modal */
 .modern-modal-overlay {
-    position: absolute;
+    position: fixed;
+    /* Changed to fixed for full viewport */
     inset: 0;
-    background: rgba(255, 255, 255, 0.8);
+    background: rgba(255, 255, 255, 0.9);
     backdrop-filter: blur(8px);
-    z-index: 50;
+    z-index: 9999;
+    /* Higher z-index to be on top of everything */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -14782,14 +14949,18 @@ body:has(.bank-app-page-wrapper) {
 }
 
 .modern-modal-content {
-    width: 95%;
-    height: 95%;
+    width: 90%;
+    /* Sized relative to viewport */
+    max-width: 1000px;
+    height: auto;
+    max-height: 90vh;
+    /* Prevent overflow off screen */
     background: white;
-    border-radius: 20px;
-    padding: 20px;
+    border-radius: 24px;
+    padding: 30px;
     display: flex;
     flex-direction: column;
-    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
     border: 1px solid #e2e8f0;
 }
 
@@ -14797,9 +14968,11 @@ body:has(.bank-app-page-wrapper) {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-bottom: 15px;
+    padding-bottom: 20px;
     border-bottom: 1px solid #f1f5f9;
-    margin-bottom: 15px;
+    margin-bottom: 20px;
+    gap: 20px;
+    /* Space between title and close btn */
 }
 
 .modern-modal-header h3 {
@@ -14877,25 +15050,88 @@ body:has(.bank-app-page-wrapper) {
     padding: 2px;
 }
 
-/* View All Link Style */
-.view-all-card {
-    background: transparent;
+/* Premium Grid Button Style */
+.view-all-btn {
+    width: 100%;
+    height: 100%;
+    background: #f8fafc;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    /* Stack text */
+    align-items: center;
+    justify-content: center;
+    gap: 0px;
+    /* Tight stacking */
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+    border: 1px solid #f1f5f9;
+    transition: all 0.2s ease;
+    cursor: pointer;
+    font-size: 23px;
+    /* ~45% larger than 16px */
+    font-weight: 800;
+    /* Bold */
     color: #0f172a;
-    font-weight: 700;
-    font-size: 14px;
     text-transform: capitalize;
-    box-shadow: none;
-    border: none;
-    justify-content: flex-end;
-    /* Align text to right if needed, or center */
-    padding-right: 10px;
+    text-decoration: none;
+    position: relative;
+    overflow: hidden;
+    line-height: 1.1;
 }
 
-.view-all-card:hover {
-    background: transparent;
-    color: #2563eb;
-    transform: translateX(4px);
-    box-shadow: none;
+.view-all-btn span {
+    display: block;
+}
+
+.view-all-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.08), 0 4px 6px -2px rgba(0, 0, 0, 0.04);
+    background: white;
+    color: #1e40af;
+    /* Blue on hover */
+    border-color: #bfdbfe;
+}
+
+.view-all-btn:active {
+    transform: scale(0.98);
+}
+
+.view-all-arrow {
+    display: none;
+    /* Hide arrow for this design as requested/implied by 2-line text focus */
+}
+
+/* Carousel Manual Navigation */
+.carousel-nav-container {
+    display: flex;
+    gap: 12px;
+    margin-top: 20px;
+}
+
+.carousel-nav-btn {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: white;
+    border: 1px solid #e2e8f0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #1e40af;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.carousel-nav-btn:hover {
+    background: #eff6ff;
+    border-color: #3b82f6;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.carousel-nav-btn:active {
+    transform: translateY(0);
 }
 
 /* Title Card Style */
@@ -14971,13 +15207,22 @@ body:has(.bank-app-page-wrapper) {
 .modern-modal-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 12px;
+    /* 4 columns for smaller cards */
+    gap: 15px;
+    /* Reduced gap */
     overflow-y: auto;
-    padding-right: 5px;
+    padding: 10px;
+    padding-bottom: 40px;
+    flex: 1;
+    min-height: 0;
+    align-content: start;
 }
 
 .modern-modal-grid .modern-card {
     aspect-ratio: 3/2;
+    width: 100%;
+    margin: 0;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
 }
 
 /* Shimmer Pseudo-element */

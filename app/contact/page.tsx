@@ -95,7 +95,7 @@ export default function ContactPage() {
 
                   <h2 className="social-heading">{t('contact.socialMedia')}</h2>
                   <div className="social-links">
-                    <a href="https://in.linkedin.com/company/zineegroup" target="_blank" rel="noopener noreferrer" className="social-link">
+                    <a href="https://in.linkedin.com/company/helloans-zinee-services-pvt-ltd" target="_blank" rel="noopener noreferrer" className="social-link">
                       <Image
                         src="/assets/social/linkedin.png"
                         alt="LinkedIn"

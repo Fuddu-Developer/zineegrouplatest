@@ -3,6 +3,19 @@
 import { useState, useMemo, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { useLanguage } from '@/contexts/LanguageContext'
+import {
+  PieChart,
+  Pie,
+  Cell,
+  ResponsiveContainer,
+  BarChart,
+  Bar,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend
+} from 'recharts'
 
 export type LoanCalculatorParams = { amount: number; tenure: number; tenureUnit: 'Yr' | 'Mo' }
 
@@ -50,48 +63,123 @@ export default function LoanCalculator({
   const maxTenure = tenureUnit === 'Yr' ? 30 : 360
 
   // Calculations
-  const { emi, totalInterest, totalPayment } = useMemo(() => {
+  const calculations = useMemo(() => {
     const principal = amount
     const monthlyRate = interestRate / 12 / 100
-    const months = tenureUnit === 'Yr' ? tenure * 12 : tenure
+    const totalMonths = tenureUnit === 'Yr' ? tenure * 12 : tenure
 
     let emiCalc = 0
     if (interestRate === 0) {
-      emiCalc = principal / months
+      emiCalc = principal / totalMonths
     } else {
-      emiCalc = (principal * monthlyRate * Math.pow(1 + monthlyRate, months)) / (Math.pow(1 + monthlyRate, months) - 1)
+      emiCalc = (principal * monthlyRate * Math.pow(1 + monthlyRate, totalMonths)) / (Math.pow(1 + monthlyRate, totalMonths) - 1)
     }
 
-    const totalPay = emiCalc * months
+    const totalPay = emiCalc * totalMonths
     const totalInt = totalPay - principal
+
+    // Yearly Breakdown Calculation
+    const yearlyData = []
+    let balance = principal
+    let totalPrincipalPaid = 0
+    let currentYearPrincipal = 0
+    let currentYearInterest = 0
+    let currentYearTotal = 0
+
+    // We'll calculate month by month but aggregate by year
+    const startYear = new Date().getFullYear()
+
+    for (let m = 1; m <= totalMonths; m++) {
+      const interestForMonth = balance * monthlyRate
+      const principalForMonth = emiCalc - interestForMonth
+      balance -= principalForMonth
+      if (balance < 0) balance = 0
+
+      currentYearPrincipal += principalForMonth
+      currentYearInterest += interestForMonth
+      currentYearTotal += emiCalc
+
+      if (m % 12 === 0 || m === totalMonths) {
+        const yearIndex = Math.ceil(m / 12) - 1
+        const yearLabel = startYear + yearIndex
+
+        totalPrincipalPaid += currentYearPrincipal
+        const loanPaidPercent = (totalPrincipalPaid / principal) * 100
+
+        yearlyData.push({
+          year: yearLabel,
+          principalPaid: Math.round(currentYearPrincipal),
+          interestPaid: Math.round(currentYearInterest),
+          totalPayment: Math.round(currentYearTotal),
+          balance: Math.round(balance),
+          loanPaidExecute: loanPaidPercent.toFixed(2) + '%'
+        })
+
+        // Reset for next year
+        currentYearPrincipal = 0
+        currentYearInterest = 0
+        currentYearTotal = 0
+      }
+    }
 
     return {
       emi: Math.round(emiCalc),
       totalInterest: Math.round(totalInt),
-      totalPayment: Math.round(totalPay)
+      totalPayment: Math.round(totalPay),
+      yearlyData,
+      startYear // return startYear for logic usage if needed
     }
   }, [amount, interestRate, tenure, tenureUnit])
 
-  // Pie Chart Data
-  const principalPercentage = (amount / totalPayment) * 100
-  const interestPercentage = (totalInterest / totalPayment) * 100
+  const { emi, totalInterest, totalPayment, yearlyData } = calculations
 
-  // SVG Chart Calculations
-  const size = 200
-  const strokeWidth = 25
-  const radius = (size - strokeWidth) / 2
-  const circumference = 2 * Math.PI * radius
-  const principalDash = (principalPercentage / 100) * circumference
-  const interestDash = (interestPercentage / 100) * circumference
+  // Pie Chart Data
+  const pieData = [
+    { name: t('emi.principalAmount'), value: amount },
+    { name: t('emi.totalInterest'), value: totalInterest },
+  ]
 
   // Colors
-  const PRINCIPAL_COLOR = '#10b981' // Emerald 500
-  const INTEREST_COLOR = '#3b82f6'  // Blue
+  const PRINCIPAL_COLOR_PIE = '#2563eb' // Blue 600
+  const INTEREST_COLOR_PIE = '#93c5fd'  // Blue 300
+  const PIE_COLORS = [PRINCIPAL_COLOR_PIE, INTEREST_COLOR_PIE]
+
+  // Bar Chart Colors - Blue and White/Light Blue theme as requested
+  // Using explicit hex values for "Blue and White" feel
+  const PRINCIPAL_COLOR_BAR = '#1e3a8a' // Dark Blue (Slate 900 roughly) for Principal
+  const INTEREST_COLOR_BAR = '#dbeafe'  // Very light blue (Blue 100) for Interest, gives a 'white-ish' contrast
 
   // Generic Input Handler
   const handleAmountChange = (val: string) => {
     const num = Number(val)
     if (!isNaN(num)) setAmount(Math.min(maxAmount, Math.max(minAmount, num)))
+  }
+
+
+
+  // Custom Tooltip to ensure readability of "Total Interest"
+  const CustomTooltip = ({ active, payload, label }: any) => {
+    if (active && payload && payload.length) {
+      return (
+        <div style={{ backgroundColor: '#fff', padding: '10px', border: '1px solid #ccc', borderRadius: '4px', boxShadow: '0 2px 4px rgba(0,0,0,0.1)' }}>
+          {label && <p style={{ fontWeight: 600, marginBottom: '8px', color: '#111827' }}>{label}</p>}
+          {payload.map((entry: any, index: number) => {
+            const isInterest = entry.name === t('emi.totalInterest') || (entry.name && entry.name.toLowerCase().includes('interest'));
+            const color = isInterest ? '#000000' : (entry.color || entry.payload?.fill || '#000');
+
+            return (
+              <div key={index} style={{ display: 'flex', alignItems: 'center', marginBottom: '4px' }}>
+                <div style={{ width: '10px', height: '10px', backgroundColor: entry.color || entry.payload?.fill, marginRight: '8px', borderRadius: '2px' }}></div>
+                <span style={{ color: color, fontSize: '0.9rem' }}>
+                  {entry.name}: {formatCurrency(Number(entry.value))}
+                </span>
+              </div>
+            )
+          })}
+        </div>
+      )
+    }
+    return null
   }
 
   return (
@@ -254,47 +342,90 @@ export default function LoanCalculator({
               <div className="emi-stat-value">{formatCurrency(totalPayment)}</div>
             </div>
 
-            {/* Pie Chart */}
+            {/* Pie Chart (Replaced Radar) */}
             <div className="emi-chart-container">
-              <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
-                {/* Circle Background (Principal) */}
-                <circle
-                  cx={size / 2}
-                  cy={size / 2}
-                  r={radius}
-                  fill="transparent"
-                  stroke={PRINCIPAL_COLOR}
-                  strokeWidth={strokeWidth}
-                />
-                {/* Interest Arc */}
-                <circle
-                  cx={size / 2}
-                  cy={size / 2}
-                  r={radius}
-                  fill="transparent"
-                  stroke={INTEREST_COLOR}
-                  strokeWidth={strokeWidth}
-                  strokeDasharray={circumference}
-                  strokeDashoffset={circumference - interestDash}
-                  transform={`rotate(-90 ${size / 2} ${size / 2})`}
-                  style={{ transition: 'stroke-dashoffset 0.5s ease' }}
-                />
-              </svg>
-            </div>
-            <div className="chart-legend">
-              <div className="legend-item">
-                <div className="legend-color" style={{ background: PRINCIPAL_COLOR }}></div>
-                <span>{t('emi.principalAmount')}</span>
-              </div>
-              <div className="legend-item">
-                <div className="legend-color" style={{ background: INTEREST_COLOR }}></div>
-                <span>{t('emi.totalInterest')}</span>
-              </div>
+              <ResponsiveContainer width="100%" height="100%">
+                <PieChart>
+                  <Pie
+                    data={pieData}
+                    cx="50%"
+                    cy="50%"
+                    innerRadius={60}
+                    outerRadius={90}
+                    paddingAngle={5}
+                    dataKey="value"
+                  >
+                    {pieData.map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={PIE_COLORS[index % PIE_COLORS.length]} />
+                    ))}
+                  </Pie>
+                  <Tooltip content={<CustomTooltip />} />
+                  <Legend />
+                </PieChart>
+              </ResponsiveContainer>
             </div>
 
           </div>
 
         </div>
+
+        {/* Stacked Bar Chart with Slim Bars */}
+        <div className="emi-bar-chart-section">
+          <h3 className="emi-section-title">Amortization Chart</h3>
+          <div className="emi-bar-chart-container">
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart
+                data={yearlyData}
+                margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
+                barSize={20} // Fixed slim width
+              >
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="year" />
+                <YAxis />
+                <Tooltip content={<CustomTooltip />} />
+                <Legend />
+                <Bar dataKey="principalPaid" stackId="a" fill={PRINCIPAL_COLOR_BAR} name={t('emi.principalAmount')} />
+                <Bar dataKey="interestPaid" stackId="a" fill={INTEREST_COLOR_BAR} name={t('emi.totalInterest')} />
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
+        </div>
+
+        {/* Repayment Schedule Table with Proper Borders */}
+        <div className="emi-schedule-section">
+          <h3 className="emi-section-title">
+            Check Your Repayment Schedule
+          </h3>
+          <div className="overflow-x-auto">
+            <table className="emi-table">
+              <thead>
+                <tr>
+                  <th>Year</th>
+                  <th>Principal (A)</th>
+                  <th>Interest (B)</th>
+                  <th>Total Payment (A + B)</th>
+                  <th>Balance</th>
+                  <th>Loan Paid To Date</th>
+                </tr>
+              </thead>
+              <tbody>
+                {yearlyData.map((row, index) => (
+                  <tr key={row.year} className={index % 2 === 0 ? 'even' : 'odd'}>
+                    <td className="center-text font-bold">
+                      {row.year}
+                    </td>
+                    <td>{formatCurrency(row.principalPaid)}</td>
+                    <td>{formatCurrency(row.interestPaid)}</td>
+                    <td>{formatCurrency(row.totalPayment)}</td>
+                    <td>{formatCurrency(row.balance)}</td>
+                    <td className="center-text">{row.loanPaidExecute}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
       </div>
     </div>
   )

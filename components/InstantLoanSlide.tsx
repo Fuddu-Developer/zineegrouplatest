@@ -142,6 +142,27 @@ export default function InstantLoanSlide() {
                         />
                     ))}
                 </div>
+                {/* Manual Navigation */}
+                <div className="carousel-nav-container">
+                    <button
+                        className="carousel-nav-btn"
+                        onClick={() => setCurrentSlideIndex((prev) => (prev - 1 + slides.length) % slides.length)}
+                        aria-label="Previous Slide"
+                    >
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M15 18L9 12L15 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
+                    </button>
+                    <button
+                        className="carousel-nav-btn"
+                        onClick={() => setCurrentSlideIndex((prev) => (prev + 1) % slides.length)}
+                        aria-label="Next Slide"
+                    >
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M9 18L15 12L9 6" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                        </svg>
+                    </button>
+                </div>
             </div>
 
             <div className="modern-carousel-right">
@@ -151,12 +172,13 @@ export default function InstantLoanSlide() {
                         <>
                             {currentSlide.partners.slice(0, 8).map((logo, i) => renderPartnerCard(logo, i))}
                             {/* View All Button */}
-                            <div
-                                className="modern-card view-all-card"
+                            <button
+                                className="view-all-btn"
                                 onClick={() => setShowAllModal(true)}
                             >
-                                <span>View All &gt;</span>
-                            </div>
+                                <span>View</span>
+                                <span>All</span>
+                            </button>
                         </>
                     ) : (
                         currentSlide.partners.slice(0, 9).map((logo, i) => renderPartnerCard(logo, i))

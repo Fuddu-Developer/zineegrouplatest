@@ -23,7 +23,7 @@ export default function Home() {
                 </div>
               </ScrollRevealSection>
 
-              <ScrollRevealSection delay={40}>
+              <ScrollRevealSection delay={20}>
                 <LoanTiles />
               </ScrollRevealSection>
 
