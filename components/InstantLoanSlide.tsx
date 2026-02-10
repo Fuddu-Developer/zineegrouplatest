@@ -53,10 +53,10 @@ export default function InstantLoanSlide() {
     ]
 
     const slides = [
-        { title: 'PERSONAL', subtitle: 'LOAN', desc: 'Pre-Approved Offers', partners: personalLoanPartners },
-        { title: 'BUSINESS', subtitle: 'LOAN', desc: 'Grow Your Business', partners: businessLoanPartners },
-        { title: 'CREDIT', subtitle: 'CARDS', desc: 'Best Reward Cards', partners: creditCardPartners },
-        { title: 'LOAN AGAINST', subtitle: 'PROPERTY', desc: 'Unlock Value', partners: lapPartners },
+        { title: 'INSTANT', subtitle: 'PERSONAL LOAN', typeLabel: 'personal', partners: personalLoanPartners },
+        { title: 'INSTANT', subtitle: 'BUSINESS LOAN', typeLabel: 'business', partners: businessLoanPartners },
+        { title: 'INSTANT', subtitle: 'CREDIT CARDS', typeLabel: 'credit card', partners: creditCardPartners },
+        { title: 'INSTANT', subtitle: 'LOAN AGAINST PROPERTY', typeLabel: 'loan against property', partners: lapPartners },
     ]
 
     const [currentSlideIndex, setCurrentSlideIndex] = useState(0)
@@ -126,7 +126,9 @@ export default function InstantLoanSlide() {
                         <span>{currentSlide.subtitle}</span>
                     </h2>
                 </div>
-                <div className="modern-subtitle">{currentSlide.desc}</div>
+                <div className="modern-subtitle">
+                    Get pre approved instant {currentSlide.typeLabel}{currentSlide.typeLabel === 'credit card' ? '' : ' loan'}
+                </div>
                 {/* Dots Indicator */}
                 <div style={{ display: 'flex', gap: '6px', marginTop: '20px' }}>
                     {slides.map((_, idx) => (

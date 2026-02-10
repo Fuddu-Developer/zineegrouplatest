@@ -7,9 +7,9 @@
 
 body {
     font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    font-size: 18px;
+    font-size: 1.125rem;
     line-height: 1.6;
-    color: #1e293b;
+    color: #000;
     background-color: #f0f9ff;
     /* Very light neon blue background */
     padding-top: 117px;
@@ -76,10 +76,76 @@ h6 {
         0 2px 4px rgba(30, 64, 175, 0.08);
 }
 
+/* Global: 20% larger base font (rem/em scale) + layout */
 html {
+    font-size: 120%;
     overflow-x: hidden;
     width: 100%;
     max-width: 100vw;
+}
+
+/* Global: all text black except focus-word highlights (light theme) */
+body:not(.dark) .page-container,
+body:not(.dark) .main-content,
+body:not(.dark) .content-wrapper,
+body:not(.dark) .main-body,
+body:not(.dark) main,
+body:not(.dark) section,
+body:not(.dark) h1,
+body:not(.dark) h2,
+body:not(.dark) h3,
+body:not(.dark) h4,
+body:not(.dark) h5,
+body:not(.dark) h6,
+body:not(.dark) p,
+body:not(.dark) li,
+body:not(.dark) td,
+body:not(.dark) th,
+body:not(.dark) label,
+body:not(.dark) .section-title,
+body:not(.dark) .testimonials-title,
+body:not(.dark) .loan-tiles-title,
+body:not(.dark) .about-title,
+body:not(.dark) .about-section-title,
+body:not(.dark) .about-text,
+body:not(.dark) .contact-heading,
+body:not(.dark) .form-section-title,
+body:not(.dark) .feature-title,
+body:not(.dark) .feature-description,
+body:not(.dark) .company-description,
+body:not(.dark) .subheadline,
+body:not(.dark) .testimonial-text,
+body:not(.dark) .copyright-text,
+body:not(.dark) .form-label,
+body:not(.dark) .emi-stat-label,
+body:not(.dark) .calculator-title,
+body:not(.dark) .compare-bank-loans-title,
+body:not(.dark) .compare-bank-loans-subtitle,
+body:not(.dark) .modern-subtitle,
+body:not(.dark) .modern-title,
+body:not(.dark) .headline,
+body:not(.dark) .formSubtitle,
+body:not(.dark) .trustText,
+body:not(.dark) .logo-tagline,
+body:not(.dark) .footer-list a,
+body:not(.dark) .main-nav .nav-link:not(.nav-link-highlight) .nav-link-label,
+body:not(.dark) .bank-tile-name,
+body:not(.dark) .feature-description,
+body:not(.dark) .benefit-item,
+body:not(.dark) .about-cta-text,
+body:not(.dark) .about-cta-description,
+body:not(.dark) .contact-link,
+body:not(.dark) .contact-intro,
+body:not(.dark) .contact-title,
+body:not(.dark) .apply .contact-intro,
+body:not(.dark) .loan-tile-label,
+body:not(.dark) .accordionTitle,
+body:not(.dark) .accordionInner,
+body:not(.dark) .rangeLabel,
+body:not(.dark) .rangeValue,
+body:not(.dark) .input,
+body:not(.dark) .label {
+    color: #000 !important;
 }
 
 .container {
@@ -1434,20 +1500,21 @@ html[lang="hi"] .btn-call-label {
 
 /* Loan Tiles Section - Insurance tile style */
 .loan-tiles-section {
-    margin: 30px 0 20px;
-    padding: 20px 0;
+    margin: 56px 0 48px;
+    padding: 64px 0 80px;
+    min-height: 580px;
 }
 
 .loan-tiles-container {
     max-width: 1400px;
     margin: 0 auto;
-    padding: 0 20px;
+    padding: 0 32px;
 }
 
 .loan-tiles-header {
     max-width: 1400px;
-    margin: 0 auto 40px;
-    padding: 0 20px;
+    margin: 0 auto 72px;
+    padding: 0 32px;
     text-align: center;
 }
 
@@ -1476,31 +1543,40 @@ html[lang="hi"] .btn-call-label {
 .loan-tiles-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 18px;
+    gap: 52px 36px;
     justify-items: center;
+    align-items: start;
     width: 100%;
-    max-width: 1100px;
+    max-width: 1280px;
     margin: 0 auto;
+    padding: 48px 0 64px;
 }
 
 @media (max-width: 1024px) {
     .loan-tiles-grid {
         grid-template-columns: repeat(3, 1fr);
-        gap: 16px;
+        gap: 28px 24px;
     }
 }
 
 @media (max-width: 768px) {
     .loan-tiles-grid {
         grid-template-columns: repeat(2, 1fr);
-        gap: 14px;
+        gap: 28px 24px;
+        align-items: start;
     }
-}
-
-@media (max-width: 480px) {
-    .loan-tiles-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 12px;
+    .loan-tile {
+        transform: translateY(0) scale(1);
+        max-width: 100%;
+    }
+    .loan-tile:hover {
+        transform: translateY(-4px) scale(1);
+    }
+    .loan-tiles-grid .loan-tile .loan-tile-icon-circle {
+        transform: scale(1.05);
+    }
+    .loan-tiles-grid .loan-tile:hover .loan-tile-icon-circle {
+        transform: scale(1.1);
     }
 }
 
@@ -1508,35 +1584,42 @@ html[lang="hi"] .btn-call-label {
     position: relative;
     width: 100%;
     max-width: 180px;
-    height: 120px;
+    height: 132px;
     border-radius: 12px;
-    border: 2px solid #1e40af;
-    box-shadow: 0 2px 8px rgba(30, 64, 175, 0.15);
+    border: 3px solid #2563eb;
+    box-shadow: 0 20px 40px rgba(30, 64, 175, 0.4), 0 0 0 2px rgba(59, 130, 246, 0.3);
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 14px 10px;
+    padding: 18px 12px;
     text-decoration: none;
     transition: all 0.3s ease;
     overflow: visible;
     cursor: pointer;
-    background: linear-gradient(135deg, #ffffff 0%, #f0f9ff 100%);
-    backdrop-filter: blur(10px);
-}
-
-.loan-tile:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 20px rgba(30, 64, 175, 0.25);
-    border-color: #3b82f6;
     background: linear-gradient(135deg, #ffffff 0%, #dbeafe 100%);
+    backdrop-filter: blur(10px);
+    transform: translateY(-8px) scale(1.28);
+}
+.loan-tile:hover {
+    transform: translateY(-12px) scale(1.28);
+    box-shadow: 0 24px 48px rgba(30, 64, 175, 0.45), 0 0 0 2px rgba(59, 130, 246, 0.35);
+    border-color: #1d4ed8;
+    background: linear-gradient(135deg, #ffffff 0%, #bfdbfe 100%);
+}
+.loan-tiles-grid .loan-tile .loan-tile-icon-circle {
+    transform: scale(1.2);
+    transition: transform 0.3s ease;
+}
+.loan-tiles-grid .loan-tile:hover .loan-tile-icon-circle {
+    transform: scale(1.25);
 }
 
 .loan-tile-icon-wrapper {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-bottom: 8px;
+    margin-bottom: 10px;
     flex-shrink: 0;
     width: 64px;
     height: 64px;
@@ -1581,18 +1664,24 @@ html[lang="hi"] .btn-call-label {
 .loan-tile-label {
     font-family: var(--font-poppins), sans-serif;
     color: #1e40af;
-    font-size: 14px;
+    font-size: 18px;
     font-weight: 600;
     text-align: center;
-    line-height: 1.3;
+    line-height: 1.25;
     margin: 0;
     padding: 0 6px;
     word-wrap: break-word;
     overflow-wrap: break-word;
     hyphens: auto;
     width: 100%;
-    max-height: 38px;
     overflow: visible;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0;
+}
+.loan-tile-label-line {
+    display: block;
 }
 
 /* Carousel Section - Exact match to your example */
@@ -3916,17 +4005,18 @@ body {
     }
 
     .loan-tiles-section {
-        margin: 20px 0 15px;
-        padding: 15px 0;
+        margin: 36px 0 32px;
+        padding: 44px 0 56px;
+        min-height: 480px;
     }
 
     .loan-tiles-container {
-        padding: 0 15px;
+        padding: 0 24px;
     }
 
     .loan-tiles-header {
-        margin-bottom: 30px;
-        padding: 0 15px;
+        margin-bottom: 44px;
+        padding: 0 24px;
     }
 
     .loan-tiles-title {
@@ -3955,7 +4045,7 @@ body {
     }
 
     .loan-tile-label {
-        font-size: 13px;
+        font-size: 17px;
     }
 
     .flip-carousel-section {
@@ -4302,17 +4392,18 @@ body {
     }
 
     .loan-tiles-section {
-        margin: 15px 0 10px;
-        padding: 10px 0;
+        margin: 28px 0 24px;
+        padding: 36px 0 48px;
+        min-height: 440px;
     }
 
     .loan-tiles-container {
-        padding: 0 10px;
+        padding: 0 16px;
     }
 
     .loan-tiles-header {
-        margin-bottom: 20px;
-        padding: 0 10px;
+        margin-bottom: 36px;
+        padding: 0 16px;
     }
 
     .loan-tiles-title {
@@ -4321,12 +4412,26 @@ body {
 
     .loan-tiles-grid {
         grid-template-columns: repeat(2, 1fr);
-        gap: 12px;
+        gap: 24px 20px;
+        align-items: start;
     }
 
     .loan-tile {
-        height: 220px;
+        height: 160px;
         padding: 20px 12px 18px;
+        transform: none;
+    }
+
+    .loan-tile:hover {
+        transform: translateY(-4px);
+    }
+
+    .loan-tiles-grid .loan-tile .loan-tile-icon-circle {
+        transform: scale(1);
+    }
+
+    .loan-tiles-grid .loan-tile:hover .loan-tile-icon-circle {
+        transform: scale(1.05);
     }
 
     .loan-tile-icon-circle {
@@ -4340,7 +4445,7 @@ body {
     }
 
     .loan-tile-label {
-        font-size: 12px;
+        font-size: 16px;
     }
 
     .flip-carousel-section {
@@ -8136,13 +8241,26 @@ body {
     width: 100%;
 }
 
+.write-review-header-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 8px;
+    flex-wrap: wrap;
+}
+
+.write-review-logo {
+    flex-shrink: 0;
+}
+
 .write-review-title {
     font-family: var(--font-poppins), sans-serif;
     color: #1e293b;
     font-size: 32px;
     font-weight: 700;
-    margin-bottom: 8px;
-    text-align: center;
+    margin-bottom: 0;
+    text-align: left;
     margin-top: 0;
 }
 
@@ -13593,8 +13711,6 @@ body:has(.bank-app-page-wrapper) {
     width: fit-content !important;
     margin: 0 auto 24px auto !important;
     display: block !important;
-
-    /* Glassmorphism */
     background: rgba(255, 255, 255, 0.7);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
@@ -13602,6 +13718,22 @@ body:has(.bank-app-page-wrapper) {
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
     border-radius: 12px;
     padding: 12px 24px;
+}
+
+/* Glass shimmer + blue for Repayment Schedule & Compare */
+.emi-section-title-glass,
+.compare-bank-loans-title {
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.25), rgba(147, 197, 253, 0.2)) !important;
+    border: 1px solid rgba(59, 130, 246, 0.35) !important;
+    box-shadow: 0 4px 24px rgba(59, 130, 246, 0.15), inset 0 1px 0 rgba(255, 255, 255, 0.4) !important;
+    color: #1e40af !important;
+}
+
+.dark .emi-section-title-glass,
+.dark .compare-bank-loans-title {
+    background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(30, 64, 175, 0.25)) !important;
+    border-color: rgba(96, 165, 250, 0.3) !important;
+    color: #93c5fd !important;
 }
 
 /* Ensure no background on headers unless specified */
@@ -13634,11 +13766,45 @@ body:has(.bank-app-page-wrapper) {
     gap: 40px;
 }
 
-@media (min-width: 900px) {
-    .emi-calc-grid {
-        grid-template-columns: 1.2fr 0.8fr;
-        align-items: start;
-        gap: 60px;
+/* Horizontal results row below calculator */
+.emi-results-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 32px;
+    padding: 28px 24px;
+    background: #f8fafc;
+    border-radius: 16px;
+    border: 1px solid #e2e8f0;
+}
+
+.dark .emi-results-row {
+    background: #0f172a;
+    border-color: #334155;
+}
+
+.emi-results-row .emi-stat-item {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+    text-align: center;
+}
+
+.emi-results-row .emi-stat-label {
+    font-size: 12px;
+}
+
+.emi-results-row .emi-stat-value {
+    font-size: 24px;
+}
+
+.emi-results-row .emi-stat-value.highlight {
+    font-size: 28px;
+}
+
+@media (max-width: 600px) {
+    .emi-results-row {
+        grid-template-columns: 1fr;
     }
 }
 
@@ -13739,12 +13905,18 @@ body:has(.bank-app-page-wrapper) {
     border-radius: 50%;
     background: #ffffff;
     border: 3px solid #EB5E28;
-    /* Primary Orange/Red for interaction */
     cursor: pointer;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
     transition: transform 0.1s;
     margin-top: -9px;
-    /* Centering fix for some browsers */
+}
+
+.emi-slider-olive::-webkit-slider-thumb {
+    border-color: #6b8e23;
+}
+
+.emi-slider-olive::-moz-range-thumb {
+    border-color: #6b8e23;
 }
 
 /* Firefox thumb */
@@ -13812,7 +13984,7 @@ body:has(.bank-app-page-wrapper) {
 }
 
 .tenure-toggle-btn.active {
-    background: #3b82f6;
+    background: #6b8e23;
     color: #ffffff;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
@@ -13878,7 +14050,7 @@ body:has(.bank-app-page-wrapper) {
 
 /* Pie Chart Container */
 .emi-chart-container {
-    margin-top: 30px;
+    margin-top: 40px;
     display: flex;
     justify-content: center;
     position: relative;
@@ -13983,6 +14155,196 @@ body:has(.bank-app-page-wrapper) {
 
 .emi-table .font-bold {
     font-weight: 600;
+}
+
+/* Professional EMI table */
+.emi-table-wrapper {
+    overflow-x: auto;
+    border-radius: 12px;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+}
+
+.emi-table-pro .emi-th {
+    background: linear-gradient(180deg, #1e40af, #1e3a8a) !important;
+    color: #fff !important;
+    font-weight: 700;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 16px 14px;
+    border: none;
+    border-right: 1px solid rgba(255, 255, 255, 0.15);
+    text-align: center;
+}
+
+.emi-table-pro .emi-th:last-of-type {
+    border-right: none;
+}
+
+.emi-table-pro .emi-th-year {
+    min-width: 100px;
+}
+
+.emi-table-pro .emi-th-action {
+    width: 56px;
+}
+
+.emi-table-pro .emi-td {
+    padding: 14px 16px;
+    font-size: 14px;
+    font-weight: 500;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.emi-table-pro .emi-td-num {
+    font-variant-numeric: tabular-nums;
+    color: #0f172a;
+}
+
+.emi-table-pro .emi-td-year {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.emi-table-pro .emi-year-cell {
+    font-weight: 700;
+    color: #1e293b;
+}
+
+.emi-table-pro .emi-td-center {
+    text-align: center;
+}
+
+.emi-table-pro .emi-tr-even .emi-td {
+    background: #f8fafc;
+}
+
+.emi-table-pro .emi-tr-odd .emi-td {
+    background: #fff;
+}
+
+.dark .emi-table-pro .emi-th {
+    background: linear-gradient(180deg, #1e40af, #1e3a8a) !important;
+}
+
+.dark .emi-table-pro .emi-td {
+    border-bottom-color: #334155;
+}
+
+.dark .emi-table-pro .emi-td-num {
+    color: #f8fafc;
+}
+
+.dark .emi-table-pro .emi-tr-even .emi-td {
+    background: rgba(15, 23, 42, 0.5);
+}
+
+.dark .emi-table-pro .emi-tr-odd .emi-td {
+    background: #0f172a;
+}
+
+.emi-expand-btn {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    border: 1px solid #cbd5e1;
+    background: #f1f5f9;
+    color: #475569;
+    font-size: 18px;
+    line-height: 1;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s, color 0.2s;
+}
+
+.emi-expand-btn:hover {
+    background: #e2e8f0;
+    color: #1e40af;
+}
+
+.dark .emi-expand-btn {
+    background: #334155;
+    border-color: #475569;
+    color: #94a3b8;
+}
+
+.dark .emi-expand-btn:hover {
+    background: #475569;
+    color: #93c5fd;
+}
+
+.emi-td-expanded {
+    padding: 0 !important;
+    background: #f1f5f9 !important;
+    border-bottom: 1px solid #e2e8f0 !important;
+    vertical-align: top !important;
+}
+
+.dark .emi-td-expanded {
+    background: #1e293b !important;
+    border-bottom-color: #334155 !important;
+}
+
+.emi-monthly-table-wrap {
+    padding: 16px 24px 20px;
+}
+
+.emi-monthly-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+    table-layout: fixed;
+}
+
+.emi-monthly-table th {
+    padding: 10px 12px;
+    background: #e2e8f0;
+    color: #475569;
+    font-weight: 600;
+}
+
+.emi-monthly-th-month,
+.emi-monthly-th-num {
+    text-align: center;
+}
+
+.emi-monthly-th-month {
+    width: 14%;
+}
+
+.emi-monthly-th-num {
+    width: 21.5%;
+}
+
+.emi-monthly-table td {
+    padding: 8px 12px;
+    border-bottom: 1px solid #e2e8f0;
+}
+
+.emi-monthly-td-month,
+.emi-monthly-td-num {
+    text-align: center;
+    font-variant-numeric: tabular-nums;
+}
+
+.emi-monthly-table tr:nth-child(even) {
+    background: rgba(255, 255, 255, 0.5);
+}
+
+.dark .emi-monthly-table th {
+    background: #334155;
+    color: #94a3b8;
+}
+
+.dark .emi-monthly-table td {
+    border-bottom-color: #334155;
+}
+
+.dark .emi-monthly-table tr:nth-child(even) {
+    background: rgba(30, 41, 59, 0.5);
 }
 
 .chart-legend {
@@ -14653,7 +15015,7 @@ body:has(.bank-app-page-wrapper) {
 }
 
 .hero-text-wrapper {
-    background: rgba(255, 155, 255, 0.4);
+    background: rgba(246, 239, 246, 0.4);
     backdrop-filter: blur(12px);
     border-radius: 30px;
     padding: 40px;
@@ -14703,21 +15065,46 @@ body:has(.bank-app-page-wrapper) {
     }
 }
 
+/* Glass shimmer + blue for main focus word in every header / main line */
 .hero-text-content h1 .highlight,
 .highlight,
 .nav-link-highlight .nav-link-label {
-    background: linear-gradient(120deg,
+    position: relative;
+    display: inline-block;
+    padding: 0.15em 0.45em;
+    border-radius: 8px;
+    box-sizing: content-box;
+    background-color: rgba(255, 255, 255, 1);
+    background-image: linear-gradient(120deg,
             #1e40af 0%,
             #3b82f6 40%,
-            rgba(255, 255, 255, 0.8) 50%,
+            rgba(255, 255, 255, 0.9) 50%,
             #3b82f6 60%,
             #1e40af 100%);
     background-size: 200% auto;
     -webkit-background-clip: text;
+    background-clip: text;
     -webkit-text-fill-color: transparent;
-    position: relative;
-    display: inline-block;
     animation: glassShimmer 3s linear infinite;
+    box-shadow: 0 2px 12px 0 rgba(30, 64, 175, 0.15);
+    filter: none;
+}
+
+.hero-text-content h1 .highlight::before,
+.highlight::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    background: rgba(255, 255, 255, 0.25);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    z-index: -1;
+}
+
+.nav-link-highlight .nav-link-label::before {
+    display: none;
 }
 
 
@@ -14854,7 +15241,7 @@ body:has(.bank-app-page-wrapper) {
     font-size: 42px;
     font-weight: 800;
     line-height: 1;
-    color: #172554;
+    color: rgba(219, 220, 225, 1);
     margin: 0;
     font-family: var(--font-inter), sans-serif;
 }
@@ -14876,6 +15263,58 @@ body:has(.bank-app-page-wrapper) {
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+/* Mobile: stack hero carousel left and right vertically, justify content */
+@media (max-width: 768px) {
+    .modern-carousel {
+        flex-direction: column;
+        height: auto;
+        min-height: 380px;
+        justify-content: flex-start;
+        align-items: stretch;
+        padding: 24px 20px;
+        gap: 24px;
+    }
+
+    .modern-carousel-left {
+        flex: 0 0 auto;
+        width: 100%;
+        align-items: center;
+        text-align: center;
+    }
+
+    .modern-carousel-right {
+        flex: 1 1 auto;
+        width: 100%;
+        min-height: 280px;
+    }
+
+    .modern-grid {
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(3, 1fr);
+        min-height: 260px;
+    }
+}
+
+@media (max-width: 480px) {
+    .modern-carousel {
+        padding: 20px 16px;
+        gap: 20px;
+    }
+
+    .modern-title {
+        font-size: 28px;
+    }
+
+    .modern-subtitle {
+        font-size: 14px;
+    }
+
+    .modern-grid {
+        gap: 8px;
+        min-height: 240px;
+    }
 }
 
 .modern-grid {
@@ -15116,7 +15555,10 @@ body:has(.bank-app-page-wrapper) {
     border: 1px solid #e2e8f0;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-end;
+    text-align: left;
+    padding-top: 20px;
+    padding-bottom: 20px;
     color: #1e40af;
     cursor: pointer;
     transition: all 0.2s ease;
@@ -15143,6 +15585,7 @@ body:has(.bank-app-page-wrapper) {
     border: 1px solid rgba(255, 255, 255, 0.8);
     display: inline-block;
     margin-bottom: 12px;
+    color: rgba(231, 234, 238, 1);
 }
 
 /* Modern Modal */

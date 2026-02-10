@@ -2,6 +2,7 @@
 
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
+import Image from 'next/image'
 import { testimonials } from '@/components/Testimonials'
 import { useState, ChangeEvent, FormEvent } from 'react'
 import { useLanguage } from '@/contexts/LanguageContext'
@@ -108,7 +109,12 @@ export default function ReviewsPage() {
 
               {/* Write Review Section */}
               <div className="write-review-section">
-                <h2 className="write-review-title">{t('reviews.writeReview')}</h2>
+                <div className="write-review-header-row">
+                  <h2 className="write-review-title">{t('reviews.writeReview')}</h2>
+                  <div className="write-review-logo">
+                    <Image src="/assets/images/Logo-Helloans.png" alt="" width={120} height={48} style={{ objectFit: 'contain' }} />
+                  </div>
+                </div>
                 <p className="write-review-intro">{t('reviews.shareExperience')}</p>
                 
                 <form className="review-form" onSubmit={handleSubmit}>

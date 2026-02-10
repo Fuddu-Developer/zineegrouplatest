@@ -57,7 +57,12 @@ export default function LoanTiles() {
           </h2>
         </div>
         <div className="loan-tiles-grid">
-          {loanTypes.map((loan) => (
+          {loanTypes.map((loan) => {
+            const labelText = translationKeyMap[loan.slug] ? t(`carousel.${translationKeyMap[loan.slug]}`) : loan.name
+            const parts = labelText.split(/\s+/)
+            const line1 = parts[0] ?? labelText
+            const line2 = parts.length > 1 ? parts.slice(1).join(' ') : ''
+            return (
             <Link
               key={loan.slug}
               href={`/loans/${loan.slug}`}
@@ -86,10 +91,18 @@ export default function LoanTiles() {
                 </div>
               </div>
               <div className="loan-tile-label">
-                {translationKeyMap[loan.slug] ? t(`carousel.${translationKeyMap[loan.slug]}`) : loan.name}
+                {line2 ? (
+                  <>
+                    <span className="loan-tile-label-line">{line1}</span>
+                    <span className="loan-tile-label-line">{line2}</span>
+                  </>
+                ) : (
+                  <span className="loan-tile-label-line">{line1}</span>
+                )}
               </div>
             </Link>
-          ))}
+            )
+          })}
         </div>
       </div>
     </section>
