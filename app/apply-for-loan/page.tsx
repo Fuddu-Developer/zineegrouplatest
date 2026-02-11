@@ -71,10 +71,10 @@ export default function ApplyForLoanPage() {
     <div className="page-container">
       <Header />
       <div className="scrollable-content">
-        <main className="main-body">
+        <main className="main-body apply-for-loan-main">
           <aside className="sidebar left-sidebar"></aside>
           <section className="main-content">
-            <div className="contact-page-container">
+            <div className="contact-page-container apply-for-loan-page-container">
               {/* Header Section */}
               <div className="contact-header">
                 <h1 className="contact-title">{t('apply.title')}</h1>
@@ -107,49 +107,9 @@ export default function ApplyForLoanPage() {
                 </div>
               </div>
 
-              {/* Main Content Grid */}
-              <div className="contact-content-grid">
-                {/* Left Column - Contact Methods */}
-                <div className="contact-methods">
-                  {/* Phone Contact Box */}
-                  <div className="contact-box phone-box">
-                    <div className="contact-box-header">
-                      <svg className="contact-box-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M3 5C3 3.89543 3.89543 3 5 3H8.27924C8.70967 3 9.09181 3.27543 9.22792 3.68377L10.7257 8.17721C10.8831 8.64932 10.6694 9.16531 10.2243 9.38787L7.96701 10.5165C9.06925 12.9612 11.0388 14.9308 13.4835 16.033L14.6121 13.7757C14.8347 13.3306 15.3507 13.1169 15.8228 13.2743L20.3162 14.7721C20.7246 14.9082 21 15.2903 21 15.7208V19C21 20.1046 20.1046 21 19 21H18C9.71573 21 3 14.2843 3 6V5Z" stroke="#ffffff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                      </svg>
-                      <span className="contact-box-label">{t('apply.callUsDirectly')}</span>
-                    </div>
-                    <div className="contact-box-value">+91 9540 185 185</div>
-                    <a
-                      href="tel:+919540185185"
-                      className="contact-box-button phone-button"
-                      style={{ textDecoration: 'none', display: 'inline-block' }}
-                    >
-                      {t('apply.talkToExpert')}
-                    </a>
-                  </div>
-
-                  {/* Email Contact Box */}
-                  <div className="contact-box email-box">
-                    <div className="contact-box-header">
-                      <svg className="contact-box-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M21 15C21 15.5304 20.7893 16.0391 20.4142 16.4142C20.0391 16.7893 19.5304 17 19 17H7C6.46957 17 5.96086 16.7893 5.58579 16.4142C5.21071 16.0391 5 15.5304 5 15M21 15V19C21 19.5304 20.7893 20.0391 20.4142 20.4142C20.0391 20.7893 19.5304 21 19 21H5C4.46957 21 3.96086 20.7893 3.58579 20.4142C3.21071 20.0391 3 19.5304 3 19V15M21 15L13.5 9.75C13.1022 9.41667 12.5511 9.41667 12.1533 9.75L4.5 15" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                      </svg>
-                      <span className="contact-box-label">{t('apply.chatWithTeam')}</span>
-                    </div>
-                    <div className="contact-box-value email-value">info@zineegroup.com</div>
-                    <a
-                      href="mailto:info@zineegroup.com"
-                      className="contact-box-button email-button"
-                      style={{ textDecoration: 'none', display: 'inline-block' }}
-                    >
-                      {t('apply.talkToExpert')}
-                    </a>
-                  </div>
-                </div>
-
-                {/* Right Column - Contact Form */}
-                <div className="contact-form-wrapper">
+              {/* Main Content - Single column professional form (no left phone) */}
+              <div className="contact-content-grid apply-for-loan-grid">
+                <div className="contact-form-wrapper apply-for-loan-form-wrapper">
                   <form className="contact-form" onSubmit={handleSubmit}>
                     {/* Personal Information Section */}
                     <div className="form-section-header">
@@ -282,7 +242,7 @@ export default function ApplyForLoanPage() {
                       </div>
                     )}
 
-                    {/* Submit Button */}
+                    {/* Submit Button - single line Apply Now (menu bar has two-line + thunder) */}
                     <button
                       type="submit"
                       className="form-submit-button"

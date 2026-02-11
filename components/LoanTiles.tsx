@@ -68,37 +68,54 @@ export default function LoanTiles() {
               href={`/loans/${loan.slug}`}
               className="loan-tile"
             >
-              <div className="loan-tile-icon-wrapper">
-                <div className="loan-tile-icon-circle loan-tile-icon-sprite" role="img" aria-label={loan.name}>
-                  {loan.image ? (
-                    <Image
-                      src={loan.image}
-                      alt={loan.name}
-                      width={80}
-                      height={80}
-                      className="loan-tile-icon-img"
-                    />
+              {/* Top layer: slides up on hover to reveal bottom */}
+              <div className="loan-tile-top">
+                <div className="loan-tile-icon-wrapper">
+                  <div className="loan-tile-icon-circle loan-tile-icon-sprite" role="img" aria-label={loan.name}>
+                    {loan.image ? (
+                      <Image
+                        src={loan.image}
+                        alt={loan.name}
+                        width={80}
+                        height={80}
+                        className="loan-tile-icon-img"
+                      />
+                    ) : (
+                      <span
+                        className="loan-tile-sprite-cell"
+                        style={{
+                          backgroundImage: `url(${SPRITE_URL})`,
+                          backgroundSize: `${SPRITE_COLS * 100}% ${SPRITE_ROWS * 100}%`,
+                          backgroundPosition: `${(loan.spriteCol / (SPRITE_COLS - 1)) * 100}% ${(loan.spriteRow / (SPRITE_ROWS - 1)) * 100}%`,
+                        }}
+                      />
+                    )}
+                  </div>
+                </div>
+                <div className="loan-tile-label loan-tile-label-top">
+                  {line2 ? (
+                    <>
+                      <span className="loan-tile-label-line">{line1}</span>
+                      <span className="loan-tile-label-line">{line2}</span>
+                    </>
                   ) : (
-                    <span
-                      className="loan-tile-sprite-cell"
-                      style={{
-                        backgroundImage: `url(${SPRITE_URL})`,
-                        backgroundSize: `${SPRITE_COLS * 100}% ${SPRITE_ROWS * 100}%`,
-                        backgroundPosition: `${(loan.spriteCol / (SPRITE_COLS - 1)) * 100}% ${(loan.spriteRow / (SPRITE_ROWS - 1)) * 100}%`,
-                      }}
-                    />
+                    <span className="loan-tile-label-line">{line1}</span>
                   )}
                 </div>
               </div>
-              <div className="loan-tile-label">
-                {line2 ? (
-                  <>
+              {/* Bottom layer: revealed when top slides up */}
+              <div className="loan-tile-bottom">
+                <div className="loan-tile-label">
+                  {line2 ? (
+                    <>
+                      <span className="loan-tile-label-line">{line1}</span>
+                      <span className="loan-tile-label-line">{line2}</span>
+                    </>
+                  ) : (
                     <span className="loan-tile-label-line">{line1}</span>
-                    <span className="loan-tile-label-line">{line2}</span>
-                  </>
-                ) : (
-                  <span className="loan-tile-label-line">{line1}</span>
-                )}
+                  )}
+                </div>
+                <span className="loan-tile-cta">View →</span>
               </div>
             </Link>
             )

@@ -4,21 +4,54 @@ import { useSearchParams } from 'next/navigation'
 import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import AxisBankHeader from '@/components/AxisBankHeader'
-import PNBHeader from '@/components/PNBHeader'
+
+const BANK_SLUGS = ['icici', 'indusind', 'yes', 'idfc', 'kotak', 'hdfc', 'axis'] as const
 
 const bankInfo: Record<string, { name: string; logo: string; color: string; primaryColor: string }> = {
+  icici: { name: 'ICICI Bank', logo: '/assets/images/partners/icici.jpg', color: '#E85D04', primaryColor: '#E85D04' },
+  indusind: { name: 'IndusInd Bank', logo: '/assets/images/partners/indusind.jpeg', color: '#C4122E', primaryColor: '#C4122E' },
+  yes: { name: 'YES Bank', logo: '/assets/banks/yes-bank-logo-png.png', color: '#132744', primaryColor: '#C4122E' },
+  idfc: { name: 'IDFC FIRST Bank', logo: '/assets/images/partners/idfc.webp', color: '#E31837', primaryColor: '#E31837' },
+  kotak: { name: 'Kotak Mahindra Bank', logo: '/assets/images/Kotak-1.png', color: '#00AEEF', primaryColor: '#00AEEF' },
   hdfc: { name: 'HDFC Bank', logo: '/assets/images/HDFC.png', color: '#004C8A', primaryColor: '#E31837' },
   axis: { name: 'Axis Bank', logo: '/assets/images/AX.png', color: '#8B0040', primaryColor: '#8B0040' },
-  kotak: { name: 'Kotak Mahindra Bank', logo: '/assets/images/Kotak-1.png', color: '#00AEEF', primaryColor: '#00AEEF' },
-  idfc: { name: 'IDFC FIRST Bank', logo: '/assets/images/CB.png', color: '#E31837', primaryColor: '#E31837' },
-  bob: { name: 'Bank of Baroda', logo: '/assets/images/BOB.png', color: '#003A6B', primaryColor: '#FFB81C' },
-  pnb: { name: 'Punjab National Bank', logo: '/assets/images/PNB.png', color: '#A20A3A', primaryColor: '#A20A3A' },
+}
+
+const LOAN_TYPE_LABELS: Record<string, string> = {
+  'personal-loans': 'Personal Loan',
+  'business-loans': 'Business Loan',
+  'home-loans': 'Home Loan',
+  'education-loans': 'Education Loan',
+  'gold-loans': 'Gold Loan',
+  'credit-cards': 'Credit Card',
+  'insurance': 'Insurance',
+}
+
+function getBankThemeClass(bankId: string): string {
+  const map: Record<string, string> = {
+    icici: 'icici-bank-theme',
+    indusind: 'indusind-bank-theme',
+    yes: 'yes-bank-theme',
+    idfc: 'idfc-bank-theme',
+    kotak: 'kotak-bank-theme',
+    hdfc: 'hdfc-bank-theme',
+    axis: 'axis-bank-theme',
+  }
+  return map[bankId] || 'hdfc-bank-theme'
+}
+
+function getBankLayoutConfig(bankId: string): { hasFixedHeader: boolean; paddingTop: string; showHeroBanner: boolean } {
+  if (bankId === 'axis') return { hasFixedHeader: true, paddingTop: '85px', showHeroBanner: false }
+  if (bankId === 'hdfc') return { hasFixedHeader: false, paddingTop: '0', showHeroBanner: true }
+  return { hasFixedHeader: false, paddingTop: '0', showHeroBanner: true }
 }
 
 export default function BankApplicationPage({ params }: { params: { bankId: string } }) {
   const searchParams = useSearchParams()
   const bankId = params.bankId
   const bank = bankInfo[bankId] || bankInfo.hdfc
+  const loanTypeSlug = searchParams.get('loanType') || 'personal-loans'
+  const loanLabel = LOAN_TYPE_LABELS[loanTypeSlug] || 'Personal Loan'
 
   const [formData, setFormData] = useState({
     mobileNumber: '',
@@ -66,22 +99,11 @@ export default function BankApplicationPage({ params }: { params: { bankId: stri
 
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isApplied, setIsApplied] = useState(false)
-  const canProceed = !!(bankId === 'pnb'
-    ? formData.mobileNumber.length === 10 &&
-    formData.name &&
-    formData.email &&
+  const canProceed = !!(
+    formData.mobileNumber.length === 10 &&
     formData.day && formData.month && formData.year &&
-    formData.existingCustomer &&
-    formData.loanPurpose &&
-    formData.loanAmount &&
-    formData.gender &&
-    formData.maritalStatus &&
-    formData.residentialStatus &&
-    formData.panNo &&
     formData.consentPersonalData
-    : formData.mobileNumber.length === 10 &&
-    formData.day && formData.month && formData.year &&
-    formData.consentPersonalData)
+  )
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value, type } = e.target
@@ -160,6 +182,8 @@ export default function BankApplicationPage({ params }: { params: { bankId: stri
         body: JSON.stringify({
           bankId,
           bankName: bank.name,
+          loanType: loanTypeSlug,
+          loanLabel,
           mobileNumber: formData.mobileNumber,
           day: formData.day,
           month: formData.month,
@@ -230,15 +254,10 @@ export default function BankApplicationPage({ params }: { params: { bankId: stri
       }
     `
 
-    // Hide vector background for Axis Bank and PNB
-    if (bankId === 'axis' || bankId === 'pnb') {
-      const vectorBg = document.getElementById('vectorBackground')
-      if (vectorBg) {
-        vectorBg.style.display = 'none'
-      }
-      const bgColor = bankId === 'axis' ? '#E8D0E0' : '#F7E9F1'
-      document.body.style.backgroundColor = bgColor
-      document.documentElement.style.backgroundColor = bgColor
+    // Hide vector background on all bank apply pages
+    const vectorBg = document.getElementById('vectorBackground')
+    if (vectorBg) {
+      vectorBg.style.display = 'none'
     }
 
     return () => {
@@ -246,14 +265,8 @@ export default function BankApplicationPage({ params }: { params: { bankId: stri
       if (element) {
         element.remove()
       }
-      // Restore vector background when leaving Axis Bank or PNB page
-      if (bankId === 'axis' || bankId === 'pnb') {
-        const vectorBg = document.getElementById('vectorBackground')
-        if (vectorBg) {
-          vectorBg.style.display = ''
-        }
-        document.body.style.backgroundColor = ''
-        document.documentElement.style.backgroundColor = ''
+      if (vectorBg) {
+        vectorBg.style.display = ''
       }
     }
   }, [bankId, bank.primaryColor])
@@ -261,100 +274,52 @@ export default function BankApplicationPage({ params }: { params: { bankId: stri
   // Check if bank has a custom header banner image
   const bankHeaderImages: Record<string, string> = {
     hdfc: '/assets/images/hdfc_form.png',
-    // Add other bank header images here when available:
-    // axis: '/axis_form.png',
-    // kotak: '/kotak_form.png',
-    // bob: '/bob_form.png',
-    // pnb: '/pnb_form.png',
-    // idfc: '/idfc_form.png',
   }
-
   const hasHeaderImage = bankHeaderImages[bankId]
+  const layout = getBankLayoutConfig(bankId)
+  const themeClass = getBankThemeClass(bankId)
 
   return (
     <div
-      className={`bank-app-page-wrapper ${bankId === 'axis' ? 'axis-bank-theme' : ''} ${bankId === 'pnb' ? 'pnb-bank-theme' : ''}`}
+      className={`bank-app-page-wrapper ${themeClass}`}
       style={{
         marginTop: 0,
-        paddingTop: (bankId === 'axis' || bankId === 'pnb') ? '85px' : 0,
+        paddingTop: layout.hasFixedHeader ? '85px' : 0,
         position: 'relative',
-        backgroundColor: bankId === 'axis' ? '#E8D0E0' : bankId === 'pnb' ? '#F7E9F1' : undefined,
-        minHeight: (bankId === 'axis' || bankId === 'pnb') ? '100vh' : undefined
+        minHeight: layout.hasFixedHeader ? '100vh' : undefined
       }}
     >
-      {/* Axis Bank Header */}
+      {/* Axis: fixed header only */}
       {bankId === 'axis' && <AxisBankHeader />}
 
-      {/* PNB Header */}
-      {bankId === 'pnb' && <PNBHeader />}
-
-      {/* Bank Header Banner - Using Image if available */}
-      {hasHeaderImage && (
-        <div className="hdfc-header-banner" style={{ position: isApplied ? 'fixed' : 'relative', top: bankId === 'axis' ? '130px' : 0, left: 0, right: 0, zIndex: 1 }}>
-          <Image
-            src={bankHeaderImages[bankId]}
-            alt={`${bank.name} Personal Loan Offer`}
-            width={1920}
-            height={400}
-            className="hdfc-banner-image"
-            priority
-            style={{ width: '100%', height: 'auto', opacity: isApplied ? 0.3 : 1 }}
-          />
+      {/* HDFC: optional header image or full hero */}
+      {bankId === 'hdfc' && hasHeaderImage && (
+        <div className="bank-hero bank-hero-hdfc-image" style={{ position: isApplied ? 'fixed' : 'relative', top: 0, left: 0, right: 0, zIndex: 1 }}>
+          <Image src={bankHeaderImages.hdfc} alt={`${bank.name} ${loanLabel} Offer`} width={1920} height={400} className="hdfc-banner-image" priority style={{ width: '100%', height: 'auto', opacity: isApplied ? 0.3 : 1 }} />
         </div>
       )}
-
-      {!hasHeaderImage && bankId !== 'axis' && bankId !== 'pnb' && (
-        <>
-          {/* Top Header Bar - Dark Blue Strip */}
-          <div className="bank-app-top-header" style={{ backgroundColor: bank.color }}>
-            <div className="bank-app-logo-container">
-              <Image
-                src={bank.logo}
-                alt={bank.name}
-                width={150}
-                height={50}
-                className="bank-app-logo-image"
-              />
+      {bankId === 'hdfc' && !hasHeaderImage && (
+        <div className="bank-hero bank-hero-hdfc">
+          <div className="bank-hero-bar" style={{ backgroundColor: bank.color }}>
+            <div className="bank-hero-bar-inner">
+              <Image src={bank.logo} alt={bank.name} width={150} height={50} className="bank-hero-logo" />
             </div>
           </div>
-
-          {/* Banner Section */}
           <div className="bank-app-banner">
             <div className="banner-content">
               <div className="banner-text-section">
                 <h1 className="banner-headline">
                   <span className="banner-text-dark">Hey there !</span><br />
                   <span className="banner-text-dark">Your </span>
-                  <span className="highlight-red" style={{ color: bank.primaryColor }}>Personal Loan Offer</span>
+                  <span className="highlight-red" style={{ color: bank.primaryColor }}>{loanLabel} Offer</span>
                   <span className="banner-text-dark"> is waiting inside.</span>
                 </h1>
                 <div className="banner-features-box">
-                  <div className="banner-feature-item">
-                    <svg className="feature-icon-svg" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2">
-                      <circle cx="12" cy="12" r="10"></circle>
-                      <polyline points="12 6 12 12 16 14"></polyline>
-                    </svg>
-                    <span>Quick Funds</span>
-                  </div>
+                  <div className="banner-feature-item"><svg className="feature-icon-svg" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><span>Quick Funds</span></div>
                   <div className="banner-feature-divider"></div>
-                  <div className="banner-feature-item">
-                    <svg className="feature-icon-svg" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2">
-                      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
-                      <path d="M14 2v6h6"></path>
-                      <circle cx="10" cy="13" r="2" fill="#E31837"></circle>
-                      <line x1="8" y1="13" x2="12" y2="13" stroke="#E31837" strokeWidth="2"></line>
-                    </svg>
-                    <span>No Physical Documentation</span>
-                  </div>
+                  <div className="banner-feature-item"><svg className="feature-icon-svg" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><circle cx="10" cy="13" r="2" fill="#E31837"/><line x1="8" y1="13" x2="12" y2="13" stroke="#E31837" strokeWidth="2"/></svg><span>No Physical Documentation</span></div>
                   <div className="banner-feature-divider"></div>
-                  <div className="banner-feature-item">
-                    <svg className="feature-icon-svg" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2">
-                      <circle cx="12" cy="12" r="10"></circle>
-                      <polyline points="12 6 12 12 16 14"></polyline>
-                      <text x="12" y="18" fontSize="8" fill="white" textAnchor="middle">₹</text>
-                    </svg>
-                    <span>Fast Loan Process</span>
-                  </div>
+                  <div className="banner-feature-item"><svg className="feature-icon-svg" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg><span>Fast Loan Process</span></div>
                 </div>
               </div>
               <div className="banner-image-section">
@@ -373,11 +338,91 @@ export default function BankApplicationPage({ params }: { params: { bankId: stri
               </div>
             </div>
           </div>
-        </>
+        </div>
       )}
 
-      {/* Success Overlay - Shows over banner image */}
-      {isApplied && hasHeaderImage && (
+      {/* ICICI: blue bar + clean tagline strip, no illustration */}
+      {bankId === 'icici' && (
+        <div className="bank-hero bank-hero-icici">
+          <div className="bank-hero-bar bank-hero-bar-icici">
+            <div className="bank-hero-bar-inner">
+              <Image src={bank.logo} alt={bank.name} width={140} height={44} className="bank-hero-logo" />
+              <span className="bank-hero-brand-text">ICICI BANK</span>
+            </div>
+          </div>
+          <div className="bank-hero-tagline-strip bank-hero-tagline-icici">
+            <h1 className="bank-hero-tagline-title">Apply for {loanLabel}</h1>
+            <p className="bank-hero-tagline-sub">Quick approval · Minimal documentation · Competitive rates</p>
+          </div>
+        </div>
+      )}
+
+      {/* IndusInd: red bar + white tagline */}
+      {bankId === 'indusind' && (
+        <div className="bank-hero bank-hero-indusind">
+          <div className="bank-hero-bar bank-hero-bar-indusind">
+            <div className="bank-hero-bar-inner">
+              <Image src={bank.logo} alt={bank.name} width={140} height={44} className="bank-hero-logo" />
+              <span className="bank-hero-brand-text">INDUSIND BANK</span>
+            </div>
+          </div>
+          <div className="bank-hero-tagline-strip bank-hero-tagline-indusind">
+            <h1 className="bank-hero-tagline-title">Your {loanLabel} — One form away</h1>
+            <p className="bank-hero-tagline-sub">Digital application · Fast processing</p>
+          </div>
+        </div>
+      )}
+
+      {/* YES Bank: dark blue bar + white strip */}
+      {bankId === 'yes' && (
+        <div className="bank-hero bank-hero-yes">
+          <div className="bank-hero-bar bank-hero-bar-yes">
+            <div className="bank-hero-bar-inner">
+              <Image src={bank.logo} alt={bank.name} width={140} height={44} className="bank-hero-logo" />
+              <span className="bank-hero-brand-text">YES BANK</span>
+            </div>
+          </div>
+          <div className="bank-hero-tagline-strip bank-hero-tagline-yes">
+            <h1 className="bank-hero-tagline-title">Apply for {loanLabel}</h1>
+            <p className="bank-hero-tagline-sub">Simple steps · Transparent process</p>
+          </div>
+        </div>
+      )}
+
+      {/* IDFC: red bar + white strip */}
+      {bankId === 'idfc' && (
+        <div className="bank-hero bank-hero-idfc">
+          <div className="bank-hero-bar bank-hero-bar-idfc">
+            <div className="bank-hero-bar-inner">
+              <Image src={bank.logo} alt={bank.name} width={140} height={44} className="bank-hero-logo" />
+              <span className="bank-hero-brand-text">IDFC FIRST BANK</span>
+            </div>
+          </div>
+          <div className="bank-hero-tagline-strip bank-hero-tagline-idfc">
+            <h1 className="bank-hero-tagline-title">Get your {loanLabel} with IDFC FIRST Bank</h1>
+            <p className="bank-hero-tagline-sub">No hidden charges · Quick disbursal</p>
+          </div>
+        </div>
+      )}
+
+      {/* Kotak: teal/blue bar + light strip */}
+      {bankId === 'kotak' && (
+        <div className="bank-hero bank-hero-kotak">
+          <div className="bank-hero-bar bank-hero-bar-kotak">
+            <div className="bank-hero-bar-inner">
+              <Image src={bank.logo} alt={bank.name} width={140} height={44} className="bank-hero-logo" />
+              <span className="bank-hero-brand-text">KOTAK MAHINDRA BANK</span>
+            </div>
+          </div>
+          <div className="bank-hero-tagline-strip bank-hero-tagline-kotak">
+            <h1 className="bank-hero-tagline-title">Apply for {loanLabel}</h1>
+            <p className="bank-hero-tagline-sub">Instant eligibility check · Same-day disbursal for pre-approved</p>
+          </div>
+        </div>
+      )}
+
+      {/* Success Overlay */}
+      {isApplied && (
         <div className="application-success-overlay">
           <div className="success-content-overlay">
             <div className="success-message-box">
@@ -418,26 +463,13 @@ export default function BankApplicationPage({ params }: { params: { bankId: stri
         </div>
       )}
 
-      {/* Main Form Card */}
+      {/* Main Form Card - layout class per bank for distinct form styling */}
       {!isApplied && (
-        <div className="bank-app-form-container">
+        <div className={`bank-app-form-container bank-form-layout bank-form-layout-${bankId}`}>
           <div className="bank-app-form-card">
-            {bankId === 'pnb' ? (
-              <PNBFormStructure
-                formData={formData}
-                handleChange={handleChange}
-                handleSubmit={handleSubmit}
-                bank={bank}
-                activePrimaryTab={activePrimaryTab}
-                setActivePrimaryTab={setActivePrimaryTab}
-                activeSecondaryTab={activeSecondaryTab}
-                setActiveSecondaryTab={setActiveSecondaryTab}
-                canProceed={canProceed}
-                isSubmitting={isSubmitting}
-              />
-            ) : (
-              <>
-                <h2 className="form-welcome-title">Welcome! Check your Personal Loan offer</h2>
+            <>
+              <h2 className="form-welcome-title">Apply for {loanLabel} – {bank.name}</h2>
+              <p className="form-welcome-subtitle">Welcome! Check your {loanLabel} offer</p>
 
                 <form onSubmit={handleSubmit} className="bank-app-form">
                   {/* Mobile Number */}
@@ -650,8 +682,7 @@ export default function BankApplicationPage({ params }: { params: { bankId: stri
                     For full details read our <a href="#" className="footer-link" style={{ color: bank.primaryColor }}>Terms & Conditions</a> and <a href="#" className="footer-link" style={{ color: bank.primaryColor }}>Privacy Policy</a>
                   </p>
                 </form>
-              </>
-            )}
+            </>
           </div>
         </div>
       )}

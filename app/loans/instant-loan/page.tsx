@@ -1,5 +1,6 @@
 import LoanCalculator from '@/components/LoanCalculator'
-
+import BankList from '@/components/BankList'
+import { bankOffers } from '@/data/bankOffers'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import type { Metadata } from 'next'
@@ -19,6 +20,11 @@ export default function InstantLoanPage() {
             <h1>Instant Loan</h1>
             <p>A convenient and speedy way to get the funds you require for unanticipated expenses.</p>
           </div>
+
+          <BankList
+            offers={bankOffers['instant-loan']}
+            categoryTitle="Banks & NBFCs offering Instant Loan"
+          />
 
           <LoanCalculator
             loanType="Instant Loan"

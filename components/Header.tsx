@@ -139,14 +139,16 @@ export default function Header() {
         id="mainHeader"
       >
         <div className="container">
-          <Link href="/" className="logo">
-            <Image
-              src="/assets/images/Logo-Helloans.png"
-              alt="Company Logo"
-              width={200}
-              height={68}
-              priority
-            />
+          <Link href="/" className="logo logo-glass-wrap">
+            <span className="logo-glass-inner">
+              <Image
+                src="/assets/images/Logo-Helloans.png"
+                alt="Company Logo"
+                width={200}
+                height={68}
+                priority
+              />
+            </span>
           </Link>
           <button
             className="mobile-menu-toggle"
@@ -214,6 +216,7 @@ export default function Header() {
                   setIsMobileMenuOpen(false)
                 }
 
+                const isApplyNow = item.labelKey === 'nav.apply'
                 return (
                   <Link
                     key={item.href + item.labelKey}
@@ -223,11 +226,24 @@ export default function Header() {
                       'nav-link',
                       isActive ? 'nav-link-active' : '',
                       item.highlight ? 'nav-link-highlight' : '',
+                      isApplyNow ? 'nav-link-apply-now' : '',
                     ]
                       .filter(Boolean)
                       .join(' ')}
                   >
-                    <span className="nav-link-label">{itemLabel}</span>
+                    {isApplyNow ? (
+                      <span className="nav-link-apply-now-inner">
+                        <svg className="nav-link-apply-now-thunder" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
+                          <path d="M13 2L4 14h6l-3 8 10-12h-6l3-8z" />
+                        </svg>
+                        <span className="nav-link-apply-now-text">
+                          <span className="nav-link-apply-now-line1">{t('apply.applyNowLine1')}</span>
+                          <span className="nav-link-apply-now-line2">{t('apply.applyNowLine2')}</span>
+                        </span>
+                      </span>
+                    ) : (
+                      <span className="nav-link-label">{itemLabel}</span>
+                    )}
                   </Link>
                 )
               })}

@@ -123,7 +123,7 @@ export const emiBanks: EmiBank[] = [
   {
     id: 'indusind',
     name: 'IndusInd Bank',
-    logo: '/assets/images/partners/indusind.png',
+    logo: '/assets/images/partners/indusind.jpeg',
     interestRate: 10.75,
     processingFee: 'Up to 2% of loan amount',
     minAmount: 50000,
