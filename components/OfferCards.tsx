@@ -1,56 +1,61 @@
 'use client'
 
 import { useState, useEffect, useRef, useMemo } from 'react'
-import styles from './glass-cards.module.css'
-
-const CARDS = [
-  {
-    id: '1',
-    mainLine1: '₹1100',
-    mainLine2: 'CASHBACK',
-    reveal: {
-      line1: 'Get Cashback of ₹1100 on Above 10 lac loan Amount',
-      line2: 'on Processing Fee T&C*',
-      desc: 'Get Cashback of ₹1100 Above 10 lac loan Amount on Processing Fee T&C*',
-    },
-  },
-  {
-    id: '2',
-    mainLine1: '₹3100',
-    mainLine2: 'CASHBACK',
-    reveal: {
-      line1: 'Get Cashback of ₹3100 on Above 25 lac loan Amount',
-      line2: 'on Processing Fee T&C*',
-      desc: 'Get Cashback of ₹3100 on Above 25 lac loan Amount on Processing Fee T&C*',
-    },
-  },
-  {
-    id: '3',
-    mainLine1: 'Helloans',
-    mainLine2: 'Promise',
-    reveal: {
-      line1: 'Terms & conditions apply',
-      line2: 'T&C*',
-      desc: '(To Provide the Cashback on time) Quick disbursal & Low Roi',
-    },
-  },
-]
+import { useLanguage } from '@/contexts/LanguageContext'
+import styles from './OfferCards.module.css'
 
 const SPEED_MS = 28
 
-export default function TestPage() {
+export default function OfferCards() {
+  const { t } = useLanguage()
   const [hoveredId, setHoveredId] = useState<string | null>(null)
   const [typedLength, setTypedLength] = useState(0)
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
+  const cards = useMemo(
+    () => [
+      {
+        id: '1',
+        mainLine1: '₹1100',
+        mainLine2: 'CASHBACK',
+        reveal: {
+          line1: t('features.offer1BackLine1'),
+          line2: t('features.offer1BackLine2'),
+          desc: t('features.offer1Desc'),
+        },
+      },
+      {
+        id: '2',
+        mainLine1: '₹3100',
+        mainLine2: 'CASHBACK',
+        reveal: {
+          line1: t('features.offer2BackLine1'),
+          line2: t('features.offer2BackLine2'),
+          desc: t('features.offer2Desc'),
+        },
+      },
+      {
+        id: '3',
+        mainLine1: 'Helloans',
+        mainLine2: 'Promise',
+        reveal: {
+          line1: t('features.promiseBackLine1'),
+          line2: t('features.promiseBackLine2'),
+          desc: t('features.promiseDesc'),
+        },
+      },
+    ],
+    [t]
+  )
+
   const fullTextByCard = useMemo(() => {
     return Object.fromEntries(
-      CARDS.map((c) => [
+      cards.map((c) => [
         c.id,
         [c.reveal.line1, c.reveal.line2, c.reveal.desc].join('\n'),
       ])
     )
-  }, [])
+  }, [cards])
 
   const fullText = hoveredId ? fullTextByCard[hoveredId] ?? '' : ''
   const visibleText = fullText.slice(0, typedLength)
@@ -81,12 +86,12 @@ export default function TestPage() {
   }
 
   return (
-    <div className={styles.wrap}>
-      <h1 className={styles.title}>Offers</h1>
+    <section className={styles.section} id="about">
+      <h2 className={styles.title}>Our Offers</h2>
       <p className={styles.subtitle}>Hover to reveal details</p>
 
       <div className={styles.container}>
-        {CARDS.map((card) => (
+        {cards.map((card) => (
           <div
             key={card.id}
             className={styles.card}
@@ -115,6 +120,6 @@ export default function TestPage() {
           </div>
         ))}
       </div>
-    </div>
+    </section>
   )
 }

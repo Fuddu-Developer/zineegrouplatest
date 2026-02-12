@@ -1,8 +1,7 @@
 import Header from '@/components/Header'
 import Hero from '@/components/Hero'
 import LoanTiles from '@/components/LoanTiles'
-
-import Features from '@/components/Features'
+import OfferCards from '@/components/OfferCards'
 import Testimonials from '@/components/Testimonials'
 import Partners from '@/components/Partners'
 import Footer from '@/components/Footer'
@@ -28,7 +27,7 @@ export default function Home() {
               </ScrollRevealSection>
 
               <ScrollRevealSection delay={80}>
-                <Features />
+                <OfferCards />
               </ScrollRevealSection>
 
               <ScrollRevealSection delay={120}>

@@ -2593,85 +2593,113 @@ html[lang="hi"] .btn-call-label {
     align-items: start;
 }
 
-/* Double-sided card (3D flip on Y-axis) - ref: prismic.io/blog/css-hover-effects #6 */
+/* Card with glowing border – hover: front fades out, content slides up (no flip) */
 .feature-card {
-    perspective: 20000px;
-    perspective-origin: 50% 50%;
     min-height: 280px;
     height: 280px;
     width: 100%;
     position: relative;
-    overflow: visible;
+    overflow: hidden;
     cursor: pointer;
     isolation: isolate;
-    top: 0;
-    left: 0;
     align-self: start;
-    transform: none !important;
-}
-
-.feature-card:hover {
-    transform: none !important;
+    border-radius: 20px;
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 10px 0px,
+                rgba(0, 0, 0, 0.5) 0px 2px 25px 0px;
+    display: grid;
+    place-items: center;
 }
 
 .feature-card-inner {
     position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    transform-style: preserve-3d;
-    transform-origin: center center;
-    transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    left: 2.5%;
+    top: 2.5%;
+    width: 95%;
+    height: 95%;
+    border-radius: 20px;
+    z-index: 5;
+    background: #ffffff;
+    overflow: hidden;
+    box-shadow: rgba(0, 0, 0, 0.08) 0px 30px 60px -12px inset,
+                rgba(0, 0, 0, 0.06) 0px 18px 36px -18px inset;
 }
 
-.feature-card:hover .feature-card-inner {
-    transform: rotateY(180deg);
-}
-
+/* Front: main text only – 2 lines, bold, line1 blue+glass, line2 black */
 .feature-box-front {
-    position: relative;
+    position: absolute;
+    inset: 0;
     z-index: 1;
-    backface-visibility: hidden;
-    -webkit-backface-visibility: hidden;
     height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    gap: 4px;
     box-sizing: border-box;
+    transition: opacity 0.3s ease-in-out;
+    pointer-events: none;
+    background: #ffffff;
 }
 
-/* Cancel lift on front; keep back pre-rotated so flip works */
+.feature-main-line1 {
+    font-family: var(--font-poppins), sans-serif;
+    font-size: clamp(1.5rem, 4vw, 2.25rem);
+    font-weight: 800;
+    color: #1e40af;
+    line-height: 1.2;
+    padding: 8px 16px;
+    border-radius: 12px;
+    background: rgba(59, 130, 246, 0.15);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(59, 130, 246, 0.25);
+}
+
+.feature-main-line2 {
+    font-family: var(--font-poppins), sans-serif;
+    font-size: clamp(1.5rem, 4vw, 2.25rem);
+    font-weight: 800;
+    color: #0f172a;
+    line-height: 1.2;
+}
+
+/* Front (placeholder): fades out on hover */
+
+.feature-card:hover .feature-box-front {
+    opacity: 0;
+}
+
 .feature-card .feature-box-front,
 .feature-card .feature-box-front:hover {
-    transform: none !important;
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.05), 0 5px 15px rgba(0, 0, 0, 0.03);
-}
-.feature-card .feature-box-back,
-.feature-card .feature-box-back:hover {
-    transform: rotateY(180deg) !important;
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.05), 0 5px 15px rgba(0, 0, 0, 0.03);
+    box-shadow: none;
 }
 
+/* Back (content): starts below, slides up and fades in on hover */
 .feature-box-back {
     position: absolute;
     inset: 0;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
     width: 100%;
     height: 100%;
     z-index: 2;
-    backface-visibility: hidden;
-    -webkit-backface-visibility: hidden;
-    transform: rotateY(180deg);
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     gap: 12px;
     box-sizing: border-box;
+    transform: translateY(100%);
+    opacity: 0;
+    transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+}
+
+.feature-card:hover .feature-box-back {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.feature-card .feature-box-back,
+.feature-card .feature-box-back:hover {
+    box-shadow: none;
 }
 
 .feature-back-text {
@@ -2687,6 +2715,14 @@ html[lang="hi"] .btn-call-label {
     font-weight: 700;
     letter-spacing: 0.05em;
     opacity: 0.8;
+}
+
+.feature-description-slide {
+    margin: 12px 0 0;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #475569;
+    font-weight: 600;
 }
 
 .feature-box-blue .feature-back-text,
@@ -2710,11 +2746,27 @@ html[lang="hi"] .btn-call-label {
     cursor: default;
 }
 
+/* Feature card: white background in both states */
+.feature-card .feature-box-front,
+.feature-card .feature-box-back {
+    background: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.06);
+}
+
 .feature-box:hover {
     transform: translateY(-15px) scale(1.04);
     box-shadow: 0 45px 90px rgba(37, 99, 235, 0.18);
     background: rgba(255, 255, 255, 0.95);
     border-color: rgba(37, 99, 235, 0.3);
+}
+
+/* Feature cards: no lift/scale on inner box – use slide-up only */
+.feature-card .feature-box:hover {
+    transform: none;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.05), 0 5px 15px rgba(0, 0, 0, 0.03);
+}
+.feature-card:hover .feature-box-back:hover {
+    transform: translateY(0);
 }
 
 /* Shine effect on hover */
@@ -10284,6 +10336,19 @@ body {
 .dark .feature-card,
 .dark .feature-card:hover {
     transform: none !important;
+}
+
+/* Feature card: keep glowing border effect in dark mode */
+.dark .feature-card {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: rgba(0, 0, 0, 0.5) 0px 2px 10px 0px,
+                rgba(0, 0, 0, 0.6) 0px 2px 25px 0px !important;
+}
+.dark .feature-card-inner {
+    background: #0f172a;
+    box-shadow: rgba(0, 0, 0, 0.5) 0px 30px 60px -12px inset,
+                rgba(0, 0, 0, 0.6) 0px 18px 36px -18px inset;
 }
 
 /* Feature Boxes */
