@@ -3096,7 +3096,7 @@ body:has(.bank-app-page-wrapper) {
     -webkit-appearance: none;
     width: 100%;
     height: 6px;
-    background: #e2e8f0;
+    background: #224522;
     border-radius: 4px;
     outline: none;
     transition: background 0.3s;
@@ -3106,7 +3106,7 @@ body:has(.bank-app-page-wrapper) {
 }
 
 .dark .emi-slider {
-    background: #334155;
+    background: #2d5a2d;
 }
 
 .emi-slider::-webkit-slider-thumb {
@@ -3115,8 +3115,8 @@ body:has(.bank-app-page-wrapper) {
     width: 24px;
     height: 24px;
     border-radius: 50%;
-    background: #ffffff;
-    border: 3px solid #EB5E28;
+    background: #224522;
+    border: 3px solid #224522;
     cursor: pointer;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
     transition: transform 0.1s;
@@ -3124,11 +3124,13 @@ body:has(.bank-app-page-wrapper) {
 }
 
 .emi-slider-olive::-webkit-slider-thumb {
-    border-color: #6b8e23;
+    border-color: #224522;
+    background: #224522;
 }
 
 .emi-slider-olive::-moz-range-thumb {
-    border-color: #6b8e23;
+    border-color: #224522;
+    background: #224522;
 }
 
 /* Firefox thumb */
@@ -3136,8 +3138,8 @@ body:has(.bank-app-page-wrapper) {
     width: 24px;
     height: 24px;
     border-radius: 50%;
-    background: #ffffff;
-    border: 3px solid #EB5E28;
+    background: #224522;
+    border: 3px solid #224522;
     cursor: pointer;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
     transition: transform 0.1s;
@@ -3152,6 +3154,7 @@ body:has(.bank-app-page-wrapper) {
     height: 6px;
     cursor: pointer;
     border-radius: 4px;
+    background: #224522;
 }
 
 /* Dynamic slider fill handled in JS via background-size/image usually, 
@@ -4026,32 +4029,68 @@ body:has(.bank-app-page-wrapper) {
 .compare-nbfc-logo, .compare-nbfc-fallback { background: #d1fae5 !important; }
 .dark .compare-nbfc-logo, .dark .compare-nbfc-fallback { background: rgba(16, 185, 129, 0.2) !important; }
 
+/* Redesigned comparison table: better UI and readability */
 .compare-table-pro {
-    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
-    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    border-radius: 16px;
     overflow: hidden;
+    border: 1px solid #e5e7eb;
+}
+.dark .compare-table-pro {
+    border-color: #334155;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+.compare-bank-table-wrapper {
+    padding: 0;
+}
+.compare-bank-table-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    letter-spacing: -0.02em;
 }
 .compare-table-pro-table {
-    font-size: 14px;
+    font-size: 15px;
+    line-height: 1.5;
 }
 .compare-table-pro-table .compare-bank-th,
 .compare-table-pro-table .compare-bank-td {
-    padding: 14px 20px;
+    padding: 16px 24px;
     border-bottom: 1px solid #e5e7eb;
+    vertical-align: middle;
 }
 .dark .compare-table-pro-table .compare-bank-th,
 .dark .compare-table-pro-table .compare-bank-td { border-bottom-color: #334155; }
+.compare-table-pro-table tbody tr:nth-child(even) .compare-bank-td-value,
+.compare-table-pro-table tbody tr:nth-child(even) .compare-bank-td-desc,
+.compare-table-pro-table tbody tr:nth-child(even) .compare-bank-td-features {
+    background: #f8fafc;
+}
+.dark .compare-table-pro-table tbody tr:nth-child(even) .compare-bank-td-value,
+.dark .compare-table-pro-table tbody tr:nth-child(even) .compare-bank-td-desc,
+.dark .compare-table-pro-table tbody tr:nth-child(even) .compare-bank-td-features {
+    background: #0f172a;
+}
 .compare-table-pro-table .compare-bank-th-label {
     text-align: left;
     font-weight: 600;
     color: #374151;
+    font-size: 0.9375rem;
+}
+.compare-table-pro-table .compare-bank-td-label {
+    font-size: 0.9375rem;
 }
 .compare-table-row-emi .compare-emi-cell {
     font-weight: 700;
-    font-size: 15px;
+    font-size: 1.0625rem;
     color: #1e40af;
 }
 .dark .compare-table-row-emi .compare-emi-cell { color: #60a5fa; }
+.compare-bank-td-actions-row .compare-bank-td {
+    padding-top: 20px;
+    padding-bottom: 24px;
+    vertical-align: middle;
+}
 .compare-bank-apply-btn {
     display: inline-block;
     padding: 10px 18px;

@@ -4,6 +4,8 @@ import { useState } from 'react'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import { useLanguage } from '@/contexts/LanguageContext'
+import OtpVerification from '@/components/OtpVerification'
+import EmailVerification from '@/components/EmailVerification'
 import styles from './cibil.module.css'
 
 export default function CibilScorePage() {
@@ -19,6 +21,8 @@ export default function CibilScorePage() {
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitMessage, setSubmitMessage] = useState('')
+  const [mobileVerified, setMobileVerified] = useState(false)
+  const [emailVerified, setEmailVerified] = useState(false)
 
   // Accordion state for Knowledge Hub
   const [activeAccordion, setActiveAccordion] = useState<number | null>(0)
@@ -29,6 +33,10 @@ export default function CibilScorePage() {
       setFormData({ ...formData, [name]: value.toUpperCase() })
     } else if (name === 'mobileNumber' && value.length <= 10) {
       setFormData({ ...formData, [name]: value.replace(/\D/g, '') })
+      setMobileVerified(false)
+    } else if (name === 'email') {
+      setFormData({ ...formData, [name]: value })
+      setEmailVerified(false)
     } else if (name !== 'mobileNumber') {
       setFormData({ ...formData, [name]: value })
     }
@@ -48,6 +56,8 @@ export default function CibilScorePage() {
       const data = await response.json()
       if (response.ok) {
         setSubmitMessage(t('cibil.formSuccess') || 'Your CIBIL score enquiry has been submitted. We will contact you via email.')
+        setMobileVerified(false)
+        setEmailVerified(false)
         setFormData({
           name: '',
           panNumber: '',
@@ -219,6 +229,12 @@ export default function CibilScorePage() {
                           maxLength={10}
                           required
                         />
+                        <OtpVerification
+                          mobile={formData.mobileNumber}
+                          onVerified={() => setMobileVerified(true)}
+                          verified={mobileVerified}
+                          className={styles.otpVerification}
+                        />
                       </div>
                       <div>
                         <label className={styles.label}>
@@ -232,6 +248,12 @@ export default function CibilScorePage() {
                           value={formData.email}
                           onChange={handleChange}
                           required
+                        />
+                        <EmailVerification
+                          email={formData.email}
+                          onVerified={() => setEmailVerified(true)}
+                          verified={emailVerified}
+                          className={styles.otpVerification}
                         />
                       </div>
                     </div>
@@ -276,7 +298,7 @@ export default function CibilScorePage() {
 
                     <button
                       type="submit"
-                      disabled={isSubmitting}
+                      disabled={isSubmitting || !mobileVerified || !emailVerified}
                       className={styles.submitButton}
                     >
                       {isSubmitting ? (
@@ -289,7 +311,7 @@ export default function CibilScorePage() {
                         </>
                       ) : (
                         <>
-                          Check Now
+                          Submit Now
                           <svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
                         </>
                       )}

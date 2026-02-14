@@ -2,6 +2,7 @@
 
 import { useState, useMemo } from 'react'
 import Image from 'next/image'
+import Link from 'next/link'
 import { emiBanks, type EmiBank } from '@/data/emiBanks'
 import { emiNbfcs, type EmiNbfc } from '@/data/emiNbfcs'
 import { useLanguage } from '@/contexts/LanguageContext'
@@ -404,38 +405,32 @@ export default function BankLoanComparison({ amount, tenure, tenureUnit }: BankL
                   <td className="compare-bank-td-label">{t('compare.apply')}</td>
                   {selectedBanks[0] && (
                     <td className="compare-bank-td">
-                      <a
-                        href={selectedBanks[0].applyUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
+                      <Link
+                        href={`/apply/${selectedBanks[0].id}`}
                         className="compare-bank-apply-btn"
                       >
-                        {t('compare.applyWith')} {selectedBanks[0].name}
-                      </a>
+                        Apply Now
+                      </Link>
                     </td>
                   )}
                   {selectedBanks[1] && (
                     <td className="compare-bank-td">
-                      <a
-                        href={selectedBanks[1].applyUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
+                      <Link
+                        href={`/apply/${selectedBanks[1].id}`}
                         className="compare-bank-apply-btn"
                       >
-                        {t('compare.applyWith')} {selectedBanks[1].name}
-                      </a>
+                        Apply Now
+                      </Link>
                     </td>
                   )}
                   {selectedNbfc && (
                     <td className="compare-bank-td">
-                      <a
-                        href={selectedNbfc.applyUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
+                      <Link
+                        href={`/apply/${selectedNbfc.id}`}
                         className="compare-bank-apply-btn compare-apply-nbfc"
                       >
-                        {t('compare.applyWith')} {selectedNbfc.name}
-                      </a>
+                        Apply Now
+                      </Link>
                     </td>
                   )}
                 </tr>

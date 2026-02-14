@@ -334,6 +334,23 @@ Submitted at: ${new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })
       // Don't fail the request if email fails
     }
 
+    // Send confirmation email to user when we have their email
+    const userEmail = personalEmail || body.personalEmail || body.email
+    if (userEmail && /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(userEmail) && process.env.RESEND_API_KEY && process.env.RESEND_API_KEY !== 're_placeholder_key') {
+      try {
+        const { Resend } = await import('resend')
+        const resendConf = new Resend(process.env.RESEND_API_KEY)
+        await resendConf.emails.send({
+          from: process.env.RESEND_FROM_EMAIL || process.env.FROM_EMAIL || 'onboarding@resend.dev',
+          to: userEmail,
+          subject: 'We received your loan application – Zineegroup',
+          text: `Thank you for your ${bankName || 'bank'} loan application. We have received your details and our team will be in touch.\n\n— Zineegroup Team`,
+        })
+      } catch (e) {
+        console.error('Bank application confirmation email error:', e)
+      }
+    }
+
     // TODO: Store in database
     // Example:
     // await db.bankApplications.create({

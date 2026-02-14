@@ -72,7 +72,7 @@ Pincode: ${pincode}
 Submitted at: ${new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })}
     `.trim()
 
-    // Send email using Resend
+    // Send email to business
     try {
       await resend.emails.send({
         from: fromEmail,
@@ -82,7 +82,18 @@ Submitted at: ${new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })
       })
     } catch (emailError) {
       console.error('Error sending email:', emailError)
-      // Log the error but still return success to the user
+    }
+
+    // Send confirmation email to user
+    try {
+      await resend.emails.send({
+        from: fromEmail,
+        to: email,
+        subject: 'We received your CIBIL score enquiry – Zineegroup',
+        text: `Hi ${name},\n\nThank you for your CIBIL score enquiry. We have received your details and will contact you via email shortly.\n\n— Zineegroup Team`,
+      })
+    } catch (e) {
+      console.error('Confirmation email error:', e)
     }
 
     return NextResponse.json(

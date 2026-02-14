@@ -8,6 +8,7 @@ import HDFCSinglePageForm from '@/components/HDFCSinglePageForm'
 import YesBankSinglePageForm from '@/components/YesBankSinglePageForm'
 import AxisSinglePageForm from '@/components/AxisSinglePageForm'
 import KotakSinglePageForm from '@/components/KotakSinglePageForm'
+import OtpVerification from '@/components/OtpVerification'
 
 const BANK_SLUGS = ['icici', 'indusind', 'yes', 'idfc', 'kotak', 'hdfc', 'axis'] as const
 
@@ -104,10 +105,12 @@ export default function BankApplicationPage({ params }: { params: { bankId: stri
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isApplied, setIsApplied] = useState(false)
   const [appliedData, setAppliedData] = useState<Record<string, unknown> | null>(null)
+  const [mobileVerified, setMobileVerified] = useState(false)
   const canProceed = !!(
     formData.mobileNumber.length === 10 &&
     formData.day && formData.month && formData.year &&
-    formData.consentPersonalData
+    formData.consentPersonalData &&
+    mobileVerified
   )
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -783,11 +786,19 @@ export default function BankApplicationPage({ params }: { params: { bankId: stri
                         className="form-input-mobile"
                         placeholder="Enter 10-digit number"
                         value={formData.mobileNumber}
-                        onChange={handleChange}
+                        onChange={(e) => {
+                          handleChange(e)
+                          setMobileVerified(false)
+                        }}
                         maxLength={10}
                         required
                       />
                     </div>
+                    <OtpVerification
+                      mobile={formData.mobileNumber}
+                      onVerified={() => setMobileVerified(true)}
+                      verified={mobileVerified}
+                    />
                     <p className="form-hint-text">Please have it handy to verify OTP</p>
                   </div>
 
@@ -942,7 +953,7 @@ export default function BankApplicationPage({ params }: { params: { bankId: stri
                         onChange={handleChange}
                         required
                       />
-                      <span>I hereby consent to collection and processing of my data for availing this loan and relevant services in the manner described in the notice <a href="#" className="consent-link-text" style={{ color: bank.primaryColor }}>here</a></span>
+                      <span><span className="required-asterisk">*</span> I hereby consent to collection and processing of my data for availing this loan and relevant services in the manner described in the notice <a href="#" className="consent-link-text" style={{ color: bank.primaryColor }}>here</a></span>
                     </label>
                     <label className="consent-checkbox-label">
                       <input

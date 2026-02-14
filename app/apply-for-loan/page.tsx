@@ -4,6 +4,7 @@ import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import { useState } from 'react'
 import { useLanguage } from '@/contexts/LanguageContext'
+import EmailVerification from '@/components/EmailVerification'
 
 export default function ApplyForLoanPage() {
   const { t } = useLanguage()
@@ -17,16 +18,16 @@ export default function ApplyForLoanPage() {
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitMessage, setSubmitMessage] = useState('')
+  const [emailVerified, setEmailVerified] = useState(false)
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const name = e.target.name
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
+      [name]: e.target.value
     })
-    // Clear message when user starts typing
-    if (submitMessage) {
-      setSubmitMessage('')
-    }
+    if (name === 'email') setEmailVerified(false)
+    if (submitMessage) setSubmitMessage('')
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -47,7 +48,7 @@ export default function ApplyForLoanPage() {
 
       if (response.ok) {
         setSubmitMessage(t('apply.successMessage'))
-        // Reset form on success
+        setEmailVerified(false)
         setFormData({
           name: '',
           email: '',
@@ -154,6 +155,11 @@ export default function ApplyForLoanPage() {
                             required
                           />
                         </div>
+                        <EmailVerification
+                          email={formData.email}
+                          onVerified={() => setEmailVerified(true)}
+                          verified={emailVerified}
+                        />
                       </div>
 
                       {/* Phone Field */}
@@ -246,7 +252,7 @@ export default function ApplyForLoanPage() {
                     <button
                       type="submit"
                       className="form-submit-button"
-                      disabled={isSubmitting}
+                      disabled={isSubmitting || !emailVerified}
                     >
                       {isSubmitting ? t('apply.submitting') : t('apply.applyNow')}
                     </button>

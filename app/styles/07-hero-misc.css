@@ -320,8 +320,28 @@
     font-family: var(--font-inter), sans-serif;
 }
 
-.modern-title span {
+.modern-title span.modern-title-blue {
     color: #1d4ed8;
+    position: relative;
+    display: inline-block;
+    background: linear-gradient(90deg, #1d4ed8 0%, #3b82f6 25%, #93c5fd 50%, #3b82f6 75%, #1d4ed8 100%);
+    background-size: 200% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: glassShimmer 3s ease-in-out infinite;
+}
+@keyframes glassShimmer {
+    0%, 100% { background-position: 100% 0; }
+    50% { background-position: 0 0; }
+}
+/* Fallback when background-clip: text not supported */
+@supports not (background-clip: text) {
+    .modern-title span.modern-title-blue {
+        color: #1d4ed8;
+        -webkit-text-fill-color: #1d4ed8;
+        background: none;
+    }
 }
 
 .modern-subtitle {

@@ -58,7 +58,7 @@ This partner application was submitted through the website "Become a Partner" fo
 Submitted at: ${new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })}
     `.trim()
 
-        // Send email using Resend
+        // Send email to business
         try {
             await resend.emails.send({
                 from: fromEmail,
@@ -68,8 +68,18 @@ Submitted at: ${new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })
             })
         } catch (emailError) {
             console.error('Error sending email:', emailError)
-            // Log the error but still return success to the user
-            // You may want to implement a fallback notification system here
+        }
+
+        // Send confirmation email to user
+        try {
+            await resend.emails.send({
+                from: fromEmail,
+                to: email,
+                subject: 'We received your partner application – Zineegroup',
+                text: `Hi ${name},\n\nThank you for your interest in partnering with us. We have received your application and will review it and contact you within 48 hours.\n\n— Zineegroup Team`,
+            })
+        } catch (e) {
+            console.error('Confirmation email error:', e)
         }
 
         return NextResponse.json(

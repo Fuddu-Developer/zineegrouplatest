@@ -205,10 +205,11 @@
     cursor: pointer;
     transition: transform 0.35s ease, box-shadow 0.35s ease;
 }
+/* Finalized hover: lift + consistent blue accent */
 .loan-tile:hover {
     transform: translateY(-6px);
-    box-shadow: 18px 18px 36px rgb(99, 141, 225),
-                -18px -18px 36px rgb(99, 141, 225);
+    box-shadow: 18px 18px 36px rgba(37, 99, 235, 0.35),
+                -18px -18px 36px rgba(37, 99, 235, 0.2);
 }
 /* Top layer: icon + label – slides up on hover */
 .loan-tile-top {
@@ -244,6 +245,10 @@
     background: #1e40af;
     color: #fff;
     z-index: 0;
+    transition: background 0.3s ease;
+}
+.loan-tile:hover .loan-tile-bottom {
+    background: #2563eb; /* Finalized hover color for product tiles */
 }
 .loan-tile-bottom .loan-tile-label,
 .loan-tile-bottom .loan-tile-label-line {

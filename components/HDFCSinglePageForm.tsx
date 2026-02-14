@@ -308,7 +308,7 @@ export default function HDFCSinglePageForm({
               </div>
               <label className="hdfc-single-checkbox-label">
                 <input type="checkbox" name="addressDeclaration" checked={formData.addressDeclaration} onChange={handleChange} required />
-                <span>I hereby declare the above address as current address (as well as communication address) and the same should be updated in bank records.</span>
+                <span><span className="required-asterisk">*</span> I hereby declare the above address as current address (as well as communication address) and the same should be updated in bank records.</span>
               </label>
             </div>
           </section>
@@ -385,7 +385,7 @@ export default function HDFCSinglePageForm({
           <section className="hdfc-single-section hdfc-single-consent-section">
             <label className="hdfc-single-checkbox-label">
               <input type="checkbox" name="consentPersonalData" checked={formData.consentPersonalData} onChange={handleChange} required />
-              <span>I hereby consent to collection and processing of my data for availing this loan and relevant services in the manner described in the notice <a href="#" style={{ color: bank.primaryColor }}>here</a></span>
+              <span><span className="required-asterisk">*</span> I hereby consent to collection and processing of my data for availing this loan and relevant services in the manner described in the notice <a href="#" style={{ color: bank.primaryColor }}>here</a></span>
             </label>
             <label className="hdfc-single-checkbox-label">
               <input type="checkbox" name="consentPersonalizedOffers" checked={formData.consentPersonalizedOffers} onChange={handleChange} />
@@ -393,7 +393,7 @@ export default function HDFCSinglePageForm({
             </label>
             <label className="hdfc-single-checkbox-label">
               <input type="checkbox" name="consentEligibility" checked={formData.consentEligibility} onChange={handleChange} required />
-              <span>I hereby give my consent to use the above information to check my eligibility & agree to abide by the Terms and Conditions laid down by the Bank</span>
+              <span><span className="required-asterisk">*</span> I hereby give my consent to use the above information to check my eligibility & agree to abide by the Terms and Conditions laid down by the Bank</span>
             </label>
             <button
               type="submit"

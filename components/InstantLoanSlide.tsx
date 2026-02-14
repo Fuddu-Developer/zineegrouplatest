@@ -122,12 +122,12 @@ export default function InstantLoanSlide() {
             <div key={currentSlideIndex} className="modern-carousel-left" style={{ animation: 'fadeIn 0.5s ease' }}>
                 <div className="modern-title-card">
                     <h2 className="modern-title">
-                        {currentSlide.title}<br />
-                        <span>{currentSlide.subtitle}</span>
+                        {currentSlide.title}⚡️<br />
+                        <span className="modern-title-blue">{currentSlide.subtitle}</span>
                     </h2>
                 </div>
                 <div className="modern-subtitle">
-                    Get pre approved instant {currentSlide.typeLabel}{currentSlide.typeLabel === 'credit card' ? '' : ' loan'}
+                    Get pre-approved instant {currentSlide.typeLabel}{currentSlide.typeLabel === 'credit card' ? '' : ' loan'}
                 </div>
                 {/* Dots Indicator */}
                 <div style={{ display: 'flex', gap: '6px', marginTop: '20px' }}>

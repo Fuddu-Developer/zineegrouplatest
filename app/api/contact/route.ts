@@ -56,7 +56,7 @@ This message was submitted through the website contact form.
 Submitted at: ${new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })}
     `.trim()
 
-        // Send email using Resend
+        // Send email to business
         try {
             await resend.emails.send({
                 from: fromEmail,
@@ -66,7 +66,18 @@ Submitted at: ${new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })
             })
         } catch (emailError) {
             console.error('Error sending email:', emailError)
-            // Log the error but still return success to the user
+        }
+
+        // Send confirmation email to user
+        try {
+            await resend.emails.send({
+                from: fromEmail,
+                to: email,
+                subject: 'We received your message – Zineegroup',
+                text: `Hi ${name},\n\nThank you for contacting us. We have received your message and will get back to you within 24 hours.\n\nYour message:\n${message}\n\n— Zineegroup Team`,
+            })
+        } catch (e) {
+            console.error('Confirmation email error:', e)
         }
 
         return NextResponse.json(

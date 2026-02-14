@@ -5,6 +5,15 @@ import Footer from '@/components/Footer'
 import Image from 'next/image'
 import { useState } from 'react'
 import { useLanguage } from '@/contexts/LanguageContext'
+import EmailVerification from '@/components/EmailVerification'
+
+type LoginModalType = 'employee' | 'customer' | 'partner' | null
+
+const LOGIN_TILES: { id: LoginModalType; label: string }[] = [
+    { id: 'employee', label: 'Employee Login' },
+    { id: 'customer', label: 'Customer Login' },
+    { id: 'partner', label: 'Partner Login' },
+]
 
 export default function BecomePartnerPage() {
     const { t } = useLanguage()
@@ -18,15 +27,44 @@ export default function BecomePartnerPage() {
     })
     const [isSubmitting, setIsSubmitting] = useState(false)
     const [submitMessage, setSubmitMessage] = useState('')
+    const [emailVerified, setEmailVerified] = useState(false)
+
+    /* Demo login (no real auth): modal + 7-click unlock to dashboard message */
+    const [loginModal, setLoginModal] = useState<LoginModalType>(null)
+    const [loginUsername, setLoginUsername] = useState('')
+    const [loginPassword, setLoginPassword] = useState('')
+    const [loginError, setLoginError] = useState('')
+    const [loginClickCount, setLoginClickCount] = useState(0)
+    const [showDashboardOverlay, setShowDashboardOverlay] = useState(false)
+    const handleLoginSubmit = (e: React.FormEvent) => {
+        e.preventDefault()
+        setLoginClickCount((c) => c + 1)
+        if (loginClickCount + 1 >= 7) {
+            setLoginModal(null)
+            setLoginError('')
+            setLoginClickCount(0)
+            setShowDashboardOverlay(true)
+            return
+        }
+        setLoginError('Wrong username or password')
+    }
+    const closeLoginModal = () => {
+        setLoginModal(null)
+        setLoginError('')
+        setLoginUsername('')
+        setLoginPassword('')
+        setLoginClickCount(0)
+    }
+    const closeDashboardOverlay = () => setShowDashboardOverlay(false)
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+        const name = e.target.name
         setFormData({
             ...formData,
-            [e.target.name]: e.target.value
+            [name]: e.target.value
         })
-        if (submitMessage) {
-            setSubmitMessage('')
-        }
+        if (name === 'email') setEmailVerified(false)
+        if (submitMessage) setSubmitMessage('')
     }
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -47,6 +85,7 @@ export default function BecomePartnerPage() {
 
             if (response.ok) {
                 setSubmitMessage(t('partner.success'))
+                setEmailVerified(false)
                 setFormData({
                     name: '',
                     companyName: '',
@@ -80,6 +119,26 @@ export default function BecomePartnerPage() {
                                 <p className="partner-hero-tagline">{t('partner.heroTagline')}</p>
                                 <p className="partner-hero-subtitle">{t('partner.subtitle')}</p>
                             </header>
+
+                            {/* Login tiles (demo – no real login) */}
+                            <div className="partner-login-tiles">
+                                {LOGIN_TILES.map(({ id, label }) => (
+                                    <button
+                                        key={id}
+                                        type="button"
+                                        className="partner-login-tile"
+                                        onClick={() => {
+                                            setLoginModal(id)
+                                            setLoginError('')
+                                            setLoginUsername('')
+                                            setLoginPassword('')
+                                            setLoginClickCount(0)
+                                        }}
+                                    >
+                                        {label}
+                                    </button>
+                                ))}
+                            </div>
 
                             <div className="partner-layout">
                                 {/* Left: Why partner with us */}
@@ -161,6 +220,11 @@ export default function BecomePartnerPage() {
                                                         placeholder="you@company.com"
                                                         required
                                                     />
+                                                    <EmailVerification
+                                                        email={formData.email}
+                                                        onVerified={() => setEmailVerified(true)}
+                                                        verified={emailVerified}
+                                                    />
                                                 </div>
                                                 <div className="partner-form-field">
                                                     <label className="partner-form-label" htmlFor="partner-phone">{t('partner.labelPhone')} <span className="partner-required">*</span></label>
@@ -234,7 +298,7 @@ export default function BecomePartnerPage() {
                                         <button
                                             type="submit"
                                             className="partner-submit-btn"
-                                            disabled={isSubmitting}
+                                            disabled={isSubmitting || !emailVerified}
                                         >
                                             {isSubmitting ? t('partner.submitting') : t('partner.submit')}
                                         </button>
@@ -247,6 +311,58 @@ export default function BecomePartnerPage() {
                 </main>
                 <Footer />
             </div>
+
+            {/* Demo login modal */}
+            {loginModal && (
+                <div className="partner-login-modal-overlay" onClick={closeLoginModal}>
+                    <div className="partner-login-modal" onClick={(e) => e.stopPropagation()}>
+                        <div className="partner-login-modal-header">
+                            <h3 className="partner-login-modal-title">
+                                {loginModal === 'employee' && 'Employee Login'}
+                                {loginModal === 'customer' && 'Customer Login'}
+                                {loginModal === 'partner' && 'Partner Login'}
+                            </h3>
+                            <button type="button" className="partner-login-modal-close" onClick={closeLoginModal} aria-label="Close">×</button>
+                        </div>
+                        <form className="partner-login-form" onSubmit={handleLoginSubmit}>
+                            <div className="partner-login-field">
+                                <label className="partner-login-label">Username</label>
+                                <input
+                                    type="text"
+                                    className="partner-login-input"
+                                    value={loginUsername}
+                                    onChange={(e) => setLoginUsername(e.target.value)}
+                                    placeholder="Enter username"
+                                    autoComplete="username"
+                                />
+                            </div>
+                            <div className="partner-login-field">
+                                <label className="partner-login-label">Password</label>
+                                <input
+                                    type="password"
+                                    className="partner-login-input"
+                                    value={loginPassword}
+                                    onChange={(e) => setLoginPassword(e.target.value)}
+                                    placeholder="Enter password"
+                                    autoComplete="current-password"
+                                />
+                            </div>
+                            {loginError && <p className="partner-login-error">{loginError}</p>}
+                            <button type="submit" className="partner-login-submit">Login</button>
+                        </form>
+                    </div>
+                </div>
+            )}
+
+            {/* Dashboard placeholder overlay (after 7 login clicks) */}
+            {showDashboardOverlay && (
+                <div className="partner-dashboard-overlay">
+                    <p className="partner-dashboard-message">
+                        Here you will dash board – you will create using backend. If you are seeing this, it means it is not KK setting up backend.
+                    </p>
+                    <button type="button" className="partner-dashboard-close" onClick={closeDashboardOverlay}>Close</button>
+                </div>
+            )}
         </div>
     )
 }

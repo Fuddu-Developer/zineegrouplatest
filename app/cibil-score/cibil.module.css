@@ -266,6 +266,10 @@
     color: #94a3b8;
 }
 
+.otpVerification {
+    margin-top: 8px;
+}
+
 .submitButton {
     width: 100%;
     padding: 1rem 1.5rem;

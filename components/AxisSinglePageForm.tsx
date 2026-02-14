@@ -173,10 +173,10 @@ export default function AxisSinglePageForm({
             </div>
 
             <div className="axis-single-consents">
-              <label><input type="checkbox" name="consentIndianCitizen" checked={formData.consentIndianCitizen} onChange={handleChange} required /> I am an Indian citizen and pay taxes only in India</label>
-              <label><input type="checkbox" name="consentIncomeAbove" checked={formData.consentIncomeAbove} onChange={handleChange} required /> I confirm my household income is above ₹3,00,000 per annum</label>
-              <label><input type="checkbox" name="consentAxisEmpanel" checked={formData.consentAxisEmpanel} onChange={handleChange} required /> I further expressly consent and authorize Axis Bank&apos;s empanele... <a href="#">Read More</a></label>
-              <label><input type="checkbox" name="consentShareData" checked={formData.consentShareData} onChange={handleChange} required /> I hereby expressly consent to and authorize Axis Bank to share... <a href="#">Read More</a></label>
+              <label><input type="checkbox" name="consentIndianCitizen" checked={formData.consentIndianCitizen} onChange={handleChange} required /> <span className="required-asterisk">*</span> I am an Indian citizen and pay taxes only in India</label>
+              <label><input type="checkbox" name="consentIncomeAbove" checked={formData.consentIncomeAbove} onChange={handleChange} required /> <span className="required-asterisk">*</span> I confirm my household income is above ₹3,00,000 per annum</label>
+              <label><input type="checkbox" name="consentAxisEmpanel" checked={formData.consentAxisEmpanel} onChange={handleChange} required /> <span className="required-asterisk">*</span> I further expressly consent and authorize Axis Bank&apos;s empanele... <a href="#">Read More</a></label>
+              <label><input type="checkbox" name="consentShareData" checked={formData.consentShareData} onChange={handleChange} required /> <span className="required-asterisk">*</span> I hereby expressly consent to and authorize Axis Bank to share... <a href="#">Read More</a></label>
             </div>
 
             <button type="submit" className="axis-single-submit" disabled={!canSubmit || isSubmitting} style={{ backgroundColor: canSubmit ? bank.primaryColor : '#94a3b8' }}>
