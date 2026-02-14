@@ -22,7 +22,7 @@ const NAV_LINKS: NavLink[] = [
   { href: '/apply-for-loan', labelKey: 'nav.apply', highlight: true },
   { href: '/cibil-score', labelKey: 'nav.cibil' },
   { href: '/become-partner', labelKey: 'nav.partner' },
-  { href: '/contact', labelKey: 'nav.contact' },
+  { href: '/talk-to-expert', labelKey: 'nav.contact' },
 ]
 
 export default function Header() {
@@ -321,10 +321,12 @@ export default function Header() {
               )}
             </button>
 
-            {/* ChatBot - Talk to an Expert */}
-            <div style={{ position: 'relative' }}>
-              <ChatBot showWhatsApp={false} showLabel={false} />
-            </div>
+            {/* ChatBot - hide on Talk to Expert page (has its own embedded chat) */}
+            {pathname !== '/talk-to-expert' && (
+              <div style={{ position: 'relative' }}>
+                <ChatBot showWhatsApp={false} showLabel={false} />
+              </div>
+            )}
           </div>
         </div>
       </header>

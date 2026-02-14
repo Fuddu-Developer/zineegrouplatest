@@ -39,9 +39,9 @@ export default function Footer() {
             <ul className="footer-list">
               <li><Link href="/">{t('nav.home')}</Link></li>
               <li><Link href="/about-us">{t('nav.about')}</Link></li>
-              <li><Link href="/contact">{t('nav.apply')}</Link></li>
+              <li><Link href="/apply-for-loan">{t('nav.apply')}</Link></li>
               <li><Link href="/cibil-score">{t('nav.cibil')}</Link></li>
-              <li><Link href="/contact">{t('nav.contact')}</Link></li>
+              <li><Link href="/talk-to-expert">{t('nav.contact')}</Link></li>
             </ul>
           </div>
 

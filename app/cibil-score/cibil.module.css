@@ -9,13 +9,14 @@
     color: #000;
 }
 
-/* Hero Section */
+/* Hero Section - first component on CIBIL page: pull up by 10% viewport */
 .heroSection {
     position: relative;
     width: 100%;
     background-color: #f8fafc;
     padding: 4rem 1rem;
     overflow: hidden;
+    margin-top: 1vh;
 }
 
 .heroBackground {

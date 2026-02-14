@@ -4,6 +4,10 @@ import { useSearchParams } from 'next/navigation'
 import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import AxisBankHeader from '@/components/AxisBankHeader'
+import HDFCSinglePageForm from '@/components/HDFCSinglePageForm'
+import YesBankSinglePageForm from '@/components/YesBankSinglePageForm'
+import AxisSinglePageForm from '@/components/AxisSinglePageForm'
+import KotakSinglePageForm from '@/components/KotakSinglePageForm'
 
 const BANK_SLUGS = ['icici', 'indusind', 'yes', 'idfc', 'kotak', 'hdfc', 'axis'] as const
 
@@ -99,6 +103,7 @@ export default function BankApplicationPage({ params }: { params: { bankId: stri
 
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isApplied, setIsApplied] = useState(false)
+  const [appliedData, setAppliedData] = useState<Record<string, unknown> | null>(null)
   const canProceed = !!(
     formData.mobileNumber.length === 10 &&
     formData.day && formData.month && formData.year &&
@@ -224,6 +229,150 @@ export default function BankApplicationPage({ params }: { params: { bankId: stri
     }
   }
 
+  const handleHdfcSinglePageSubmit = async (data: Record<string, unknown>) => {
+    setIsSubmitting(true)
+    try {
+      const response = await fetch('/api/bank-application', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          bankId: 'hdfc',
+          bankName: bank.name,
+          loanType: loanTypeSlug,
+          loanLabel: data.loanLabel || loanLabel,
+          mobileNumber: data.mobileNumber,
+          day: data.day,
+          month: data.month,
+          year: data.year,
+          sourceOfIncome: data.sourceOfIncome,
+          consentPersonalData: data.consentPersonalData,
+          consentPersonalizedOffers: data.consentPersonalizedOffers,
+          consentEligibility: data.consentEligibility,
+          pan: data.pan,
+          firstName: data.firstName,
+          middleName: data.middleName,
+          lastName: data.lastName,
+          gender: data.gender,
+          personalEmail: data.personalEmail,
+          addressLine1: data.addressLine1,
+          addressLine2: data.addressLine2,
+          addressLine3: data.addressLine3,
+          pincode: data.pincode,
+          city: data.city,
+          state: data.state,
+          residenceType: data.residenceType,
+          addressDeclaration: data.addressDeclaration,
+          employerName: data.employerName,
+          monthlyIncome: data.monthlyIncome,
+          monthlyEmis: data.monthlyEmis,
+          workEmail: data.workEmail,
+        }),
+      })
+      const resData = await response.json()
+      if (response.ok) {
+        setAppliedData(data)
+        setIsApplied(true)
+      } else {
+        alert(resData.error || 'There was an error submitting your application. Please try again.')
+      }
+    } catch (err) {
+      console.error('Error submitting HDFC application:', err)
+      alert('There was an error submitting your application. Please try again.')
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
+
+  const handleYesSinglePageSubmit = async (data: Record<string, unknown>) => {
+    setIsSubmitting(true)
+    try {
+      const response = await fetch('/api/bank-application', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          bankId: 'yes',
+          bankName: bank.name,
+          loanType: loanTypeSlug,
+          loanLabel: data.loanLabel || loanLabel,
+          name: data.name,
+          pan: data.pan,
+          isYesBankCustomer: data.isYesBankCustomer,
+        }),
+      })
+      const resData = await response.json()
+      if (response.ok) {
+        setAppliedData(data)
+        setIsApplied(true)
+      } else {
+        alert(resData.error || 'There was an error submitting your application. Please try again.')
+      }
+    } catch (err) {
+      console.error('Error submitting Yes Bank application:', err)
+      alert('There was an error submitting your application. Please try again.')
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
+
+  const handleAxisSinglePageSubmit = async (data: Record<string, unknown>) => {
+    setIsSubmitting(true)
+    try {
+      const response = await fetch('/api/bank-application', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          bankId: 'axis',
+          bankName: bank.name,
+          loanType: loanTypeSlug,
+          loanLabel: data.loanLabel || loanLabel,
+          ...data,
+        }),
+      })
+      const resData = await response.json()
+      if (response.ok) {
+        setAppliedData(data)
+        setIsApplied(true)
+      } else {
+        alert(resData.error || 'There was an error submitting your application. Please try again.')
+      }
+    } catch (err) {
+      console.error('Error submitting Axis application:', err)
+      alert('There was an error submitting your application. Please try again.')
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
+
+  const handleKotakSinglePageSubmit = async (data: Record<string, unknown>) => {
+    setIsSubmitting(true)
+    try {
+      const response = await fetch('/api/bank-application', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          bankId: 'kotak',
+          bankName: bank.name,
+          loanType: loanTypeSlug,
+          loanLabel: data.loanLabel || loanLabel,
+          mobileNumber: data.mobileNumber,
+          ...data,
+        }),
+      })
+      const resData = await response.json()
+      if (response.ok) {
+        setAppliedData(data)
+        setIsApplied(true)
+      } else {
+        alert(resData.error || 'There was an error submitting your application. Please try again.')
+      }
+    } catch (err) {
+      console.error('Error submitting Kotak application:', err)
+      alert('There was an error submitting your application. Please try again.')
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
+
   const fileToBase64 = (file: File): Promise<string> => {
     return new Promise((resolve, reject) => {
       const reader = new FileReader()
@@ -278,6 +427,156 @@ export default function BankApplicationPage({ params }: { params: { bankId: stri
   const hasHeaderImage = bankHeaderImages[bankId]
   const layout = getBankLayoutConfig(bankId)
   const themeClass = getBankThemeClass(bankId)
+
+  /* HDFC: single-page form (all important fields on one page) */
+  if (bankId === 'hdfc') {
+    return (
+      <div className={`bank-app-page-wrapper ${themeClass}`} style={{ position: 'relative', minHeight: '100vh' }}>
+        {isApplied && appliedData && (
+          <div className="application-success-overlay">
+            <div className="success-content-overlay">
+              <div className="success-message-box">
+                <div className="success-icon-large">✓</div>
+                <h2 className="success-title">Applied</h2>
+                <p className="success-message">Our team will reach out to you shortly</p>
+              </div>
+              <div className="application-details-overlay">
+                <h3 className="details-title">Application Details</h3>
+                <div className="details-grid">
+                  <div className="detail-item">
+                    <span className="detail-label">Mobile Number:</span>
+                    <span className="detail-value">+91 {String(appliedData.mobileNumber || '')}</span>
+                  </div>
+                  <div className="detail-item">
+                    <span className="detail-label">Date of Birth:</span>
+                    <span className="detail-value">{appliedData.day}/{appliedData.month}/{appliedData.year}</span>
+                  </div>
+                  <div className="detail-item">
+                    <span className="detail-label">Name:</span>
+                    <span className="detail-value">{[appliedData.firstName, appliedData.middleName, appliedData.lastName].filter(Boolean).join(' ')}</span>
+                  </div>
+                  <div className="detail-item">
+                    <span className="detail-label">Source of Income:</span>
+                    <span className="detail-value">{appliedData.sourceOfIncome === 'salaried' ? 'Salaried' : 'Self Employed / Professionals / Business'}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+        {!isApplied && (
+          <HDFCSinglePageForm
+            bank={bank}
+            loanLabel={loanLabel}
+            onSubmit={handleHdfcSinglePageSubmit}
+            isSubmitting={isSubmitting}
+          />
+        )}
+      </div>
+    )
+  }
+
+  if (bankId === 'yes') {
+    return (
+      <div className={`bank-app-page-wrapper ${themeClass}`} style={{ position: 'relative', minHeight: '100vh' }}>
+        {isApplied && appliedData && (
+          <div className="application-success-overlay">
+            <div className="success-content-overlay">
+              <div className="success-message-box">
+                <div className="success-icon-large">✓</div>
+                <h2 className="success-title">Applied</h2>
+                <p className="success-message">Our team will reach out to you shortly</p>
+              </div>
+              <div className="application-details-overlay">
+                <h3 className="details-title">Application Details</h3>
+                <div className="details-grid">
+                  <div className="detail-item">
+                    <span className="detail-label">Name:</span>
+                    <span className="detail-value">{String(appliedData.name || '')}</span>
+                  </div>
+                  <div className="detail-item">
+                    <span className="detail-label">PAN:</span>
+                    <span className="detail-value">{String(appliedData.pan || '')}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+        {!isApplied && (
+          <YesBankSinglePageForm bank={bank} loanLabel={loanLabel} onSubmit={handleYesSinglePageSubmit} isSubmitting={isSubmitting} />
+        )}
+      </div>
+    )
+  }
+
+  if (bankId === 'axis') {
+    return (
+      <div className={`bank-app-page-wrapper ${themeClass}`} style={{ position: 'relative', minHeight: '100vh' }}>
+        {isApplied && appliedData && (
+          <div className="application-success-overlay">
+            <div className="success-content-overlay">
+              <div className="success-message-box">
+                <div className="success-icon-large">✓</div>
+                <h2 className="success-title">Applied</h2>
+                <p className="success-message">Our team will reach out to you shortly</p>
+              </div>
+              <div className="application-details-overlay">
+                <h3 className="details-title">Application Details</h3>
+                <div className="details-grid">
+                  <div className="detail-item">
+                    <span className="detail-label">Name:</span>
+                    <span className="detail-value">{String(appliedData.nameAsPerPan || '')}</span>
+                  </div>
+                  <div className="detail-item">
+                    <span className="detail-label">Company:</span>
+                    <span className="detail-value">{String(appliedData.companyName || '')}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+        {!isApplied && (
+          <AxisSinglePageForm bank={bank} loanLabel={loanLabel} onSubmit={handleAxisSinglePageSubmit} isSubmitting={isSubmitting} />
+        )}
+      </div>
+    )
+  }
+
+  if (bankId === 'kotak') {
+    return (
+      <div className={`bank-app-page-wrapper ${themeClass}`} style={{ position: 'relative', minHeight: '100vh' }}>
+        {isApplied && appliedData && (
+          <div className="application-success-overlay">
+            <div className="success-content-overlay">
+              <div className="success-message-box">
+                <div className="success-icon-large">✓</div>
+                <h2 className="success-title">Applied</h2>
+                <p className="success-message">Our team will reach out to you shortly</p>
+              </div>
+              <div className="application-details-overlay">
+                <h3 className="details-title">Application Details</h3>
+                <div className="details-grid">
+                  <div className="detail-item">
+                    <span className="detail-label">Name:</span>
+                    <span className="detail-value">{String(appliedData.fullName || '')}</span>
+                  </div>
+                  <div className="detail-item">
+                    <span className="detail-label">Mobile:</span>
+                    <span className="detail-value">+91 {String(appliedData.mobileNumber || '')}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+        {!isApplied && (
+          <KotakSinglePageForm bank={bank} loanLabel={loanLabel} onSubmit={handleKotakSinglePageSubmit} isSubmitting={isSubmitting} />
+        )}
+      </div>
+    )
+  }
 
   return (
     <div
@@ -421,14 +720,15 @@ export default function BankApplicationPage({ params }: { params: { bankId: stri
         </div>
       )}
 
-      {/* Success Overlay */}
+      {/* Success Overlay (IDFC: "Application submitted" + Thank you at bottom) */}
       {isApplied && (
         <div className="application-success-overlay">
           <div className="success-content-overlay">
             <div className="success-message-box">
               <div className="success-icon-large">✓</div>
-              <h2 className="success-title">Applied</h2>
-              <p className="success-message">Our team will reach out to you shortly</p>
+              <h2 className="success-title">{bankId === 'idfc' ? 'Application submitted' : 'Applied'}</h2>
+              <p className="success-message">{bankId === 'idfc' ? 'Our team will reach out to you shortly.' : 'Our team will reach out to you shortly'}</p>
+              {bankId === 'idfc' && <p className="success-thank-you">Thank you</p>}
             </div>
             <div className="application-details-overlay">
               <h3 className="details-title">Application Details</h3>

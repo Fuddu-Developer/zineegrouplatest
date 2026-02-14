@@ -1,0 +1,288 @@
+/* Talk to an Expert — page-scoped styles only */
+
+/* ----- Layout ----- */
+.page {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: linear-gradient(165deg, #f8fafc 0%, #f1f5f9 40%, #e2e8f0 100%);
+}
+
+.wrap {
+  flex: 1;
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem 4rem;
+  padding-top: calc(132px + 3rem);
+  box-sizing: border-box;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2rem;
+  align-items: stretch;
+}
+
+@media (min-width: 900px) {
+  .grid {
+    grid-template-columns: 1fr 380px;
+    gap: 2.5rem;
+    align-items: stretch;
+  }
+}
+
+/* ----- Left: content card (fixed 700px on desktop) ----- */
+.contentCard {
+  position: relative;
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 2.5rem 2rem 2.5rem 2.5rem;
+  box-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.05),
+    0 6px 20px rgba(15, 23, 42, 0.07),
+    0 0 0 1px rgba(15, 23, 42, 0.04);
+  border: 1px solid rgba(226, 232, 240, 0.9);
+  overflow: hidden;
+}
+
+@media (min-width: 900px) {
+  .contentCard {
+    height: 700px;
+    max-height: 700px;
+    overflow-y: auto;
+  }
+}
+
+.contentCard::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+  background: linear-gradient(180deg, #0ea5e9 0%, #0284c7 50%, #0369a1 100%);
+  border-radius: 20px 0 0 20px;
+}
+
+.title {
+  font-family: var(--font-poppins), sans-serif;
+  font-size: clamp(1.75rem, 4vw, 2.25rem);
+  font-weight: 700;
+  color: #0f172a;
+  line-height: 1.25;
+  margin: 0 0 0.625rem 0;
+  letter-spacing: -0.03em;
+}
+
+.subtitle {
+  font-size: 1.0625rem;
+  color: #475569;
+  line-height: 1.65;
+  margin: 0 0 0.5rem 0;
+  max-width: 40ch;
+}
+
+.liveHelp {
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: #94a3b8;
+  margin: 0 0 1.25rem 0;
+}
+
+.cta {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: #0284c7;
+  margin: 0 0 1.75rem 0;
+}
+
+.helpHeading {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin: 0 0 0.875rem 0;
+}
+
+.bullets {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 2rem 0;
+}
+
+.bullets li {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-size: 0.9375rem;
+  color: #334155;
+  padding: 0.625rem 0.875rem;
+  margin-bottom: 0.5rem;
+  line-height: 1.5;
+  background: #f8fafc;
+  border-radius: 10px;
+  border: 1px solid #e2e8f0;
+  transition: background 0.2s ease, border-color 0.2s ease;
+}
+
+.bullets li:last-child {
+  margin-bottom: 0;
+}
+
+.bullets li:hover {
+  background: #f1f5f9;
+  border-color: #cbd5e1;
+}
+
+.bullets li::before {
+  content: '✓';
+  width: 22px;
+  height: 22px;
+  flex-shrink: 0;
+  border-radius: 6px;
+  background: linear-gradient(135deg, #0ea5e9, #0284c7);
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+
+.emailBlock {
+  padding: 1.25rem 1.25rem 0.5rem;
+  margin: 0 -0.5rem 0 0;
+  background: #f8fafc;
+  border-radius: 12px;
+  border: 1px solid #e2e8f0;
+}
+
+.emailLabel {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 0 0 0.35rem 0;
+}
+
+.emailLink {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #0284c7;
+  text-decoration: none;
+  transition: color 0.2s ease, text-decoration-color 0.2s ease;
+}
+
+.emailLink:hover {
+  color: #0369a1;
+  text-decoration: underline;
+  text-decoration-color: rgba(3, 105, 161, 0.5);
+}
+
+.emailLink:focus-visible {
+  outline: 2px solid #0ea5e9;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ----- Right: chatbot card (fixed 700px, content scrolls inside) ----- */
+.chatWrapper {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
+.chatCard {
+  background: #ffffff;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow:
+    0 1px 3px rgba(0, 0, 0, 0.06),
+    0 6px 20px rgba(15, 23, 42, 0.07),
+    0 0 0 1px rgba(15, 23, 42, 0.04);
+  border: 1px solid rgba(226, 232, 240, 0.9);
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-height: 0;
+}
+
+@media (min-width: 900px) {
+  .chatCard {
+    height: 700px;
+    max-height: 700px;
+    flex: none;
+  }
+}
+
+@media (max-width: 899px) {
+  .chatCard {
+    min-height: 400px;
+  }
+}
+
+.chatCardInner {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+/* Chat container: fixed height, no growth */
+.chatCardInner :global(.lc-container) {
+  display: flex !important;
+  flex-direction: column !important;
+  height: 100% !important;
+  max-height: 100% !important;
+  min-height: 0 !important;
+  overflow: hidden !important;
+}
+
+/* Messages area: scroll only here when chatting */
+.chatCardInner :global(.lc-messages) {
+  flex: 1 1 0 !important;
+  min-height: 0 !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  padding: 0.75rem;
+}
+
+/* Smaller font in embedded chat box */
+.chatCardInner :global(.lc-container) {
+  font-size: 0.7rem;
+}
+.chatCardInner :global(.lc-header-title) {
+  font-size: 0.8rem;
+}
+.chatCardInner :global(.lc-header-sub) {
+  font-size: 0.65rem;
+}
+.chatCardInner :global(.lc-message-body),
+.chatCardInner :global(.lc-message-title),
+.chatCardInner :global(.lc-message-text),
+.chatCardInner :global(.lc-message-list-item),
+.chatCardInner :global(.lc-option-button),
+.chatCardInner :global(.lc-option),
+.chatCardInner :global(.lc-option--link),
+.chatCardInner :global(.lc-input) {
+  font-size: 0.7rem;
+}
+.chatCardInner :global(.lc-input::placeholder) {
+  font-size: 0.65rem;
+}
+
+.chatCardInner :global(.lc-header) {
+  padding: 0.65rem 1rem;
+  flex-shrink: 0;
+}
+
+.chatCardInner :global(.lc-input-wrap) {
+  flex-shrink: 0;
+}

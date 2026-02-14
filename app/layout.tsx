@@ -42,8 +42,8 @@ export default function RootLayout({
             {/* Vector Background Container - Available on all pages */}
             <div className="vector-background" id="vectorBackground"></div>
             {children}
-            {/* Floating ChatBot - Available on all pages */}
-            <ChatBot />
+            {/* Floating ChatBot - no bottom toggle (chat available on Talk to Expert page) */}
+            <ChatBot showChatToggle={false} />
           </LanguageProvider>
         </DarkModeProvider>
       </body>

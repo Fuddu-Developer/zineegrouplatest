@@ -141,7 +141,20 @@ const translations = {
     'footer.socialMedia': 'Social Media Links',
     'footer.copyright': '© Copyright 2026 | HELLOANS ZINEE SERVICES PVT LTD (Formerly a part of ZINEE GROUP)',
 
-    // Contact Page
+    // Talk to an Expert Page
+    'expert.title': 'Talk to an Expert',
+    'expert.subtitle': 'Get personalized loan advice in real time. No forms, no wait—just chat.',
+    'expert.liveHelp': 'Live help available',
+    'expert.cta': 'Start chatting in the panel on the right →',
+    'expert.helpHeading': 'We can help with',
+    'expert.bullet1': 'Loan types & best options for you',
+    'expert.bullet2': 'Eligibility & documentation help',
+    'expert.bullet3': 'Instant answers to your questions',
+    'expert.emailLabel': 'Prefer email?',
+    'expert.email': 'info@zineegroup.com',
+    'expert.chatLabel': 'Chat',
+
+    // Contact (legacy / shared)
     'contact.getInTouch': 'Get in Touch',
     'contact.talkToExpert': 'Talk to an Expert',
     'contact.chatbotIntro': 'Have questions about loans or need personalized advice? Start a chat with our expert—no form needed.',
@@ -456,7 +469,20 @@ const translations = {
     'footer.socialMedia': 'सोशल मीडिया लिंक',
     'footer.copyright': '© कॉपीराइट 2026 | हेलोअन्स ज़िनी सर्विसेज प्राइवेट लिमिटेड (पूर्व में ज़िनी ग्रुप का हिस्सा)',
 
-    // Contact Page
+    // Talk to an Expert Page
+    'expert.title': 'विशेषज्ञ से बात करें',
+    'expert.subtitle': 'रियल टाइम में व्यक्तिगत लोन सलाह पाएं। बिना फॉर्म, बिना इंतजार—बस चैट करें।',
+    'expert.liveHelp': 'लाइव सहायता उपलब्ध',
+    'expert.cta': 'दाएं पैनल में चैट शुरू करें →',
+    'expert.helpHeading': 'हम इसमें मदद कर सकते हैं',
+    'expert.bullet1': 'लोन प्रकार और आपके लिए सर्वोत्तम विकल्प',
+    'expert.bullet2': 'पात्रता और दस्तावेज़ सहायता',
+    'expert.bullet3': 'आपके सवालों के तुरंत जवाब',
+    'expert.emailLabel': 'ईमेल पसंद है?',
+    'expert.email': 'info@zineegroup.com',
+    'expert.chatLabel': 'चैट',
+
+    // Contact
     'contact.getInTouch': 'संपर्क करें',
     'contact.talkToExpert': 'विशेषज्ञ से बात करें',
     'contact.chatbotIntro': 'लोन के बारे में सवाल हैं? हमारे विशेषज्ञ से चैट शुरू करें—बिना फॉर्म के।',

@@ -448,6 +448,7 @@ function LoanChatBotInner({
   const [contactData, setContactData] = useState({ name: '', number: '' })
   const [inputValue, setInputValue] = useState('')
   const messagesEndRef = useRef<HTMLDivElement>(null)
+  const messagesContainerRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
   const contactNameRef = useRef('')
 
@@ -466,7 +467,8 @@ function LoanChatBotInner({
   }, [])
 
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
+    const el = messagesContainerRef.current
+    if (el) el.scrollTop = el.scrollHeight
   }, [messages])
 
   useEffect(() => {
@@ -665,7 +667,7 @@ function LoanChatBotInner({
             </button>
           </div>
 
-          <div className="lc-messages">
+          <div ref={messagesContainerRef} className="lc-messages">
             {messages.map((msg) => (
               <div key={msg.id} className={`lc-bubble-wrap lc-bubble-wrap--${msg.sender}`}>
                 {msg.sender === 'bot' && (

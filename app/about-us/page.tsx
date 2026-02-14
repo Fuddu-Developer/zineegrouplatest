@@ -21,7 +21,7 @@ export default function AboutUsPage() {
                 <div className="about-header">
                   <h1 className="about-title">{t('about.title')}</h1>
                   <p className="about-subtitle">{t('about.subtitle')}</p>
-                  <Link href="/contact" className="about-header-button">
+                  <Link href="/apply-for-loan" className="about-header-button">
                     {t('about.learnMore')}
                   </Link>
                 </div>
